@@ -1,0 +1,3 @@
+[submodule "laradock"]
+	path = laradock
+	url = http://datsec.cn:10080/creator/laradock.git
