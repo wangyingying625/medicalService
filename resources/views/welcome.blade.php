@@ -1,3 +1,4 @@
+{{--
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -96,3 +97,91 @@
         </div>
     </body>
 </html>
+--}}
+@extends('layouts.app')
+@section('content')
+    <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                </div>
+                <p class="navbar-brand">甲状腺激素含量</p>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" title="退出" href="loginAndRegister/index.html">
+                            <i class="now-ui-icons users_single-02"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="panel-header panel-header-lg">
+        <canvas id="bigDashboardChart"></canvas>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h5 class="card-category">促甲状腺激素含量</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="lineChartExample"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h5 class="card-category">球蛋白</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="now-ui-icons arrows-1_refresh-69"></i>2018.10.10更新
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <h5 class="card-category">白细胞</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="barChartSimpleGradientsNumbers"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="now-ui-icons arrows-1_refresh-69"></i> 2018.9.12更新
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
