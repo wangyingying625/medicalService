@@ -101,15 +101,12 @@
 @extends('layouts.app')
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+        <div style="width: 100%;text-align: center">
+            <h2 class="navbar-brand" style="font-size: 20px">距离上次体检10天</h2>
+        </div>
         <div class="container-fluid">
+
             <div class="navbar-wrapper">
-                <div class="navbar-toggle">
-                    <button type="button" class="navbar-toggler">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
-                    </button>
-                </div>
                 <p class="navbar-brand">甲状腺激素含量</p>
             </div>
 
@@ -117,7 +114,7 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" title="退出" href="loginAndRegister/index.html">
+                        <a class="nav-link" title="退出" href="{{ route('login') }}">
                             <i class="now-ui-icons users_single-02"></i>
                         </a>
                     </li>
@@ -135,6 +132,15 @@
                 <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">促甲状腺激素含量</h5>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                <i class="now-ui-icons loader_gear"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">设为主图</a>
+                                <a class="dropdown-item text-danger" href="#">移除</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
@@ -152,6 +158,15 @@
                 <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">球蛋白</h5>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                <i class="now-ui-icons loader_gear"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">设为主图</a>
+                                <a class="dropdown-item text-danger" href="#">移除</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
@@ -169,6 +184,15 @@
                 <div class="card card-chart">
                     <div class="card-header">
                         <h5 class="card-category">白细胞</h5>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                                <i class="now-ui-icons loader_gear"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">设为主图</a>
+                                <a class="dropdown-item text-danger" href="#">移除</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="chart-area">

@@ -2,18 +2,12 @@
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
         <div class="container-fluid">
+            <a class="navbar-brand" href="/record">病历图表</a>
+            <a class="navbar-brand" href="/pictures">图片记录</a>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                <form>
-                    <div class="input-group no-border">
-                        <input  id="datepicker"  type="text" placeholder="按日期搜索" class="form-control">
-                        <span class="input-group-addon">
-                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                </span>
-                    </div>
-                </form>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" title="退出" href="#">
+                        <a class="nav-link" title="退出" href="{{ route('login') }}">
                             <i class="now-ui-icons users_single-02"></i>
                         </a>
                     </li>
