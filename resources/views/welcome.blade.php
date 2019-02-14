@@ -101,9 +101,7 @@
 @extends('layouts.app')
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
-        <div style="width: 100%;text-align: center">
-            <h2 class="navbar-brand" style="font-size: 20px">距离上次体检10天</h2>
-        </div>
+       
         <div class="container-fluid">
 
             <div class="navbar-wrapper">
