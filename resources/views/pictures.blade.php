@@ -23,7 +23,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="title">图片管理</h5>
+                        <button class="btn btn-primary btn-block" style="width: 100px;margin-left: 20px">添加图片</button>
                     </div>
                     <div class="card-body all-icons">
                         <div class="row" id="picBox">
