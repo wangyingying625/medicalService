@@ -33,3 +33,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'indicator'],function(){
     Route::get('upload','Indicator\IndicatorController@showUpload');
 });
+
+Route::group(['prefix'=>'family'],function(){
+    Route::get('createFamily','Family\FamilyController@createFamily');
+    Route::get('add','Family\FamilyController@add');
+    Route::get('del','Family\FamilyController@del');
+});
