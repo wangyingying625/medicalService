@@ -25,6 +25,8 @@ Route::group(['prefix'=>'indicator'],function(){
 
 Route::group(['prefix'=>'family'],function(){
     Route::get('createFamily','Family\FamilyController@createFamily');
-    Route::get('add','Family\FamilyController@add');
+    Route::get('apply','Family\FamilyController@apply');
+    Route::get('showApply','Family\FamilyController@showApply');
+    Route::get('dealWith','Family\FamilyController@dealWith');
     Route::get('del','Family\FamilyController@del');
 });
