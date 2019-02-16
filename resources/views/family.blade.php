@@ -2,6 +2,8 @@
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
         <div class="container-fluid">
+            <a class="navbar-brand" href="/familyAdd">创建家庭</a>
+            <a class="navbar-brand" href="/pictures">退出家庭</a>
             <div class="navbar-wrapper">
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -19,100 +21,25 @@
     <!-- End Navbar -->
     <div class="panel-header panel-header-sm">
     </div>
-    <div class="content">
+    <div class="content" id="con">
         <div class="row" >
             <div class="col-md-12">
-                <div class="card card-user col-md-3">
+                <div class="card card-user col-md-3"  v-for="(item,i) in familyList">
                     <div class="image">
                     </div>
                     <div class="card-body">
                         <div class="author">
-                            <a href="#">
-                                <h5 class="title">mldwyy</h5>
-                            </a>
+                                <h5 class="title" style="color:#f96332">@{{ item.email }}</h5>
+                                <h5 class="title"  style="color:#f96332">@{{ item.name }}</h5>
                             <p class="description">
-                                20岁
+                            <p class="title">@{{ item.age }}岁</p>
                             </p>
                         </div>
                         <p class="description text-center">
-                            160cm
-                            <br> 45kg<br>
-                            <br>身体状况良好
+                            @{{ item.height }}
+                            <br> @{{ item.weight }}<br>
                             <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="#" class="btn btn-round btn-default">删除家人</a>
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-
-
-
-                <div class="card card-user  col-md-3">
-                    <div class="image">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <h5 class="title">cldyy</h5>
-                            </a>
-                            <p class="description">
-                                22岁
-                            </p>
-                        </div>
-                        <p class="description text-center">
-                            175cm
-                            <br> 90kg<br>
-                            <br>身体状况不好
-                            <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="#" class="btn btn-round btn-default">删除家人</a>
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-
-
-                <div class="card card-user  col-md-3">
-                    <div class="image">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <h5 class="title">cldyy</h5>
-                            </a>
-                            <p class="description">
-                                22岁
-                            </p>
-                        </div>
-                        <p class="description text-center">
-                            175cm
-                            <br> 90kg<br>
-                            <br>身体状况不好
-                            <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="#" class="btn btn-round btn-default">删除家人</a>
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-
-
-                <div class="card card-user  col-md-3">
-                    <div class="image">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <h5 class="title">cldyy</h5>
-                            </a>
-                            <p class="description">
-                                22岁
-                            </p>
-                        </div>
-                        <p class="description text-center">
-                            175cm
-                            <br> 90kg<br>
-                            <br>身体状况不好
-                            <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="#" class="btn btn-round btn-default">删除家人</a>
+                            <a href="#"  class="btn btn-round btn-default">删除家人</a>
                         </p>
                     </div>
                     <hr>
@@ -120,4 +47,14 @@
             </div>
         </div>
     </div>
+    <script>
+        var vm=new Vue({
+            el:'#con',
+            data:{
+                familyList: [{id:1,email:'123@qq.com',familyId:1,name:'name1',age:18,gender:'女',height:'170cm',weight:'40kg'},
+                    {id:1,email:'12223@qq.com',familyId:1,name:'name2',age:19,gender:'女',height:'170cm',weight:'40kg'},
+                    {id:1,email:'123333@qq.com',familyId:1,name:'name3',age:20,gender:'女',height:'170cm',weight:'40kg'}]
+            }
+        });
+    </script>
 @endsection
