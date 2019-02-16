@@ -83,13 +83,14 @@
                                 <h5 class="title">@{{msg.email}}</h5>
                                 <h5 class="title">@{{msg.name}}</h5>
                             </a>
-                            <p class="description">
+                            <p class="description"  style="color: #000">
                                 @{{msg.age}}岁
                             </p>
                         </div>
-                        <p class="description text-center">
+                        <p class="description text-center" style="color: #000">
                             @{{msg.height}}
-                            <br> @{{msg.weight}}<br>
+                            <br> @{{msg.weight}}<br><br>
+                        所属家庭账号@{{msg.familyID}}
                         </p>
                     </div>
                     <hr>
@@ -101,7 +102,7 @@
         var vm=new Vue({
             el:'#con',
             data:{
-                msg: {id:1,email:'123@qq.com',name:'mldwyy',age:18,gender:'女',height:'170cm',weight:'40kg'}
+                msg: {id:1,email:'123@qq.com',familyID:1,name:'mldwyy',age:18,gender:'女',height:'170cm',weight:'40kg'}
             }
         });
     </script>

@@ -23,6 +23,9 @@ Route::get('/pictures', function () {
 Route::get('/family', function () {
     return view('family');
 });
+Route::get('/familyAdd', function () {
+    return view('familyAdd');
+});
 Route::get('/geRen', function () {
     return view('geRen');
 });
