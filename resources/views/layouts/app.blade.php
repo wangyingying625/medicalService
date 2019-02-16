@@ -25,6 +25,8 @@
     <link href="{{ asset('css/now-ui-dashboard.css') }}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('css/demo.css') }}" rel="stylesheet" />
+    <script src="{{asset('js/vue/dist/vue.js')}}"></script>
+    <script src="{{asset('js/vue-resource/dist/vue-resource.js')}}"></script>
 </head>
 <body>
 
@@ -52,12 +54,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/pictures">
-                        <i class="now-ui-icons design_image"></i>
-                        <p>图片管理</p>
-                    </a>
-                </li>
-                <li>
                     <a href="/family">
                         <i class="now-ui-icons education_atom "></i>
                         <p>我的家人</p>
@@ -68,6 +64,9 @@
                         <i class="now-ui-icons users_single-02"></i>
                         <p>个人中心</p>
                     </a>
+                </li>
+                <li class="active-pro" style="margin-bottom: 25px;padding:0 15px;width: 100%;text-align: center">
+                        <p>距离上次检查已经<span style="font-size: 23px;">100</span>天了<br>请及时检查</p>
                 </li>
             </ul>
         </div>
