@@ -37,7 +37,7 @@
                         </div>
                         <div class="row" style="width: 100%;align-items: center;justify-content: center">
                             <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" >创建家庭</button>
+                                <button class="btn btn-primary btn-block" onclick="" >创建家庭</button>
                             </div>
                             <div class="col-md-4">
                                 <router-link to="/findF" class="btn btn-primary btn-block">加入家庭</router-link>
