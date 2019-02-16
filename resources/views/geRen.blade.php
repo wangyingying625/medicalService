@@ -19,7 +19,7 @@
     <!-- End Navbar -->
     <div class="panel-header panel-header-sm">
     </div>
-    <div class="content">
+    <div class="content" id="con">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -32,37 +32,43 @@
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>邮箱</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Company" value="12356@qq.com">
+                                        <input type="text" class="form-control" disabled="" placeholder="Company" v-bind:value="msg.email">
                                     </div>
                                 </div>
-                                <div class="col-md-3 px-1">
+                                <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>用户名</label>
-                                        <input type="text" class="form-control" placeholder="Username" value="michael23">
+                                        <input type="text" class="form-control" placeholder="Username" v-bind:value="msg.name">
                                     </div>
                                 </div>
-                                <div class="col-md-4 pl-1">
+                                <div class="col-md-3 pl-1">
                                     <div class="form-group">
                                         <label>年龄</label>
-                                        <input type="email" class="form-control">
+                                        <input  class="form-control"  v-bind:value="msg.age">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 pr-1">
-                                    <div class="form-group">
-                                        <label>性别</label>
-                                        <input type="text" class="form-control" placeholder="Company" value="女">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 pl-1">
+                                <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>体重</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="45kg">
+                                        <input type="text" class="form-control"  v-bind:value="msg.weight">
                                     </div>
                                 </div>
-                                <input id="change" type="submit" class="btn btn-round btn-primary" value="确定">
+                                <div class="col-md-4 px-1">
+                                    <div class="form-group">
+                                        <label>身高</label>
+                                        <input type="text" class="form-control"   v-bind:value="msg.height">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pl-1">
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <input type="text" class="form-control"   v-bind:value="msg.gender">
+                                    </div>
+                                </div>
                             </div>
+                            <input id="change" type="submit" class="btn btn-round btn-primary" value="确定">
                         </form>
                     </div>
                 </div>
@@ -74,16 +80,16 @@
                     <div class="card-body">
                         <div class="author">
                             <a href="#">
-                                <h5 class="title">mldwyy</h5>
+                                <h5 class="title">@{{msg.email}}</h5>
+                                <h5 class="title">@{{msg.name}}</h5>
                             </a>
                             <p class="description">
-                                20岁
+                                @{{msg.age}}岁
                             </p>
                         </div>
                         <p class="description text-center">
-                            160cm
-                            <br> 45kg<br>
-                            <br>身体状况良好
+                            @{{msg.height}}
+                            <br> @{{msg.weight}}<br>
                         </p>
                     </div>
                     <hr>
@@ -91,4 +97,12 @@
             </div>
         </div>
     </div>
+    <script>
+        var vm=new Vue({
+            el:'#con',
+            data:{
+                msg: {id:1,email:'123@qq.com',name:'mldwyy',age:18,gender:'女',height:'170cm',weight:'40kg'}
+            }
+        });
+    </script>
 @endsection
