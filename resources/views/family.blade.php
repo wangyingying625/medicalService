@@ -2,8 +2,18 @@
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/familyAdd">创建家庭</a>
-            <a class="navbar-brand" href="/pictures">退出家庭</a>
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                </div>
+                <a class="navbar-brand" href="/familyAdd">创建家庭</a>
+                <a class="navbar-brand" href="/pictures">退出家庭</a>
+            </div>
+
             <div class="navbar-wrapper">
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
