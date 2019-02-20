@@ -49,7 +49,7 @@
                             @{{ item.height }}
                             <br> @{{ item.weight }}<br>
                             <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="#"  class="btn btn-round btn-default">删除家人</a>
+                            <a href="family/del"  class="btn btn-round btn-default">删除家人</a>
                         </p>
                     </div>
                     <hr>

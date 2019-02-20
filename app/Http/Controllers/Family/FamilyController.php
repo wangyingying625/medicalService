@@ -9,7 +9,7 @@ use App\User;
 
 class FamilyController extends Controller
 {
-    /*
+    /**
      * 创建家庭,并将创建者身份初始化为管理员
      */
     public function createFamily(Request $request){
@@ -28,7 +28,7 @@ class FamilyController extends Controller
         ]);
     }
 
-    /*
+    /**
      * 成员申请加入家庭
      */
     public function apply(Request $request){
@@ -41,13 +41,13 @@ class FamilyController extends Controller
         ]);
     }
 
-    /*
+    /**
      * 向管理员显示申请加入家庭的人
      */
     public function showApply(Request $request){
         //判断是否为管理员身份
-        $userId = $request -> input('id');
-        $familyId = $request -> input('family_id');
+        $userId = $request -> session() -> get('id');
+        $familyId = $request -> session() -> get('family_id');
         $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
         if($permission != 'admin'){
             return;
@@ -65,17 +65,17 @@ class FamilyController extends Controller
         }
         foreach($waitIdArr as $apply)
         {
-            return User::where('id',$apply) -> get('name');
+            echo User::where('id',$apply) -> get('name');
         }
     }
 
-    /*
+    /**
      * 管理员处理申请
      */
     public function dealWith(Request $request){
         //判断是否为管理员身份
-        $userId = $request -> input('id');
-        $familyId = $request -> input('family_id');
+        $userId = $request -> session() -> get('id');
+        $familyId =$request -> session() -> get('family_id');
         $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
         if($permission != 'admin'){
             return;
@@ -98,7 +98,7 @@ class FamilyController extends Controller
             return;
     }
 
-    /*
+    /**
      * 管理员邀请成员加入,略显复杂,暂时搁置
     public function invite(Request $request){
         //判断是否为管理员身份
@@ -118,13 +118,13 @@ class FamilyController extends Controller
     }
      */
 
-    /*
+    /**
      * 管理员删除家庭成员
      */
     public function del(Request $request){
         //判断是否为管理员身份
-        $userId = $request -> input('id');
-        $familyId = $request -> input('family_id');
+        $userId = $request -> session() -> get('id');
+        $familyId =$request -> session() -> get('family_id');
         $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
         if($permission != 'admin'){
             return;
