@@ -128,7 +128,7 @@
                                     <label for="sex" class="col-md-4 col-form-label text-md-right">性别</label>
 
                                     <div class="col-md-6">
-                                        <input id="sex" type="password" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" required>
+                                        <input id="sex" type="text" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" required>
                                     </div>
                                 </div>
 

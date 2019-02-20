@@ -31,6 +31,8 @@ Route::get('/geRen', function () {
 });
 Auth::routes();
 
+Route::any('/logout','Auth\LoginController@logout');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'indicator'],function(){
