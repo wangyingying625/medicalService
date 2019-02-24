@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>登录</title>
+    <title>注册</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -122,17 +122,6 @@
                                         @endif
                                     </div>
                                 </div>
-
-
-                                <div class="form-group row">
-                                    <label for="sex" class="col-md-4 col-form-label text-md-right">性别</label>
-
-                                    <div class="col-md-6">
-                                        <input id="sex" type="text" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" required>
-                                    </div>
-                                </div>
-
-
                                 <div class="form-group row">
                                     <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -140,7 +129,28 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label  class="col-md-4 col-form-label text-md-right">gender*</label>
 
+                                    <div class="col-md-6" style="display: flex">
+                                        <input type="radio" style="margin-right: 0;width: 20%" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="男">男
+                                        <input type="radio"  style="margin-right: 0;width: 20%" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="女">女
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="height" class="col-md-4 col-form-label text-md-right">height*</label>
+
+                                    <div class="col-md-6">
+                                        <input id="height" type="text" class="form-control{{ $errors->has('height') ? ' is-invalid' : '' }}" name="height">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="weight" class="col-md-4 col-form-label text-md-right">weight*</label>
+
+                                    <div class="col-md-6">
+                                        <input id="weight" type="text" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight">
+                                    </div>
+                                </div>
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
