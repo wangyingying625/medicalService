@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" title="退出" href="loginAndRegister/index.html">
+                        <a class="nav-link" title="退出" href="{{route('logout')}}">
                             <i class="now-ui-icons users_single-02"></i>
                         </a>
                     </li>
