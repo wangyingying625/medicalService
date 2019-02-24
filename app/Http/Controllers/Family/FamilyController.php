@@ -15,6 +15,7 @@ class FamilyController extends Controller
     public function createFamily(Request $request){
         $family = new Family();
         //存储家庭名
+
         $family -> create($request -> input(['name']));
         //获取当前存储的家庭id
         $familyId = $family -> where('familys',$request->input(['name'])) -> get('id');
