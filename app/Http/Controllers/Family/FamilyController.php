@@ -14,17 +14,17 @@ class FamilyController extends Controller
      */
     public function createFamily(Request $request){
         $family = new Family();
+        $userId = $request -> session() -> get('id');
         //存储家庭名
-        
-        $family -> create($request -> input(['name']));
+        $family -> create($request -> all());
         //获取当前存储的家庭id
-        $familyId = $family -> where('familys',$request->input(['name'])) -> get('id');
+        $familyId = $family -> where('name',$request->input(['name'])) -> select('id')-> get();
         //为该家庭创建者添加该家庭的id
-        User::where('id',$request->input(['id'])) -> update([
+        User::where('id',$userId) -> update([
             'family_id' => $familyId
         ]);
         //为该家庭创建者更新status字段
-        User::where('id',$request->input(['id'])) -> update([
+        User::where('id',$userId) -> update([
             'status' => 'admin'
         ]);
     }
