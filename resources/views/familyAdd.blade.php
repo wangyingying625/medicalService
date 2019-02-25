@@ -37,7 +37,7 @@
                         </div>
                         <div class="row" style="width: 100%;align-items: center;justify-content: center">
                             <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="" >创建家庭</button>
+                                <router-link to="/createF" class="btn btn-primary btn-block" {{--href='/family/createFamily'--}}>创建家庭</router-link>
                             </div>
                             <div class="col-md-4">
                                 <router-link to="/findF" class="btn btn-primary btn-block">加入家庭</router-link>
@@ -54,9 +54,13 @@
         var findF={
             template:'<div ><input id="familyId" type="text" class="form-control" placeholder="请输入家庭号"><input  type="button"  onclick="addF()" class="btn btn-round btn-primary" style="float: right" value="确定"></div>'
         };
+        var createF={
+            template:'<div ><input id="familyName" type="text" class="form-control" placeholder="请输入家庭名"><a  href="/family/createFamily\" class="btn btn-round btn-primary" style="float: right">创建</a></div>'
+        };
         var routerObj=new VueRouter({
             routes:[
                 {path:'/findF',component:findF},
+                {path:'/createF',component:createF},
             ]
         });
         function addF() {
