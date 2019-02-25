@@ -55,7 +55,7 @@
             template:'<div ><input id="familyId" type="text" class="form-control" placeholder="请输入家庭号"><input  type="button"  onclick="addF()" class="btn btn-round btn-primary" style="float: right" value="确定"></div>'
         };
         var createF={
-            template:'<div ><input id="familyName" type="text" class="form-control" placeholder="请输入家庭名"><a  href="/family/createFamily\" class="btn btn-round btn-primary" style="float: right">创建</a></div>'
+            template:'<div ><form action="/family/createFamily"> <input name="name" id="familyName" type="text" class="form-control" placeholder="请输入家庭名"><input type="submit" class="btn btn-round btn-primary" style="float: right" value="创建"></form></div>'
         };
         var routerObj=new VueRouter({
             routes:[
