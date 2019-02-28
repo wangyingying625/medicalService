@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/family">
+                    <a href="/family/info/{{ Auth::user()->family_id }}">
                         <i class="now-ui-icons education_atom "></i>
                         <p>我的家人</p>
                     </a>

@@ -20,9 +20,6 @@ Route::get('/record', function () {
 Route::get('/pictures', function () {
     return view('pictures');
 });
-Route::get('/family', function () {
-    return view('family');
-});
 Route::get('/familyAdd', function () {
     return view('familyAdd');
 });
@@ -40,11 +37,13 @@ Route::group(['prefix'=>'indicator'],function(){
 });
 
 Route::group(['prefix'=>'family'],function(){
-    Route::get('createFamily','Family\FamilyController@createFamily');
+    Route::post('createFamily','Family\FamilyController@createFamily');
     Route::get('apply','Family\FamilyController@apply');
+    Route::get('info/{FamilyId}','Family\FamilyController@showMembers');
     Route::get('showApply','Family\FamilyController@showApply');
     Route::get('dealWith','Family\FamilyController@dealWith');
     Route::get('del','Family\FamilyController@del');
+    Route::get('test','Family\FamilyController@test');
 });
 
 Route::group(['prefix'=>'user'],function(){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Family;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class FamilyController extends Controller
 {
@@ -13,33 +14,30 @@ class FamilyController extends Controller
      * 创建家庭,并将创建者身份初始化为管理员
      */
     public function createFamily(Request $request){
-        $family = new Family();
-        $userId = $request -> session() -> get('id');
+        $user = Auth::user();
         //存储家庭名
-        $family -> create($request -> all());
+        $family = Family::create($request -> all());
         //获取当前存储的家庭id
-        $familyId = $family -> where('name',$request->input(['name'])) -> select('id')-> get();
         //为该家庭创建者添加该家庭的id
-        User::where('id',$userId) -> update([
-            'family_id' => $familyId
-        ]);
         //为该家庭创建者更新status字段
-        User::where('id',$userId) -> update([
-            'status' => 'admin'
-        ]);
+        $user -> family_id = $family->id;
+        $user -> status = 'admin';
+        $user->save();
+        return $family;
     }
 
     /**
      * 成员申请加入家庭
      */
     public function apply(Request $request){
-        $userId = $request -> input('id');
-        $familyId = $request -> input('family_id');
-
-        Family::where('id',$userId) -> update([
-            'family_id' => $familyId,
-            'status' => 'waitting'
-        ]);
+        $familyName = $request -> input('familyName');
+        $family = Family::where('name',$familyName);
+        $user = Auth::user();
+        if ($family && $user->status == ''){
+            $user->status = 'applying';
+            $user -> family_id = $family->id;
+            $user->save();
+        }
     }
 
     /**
@@ -137,4 +135,13 @@ class FamilyController extends Controller
         ]);
         return $status?"删除成功":"删除失败";
     }
+
+    public function showMembers(Request $request){
+        $FamilyId = $request->route('FamilyId');
+        $family = Family::find($FamilyId);
+        $members = User::where('family_id',$family->id)->get();
+        return view('family')->with(['members'=> $members, 'family' => $family]);
+    }
+
+
 }
