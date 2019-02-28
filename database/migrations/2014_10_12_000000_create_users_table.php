@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('sex',3)->nullable();
             $table->date('birthday')->nullable();
             $table->double('height')->nullable();
+            $table->double('weight')->nullable();
             $table->integer('family_id')->nullable();
             $table->string('status',10)->default('no');
             $table->string('email')->unique();

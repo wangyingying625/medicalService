@@ -46,3 +46,8 @@ Route::group(['prefix'=>'family'],function(){
     Route::get('dealWith','Family\FamilyController@dealWith');
     Route::get('del','Family\FamilyController@del');
 });
+
+Route::group(['prefix'=>'user'],function(){
+    Route::get('info','User\UserController@info');
+    Route::post('update','User\UserController@update');
+});

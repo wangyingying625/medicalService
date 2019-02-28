@@ -34,24 +34,24 @@
                         <h5 class="title">修改资料</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="/user/update" method="post">
                             <div class="row">
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>邮箱</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Company" v-bind:value="msg.email">
+                                        <input type="text" class="form-control" disabled="" placeholder="Company"  v-bind:value="msg.email">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>用户名</label>
-                                        <input type="text" class="form-control" placeholder="Username" v-bind:value="msg.name">
+                                        <input type="text" class="form-control" placeholder="Username" name="name" v-bind:value="msg.name">
                                     </div>
                                 </div>
                                 <div class="col-md-3 pl-1">
                                     <div class="form-group">
                                         <label>年龄</label>
-                                        <input  class="form-control"  v-bind:value="msg.age">
+                                        <input  class="form-control"  v-bind:value="msg.age" name="birthday">
                                     </div>
                                 </div>
                             </div>
@@ -59,22 +59,23 @@
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>体重</label>
-                                        <input type="text" class="form-control"  v-bind:value="msg.weight">
+                                        <input type="text" class="form-control" name="weight" v-bind:value="msg.weight">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>身高</label>
-                                        <input type="text" class="form-control"   v-bind:value="msg.height">
+                                        <input type="text" class="form-control" name="height"  v-bind:value="msg.height">
                                     </div>
                                 </div>
                                 <div class="col-md-3 pl-1">
                                     <div class="form-group">
                                         <label>性别</label>
-                                        <input type="text" class="form-control"   v-bind:value="msg.gender">
+                                        <input type="text" class="form-control" name="sex"  v-bind:value="msg.gender">
                                     </div>
                                 </div>
                             </div>
+                            {{ csrf_field() }}
                             <input id="change" type="submit" class="btn btn-round btn-primary" value="确定">
                         </form>
                     </div>

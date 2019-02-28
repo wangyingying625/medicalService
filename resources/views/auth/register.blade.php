@@ -151,6 +151,13 @@
                                         <input id="weight" type="text" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="weight" class="col-md-4 col-form-label text-md-right">生日</label>
+
+                                    <div class="col-md-6">
+                                        <input id="birthday" type="text" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" name="birthday">
+                                    </div>
+                                </div>
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
