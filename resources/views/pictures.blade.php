@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <button class="btn btn-primary btn-block" style="width: 100px;margin-left: 20px">添加图片</button>
+                        <button id="test1" class="btn btn-primary btn-block" style="width: 100px;margin-left: 20px">添加图片</button>
                     </div>
                     <div class="card-body all-icons">
                         <div class="row" id="picBox">
@@ -60,4 +60,21 @@
             </div>
         </div>
     </div>
+    <script>
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,url: '/upload/' //上传接口
+                ,done: function(res){
+                    //上传完毕回调
+                }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
+        });
+    </script>
 @endsection

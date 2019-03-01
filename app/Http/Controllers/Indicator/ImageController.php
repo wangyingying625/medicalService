@@ -11,15 +11,13 @@ class ImageController extends Controller
 {
     //
     public function upload(Request $request){
-//        $file = $request->file('image');
-//        $name = $file->store('upload','public');
-//        $image = new Image();
-//        $image->name = $name;
-//        $image->user_id = 1;
-//        $image->save();
-//        return $image;
-        var_dump(Auth::id());
-
+        $file = $request->file('image');
+        $name = $file->store('upload','public');
+        $image = new Image();
+        $image->name = $name;
+        $image->user_id = Auth::id();
+        $image->save();
+        return $image;
 
     }
 

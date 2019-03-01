@@ -28,6 +28,8 @@
     <script src="{{asset('js/vue/dist/vue.js')}}"></script>
     <script src="{{asset('js/vue-resource/dist/vue-resource.js')}}"></script>
     <script src="{{asset('js/vue-router.js')}}"></script>
+    <script src="{{ asset('layui/css/layui.css')}}"></script>
+    <script src="{{ asset('layui/layui.js')}}"></script>
     <style>
     </style>
 </head>
