@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Route::get('/record', function () {
     return view('record');
@@ -26,11 +26,15 @@ Route::get('/familyAdd', function () {
 Route::get('/geRen', function () {
     return view('geRen');
 });
+
+Route::get('/home',function (){
+    return view('welcome');
+})->middleware('auth');
+
 Auth::routes();
 
 Route::any('/logout','Auth\LoginController@logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'indicator'],function(){
     Route::get('upload','Indicator\IndicatorController@showUpload');
