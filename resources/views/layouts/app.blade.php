@@ -39,7 +39,7 @@
     <div class="sidebar" data-color="orange">
         <div class="logo">
             <p class="simple-text logo-normal">
-                我是用户名
+                {{ Auth::user()->name }}
             </p>
         </div>
         <div class="sidebar-wrapper">
@@ -59,7 +59,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/family/info/{{ Auth::user()->family_id }}">
+                    @if (Auth::user()->family_id )
+                        <a href="/family/info/{{ Auth::user()->family_id }}">
+                    @else
+                        <a href="/familyAdd">
+                    @endif
                         <i class="now-ui-icons education_atom "></i>
                         <p>我的家人</p>
                     </a>

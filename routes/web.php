@@ -22,7 +22,7 @@ Route::get('/pictures', function () {
 });
 Route::get('/familyAdd', function () {
     return view('familyAdd');
-});
+})->middleware('auth');
 Route::get('/geRen', function () {
     return view('geRen');
 });
@@ -37,7 +37,7 @@ Route::any('/logout','Auth\LoginController@logout');
 
 
 Route::group(['prefix'=>'indicator'],function(){
-    Route::get('upload','Indicator\IndicatorController@showUpload');
+    Route::post('upload','Indicator\ImageController@upload');
 });
 
 Route::group(['prefix'=>'family'],function(){
