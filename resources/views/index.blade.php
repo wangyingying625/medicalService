@@ -16,26 +16,16 @@
 <div id="wrapper" class="fade-in">
 
     <!-- Intro -->
-    <div id="intro" style="margin-top: 0;padding-top: 0">
-        <h1 >Personal medical history</h1>
-        <p style="color: #153254;font-weight: 500">您的私人病历管家</p>
-        <ul class="actions" style="color: #000;">
+    <div id="intro" style="margin-top: 20px;padding-top: 0">
+        <h1 onclick="window.location='/home'" style="cursor: pointer">Personal medical history</h1>
+        <p style="color: #153254;font-weight: 500;margin-top: 15px">您的私人病历管家</p>
+        <ul class="actions" style="color: #000;margin-top: 20px">
             <li><a href="/home" class="button icon solo fa-arrow-right scrolly">Continue</a></li>
         </ul>
     </div>
 
-    <!-- Header -->
 
     <!-- Nav -->
-    <nav id="nav">
-        <ul class="links">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/home">主页</a></li>
-            <li><a href="/record">病历记录</a></li>
-            <li> <a href="/family/info">我的家人</a></li>
-            <li><a href="/geRen">个人中心</a></li>
-        </ul>
-    </nav>
 
 </div>
 

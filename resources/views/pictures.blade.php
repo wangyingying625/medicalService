@@ -29,50 +29,57 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <button id="test1" class="btn btn-primary btn-block" style="width: 100px;margin-left: 20px">添加图片</button>
+            <div class="col-md-8 ml-auto mr-auto">
+                <div class="card card-upgrade">
+                    <div class="card-header text-center">
+                        <h4 class="card-title">上传图片</h4>
                     </div>
-                    <div class="card-body all-icons">
-                        <div class="row" id="picBox">
-                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                                <div class="font-icon-detail" style="padding: 0">
-                                    <a href="{{asset('img/thumbnails/22998930.jpeg')}}"><img src="{{asset('img/thumbnails/22998930.jpeg')}}"  height="160px"></a>
-                                </div>
-                                <p>2018-11-11</p>
-                            </div>
-                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                                <div class="font-icon-detail" style="padding: 0">
-                                    <a href="{{asset('img/thumbnails/create.png')}}"> <img   src="{{asset('img/thumbnails/create.png')}}"></a>
-                                </div>
-                                <p>2018-11-11</p>
-                            </div>
-                            <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                                <div class="font-icon-detail" style="padding: 0">
-                                    <a href="{{asset('img/thumbnails/22998930.jpeg')}}"><img  src="{{asset('img/thumbnails/22998930.jpeg')}}"></a>
-                                </div>
-                                <p>2018-11-11</p>
+                    <form class="card-body" action="/indicator/upload" method="post">
+                        <div class="layui-upload">
+                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px"  id="upload">上传图片</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="demo1">
+                                <p id="demoText"></p>
                             </div>
                         </div>
-                    </div>
+                        <input class="form-control"  type="text" placeholder="请输入您的检查名称" required name="">
+                        <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  value="确定">
+                    </form>
                 </div>
             </div>
         </div>
+
+
+
     </div>
     <script>
         layui.use('upload', function(){
-            var upload = layui.upload;
+            var $ = layui.jquery
+                ,upload = layui.upload;
 
-            //执行实例
+            //普通图片上传
             var uploadInst = upload.render({
-                elem: '#test1' //绑定元素
-                ,url: '/upload/' //上传接口
+                elem: '#upload'
+                ,url: '127.0.0.1/storage/app/public/'
+                ,before: function(obj){
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){
+                        $('#demo1').attr('src', result);
+                    });
+                }
                 ,done: function(res){
-                    //上传完毕回调
+                    //如果上传失败
+                    if(res.code > 0){
+                        return layer.msg('上传失败');
+                    }
                 }
                 ,error: function(){
-                    //请求异常回调
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        uploadInst.upload();
+                    });
                 }
             });
         });
