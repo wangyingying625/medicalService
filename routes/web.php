@@ -38,6 +38,7 @@ Route::any('/logout','Auth\LoginController@logout');
 
 Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
+    Route::get('showAll','Indicator\IndicatorController@showIndicator');
 });
 
 Route::group(['prefix'=>'family'],function(){
@@ -53,4 +54,5 @@ Route::group(['prefix'=>'family'],function(){
 Route::group(['prefix'=>'user'],function(){
     Route::get('info','User\UserController@info');
     Route::post('update','User\UserController@update');
+
 });

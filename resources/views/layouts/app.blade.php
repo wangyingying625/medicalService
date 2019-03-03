@@ -30,6 +30,7 @@
     <script src="{{asset('js/vue-router.js')}}"></script>
     <script src="{{ asset('layui/css/layui.css')}}"></script>
     <script src="{{ asset('layui/layui.js')}}"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
     <style>
     </style>
 </head>
