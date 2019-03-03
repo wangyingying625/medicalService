@@ -32,6 +32,9 @@
     <script src="{{ asset('layui/layui.js')}}"></script>
     <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
     <style>
+        .layui-upload-file{
+            display: none;
+        }
     </style>
 </head>
 <body>
