@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,7 @@ class LoginController extends Controller
     {
         return redirect('/login');
     }
+
 
     public function attemptLogin(Request $request)
     {
