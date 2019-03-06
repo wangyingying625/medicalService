@@ -11,7 +11,7 @@
                     </button>
                 </div>
                 <a class="navbar-brand" href="/record">病历图表</a>
-                <a class="navbar-brand" href="/pictures">图片记录</a>
+                <a class="navbar-brand" href="/pictures">上传图片</a>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
@@ -28,12 +28,11 @@
     <div class="panel-header panel-header-lg" style="height: 100px">
         <canvas id="bigDashboardChart"></canvas>
     </div>
-    <div class="content">
+    <div class="content" id="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-chart">
+                <div class="card card-chart"  v-for="(item,i) in data1" >
                     <div class="card-header">
-                        <h5 class="card-category" style="float: left">促甲状腺激素含量</h5>
                         <div class="dropdown"  style="margin-top: -12px">
                             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                                 <i class="now-ui-icons loader_gear"></i>
@@ -46,7 +45,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
-                            <div id="container" style="height: 100%"></div>
+                            <div class="container"  :id="gernerateId(i)" style="height: 100%"></div>
                             {{--<canvas id="lineChartExample"></canvas>--}}
                         </div>
                     </div>
@@ -61,6 +60,27 @@
     </div>
     <script>
         var data;
+        var vm=new Vue({
+            el:'#content',
+            data:{
+                data1: '',
+            },
+            methods:{
+
+                gernerateId: function (i){
+                    return "container" + i;
+
+                }
+
+            },
+            created: function () {
+                this.$http.get('/indicator/showAll').then(function (result) {
+                    var arr2 = Object.keys(result.body);
+                    this.data1=arr2;
+                });
+            },
+
+        });
         function showJson(){
             var test;
             if(window.XMLHttpRequest){
@@ -76,7 +96,16 @@
                 test.onreadystatechange=function(){
                     if(test.readyState==4&&test.status==200){
                        data = JSON.parse(test.responseText);
-                        picture('肝功能');
+                       var times=0;
+                       for(key in data){
+                           console.log(key);
+                           var id="container"+times;
+                           console.log(id);
+                           picture(key,id);
+                           times++;
+
+                       }
+//                        picture('肝功能');
                     }
                 };
 
@@ -84,8 +113,8 @@
         }
         showJson();
         {{--var data = {!!  $data !!};--}}
-        function picture(key) {
-            var dom = document.getElementById("container");
+        function picture(key,id) {
+            var dom = document.getElementById(id);
             var myChart = echarts.init(dom);
             var indictors = new Array();
             var indictorsMap= new Map();

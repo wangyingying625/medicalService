@@ -60,7 +60,11 @@
             //普通图片上传
             var uploadInst = upload.render({
                 elem: '#upload'
-                ,url: '127.0.0.1/storage/app/public/'
+                ,field: 'image'
+                ,url: '/indicator/upload'
+                , headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                }
                 ,before: function(obj){
                     //预读本地文件示例，不支持ie8
                     obj.preview(function(index, file, result){
