@@ -36,7 +36,7 @@ Auth::routes();
 Route::any('/logout','Auth\LoginController@logout');
 
 
-Route::group(['prefix'=>'indicator'],function(){
+    Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
     Route::get('showAll','Indicator\IndicatorController@showIndicator');
 });
