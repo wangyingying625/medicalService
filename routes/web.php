@@ -38,6 +38,8 @@ Route::any('/logout','Auth\LoginController@logout');
 
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
+    Route::get('changeData/{ImageId}','Indicator\ImageController@changeImageDate');
+    Route::post('saveData','Indicator\ImageController@saveImageDate');
     Route::get('showAll','Indicator\IndicatorController@showIndicator');
     Route::get('show/{IndicatorName}','Indicator\IndicatorController@showIndicatorByName');
 });
