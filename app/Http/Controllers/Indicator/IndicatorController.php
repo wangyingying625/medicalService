@@ -33,21 +33,30 @@ class IndicatorController extends Controller
     }
 
     public function showIndicatorByName(Request $request){
-        $IndicatorName = $request -> route('IndicatorName');
-        $indicators = DB::select("SELECT indicators.id, 
-      indicators.name_ch, 
-      indicators.name_en, 
-      indicators.upper_limit, 
-      indicators.lower_limit, 
-      indicators.value, 
-      indicators.image_id, 
-      indicators.important, 
-      indicators.created_at 
-      FROM indicators,images 
-      WHERE 
-      images.user_id = ? 
-      AND indicators.image_id=images.id 
-      AND indicators.name_ch = ?",[Auth::id(),$IndicatorName]);
+        $IndicatorNames = $request -> route('IndicatorName');
+        $indicators = array();
+        if ($IndicatorNames){
+            $IndicatorNames = explode("&",$IndicatorNames);
+            foreach ($IndicatorNames as $IndicatorName){
+                $indicator = DB::select("SELECT indicators.id, 
+                  indicators.name_ch, 
+                  indicators.name_en, 
+                  indicators.upper_limit, 
+                  indicators.lower_limit, 
+                  indicators.value, 
+                  indicators.image_id, 
+                  indicators.important, 
+                  indicators.created_at 
+                  FROM indicators,images 
+                  WHERE 
+                  images.user_id = ? 
+                  AND indicators.image_id=images.id 
+                  AND indicators.name_ch = ?",[Auth::id(),$IndicatorName]);
+                    array_push($indicators,$indicator);
+            }
+
+        }
+
     return $indicators;
     }
 
