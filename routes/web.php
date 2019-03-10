@@ -27,9 +27,7 @@ Route::get('/geRen', function () {
     return view('geRen');
 });
 
-Route::get('/home',function (){
-    return view('welcome');
-})->middleware('auth');
+Route::get('/home','HomeController@index');
 
 Auth::routes();
 

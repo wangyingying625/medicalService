@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,9 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $a = '项目名称';
-        $b = '项目';
-        strpos($a,$b);
-        return view('home');
+        $id = Auth::id();
+        $indicator = DB::select("SELECT distinct indicators.name_ch
+                FROM images, indicators
+                WHERE images.id = indicators.image_id AND images.user_id = ? AND indicators.important = 1"
+            ,[$id]);
+        $indicator = \GuzzleHttp\json_encode($indicator);
+        return view('welcome')->with(['data'=>$indicator]);
     }
 }
