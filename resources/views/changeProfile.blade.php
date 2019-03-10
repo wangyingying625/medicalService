@@ -28,7 +28,7 @@
     </div>
     <div class="content" id="con">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="title">修改资料</h5>
@@ -39,19 +39,19 @@
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>邮箱</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Company"  v-bind:value="msg.email">
+                                        <input type="email" class="form-control" disabled="" placeholder="Company"  name="email" value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>用户名</label>
-                                        <input type="text" class="form-control" placeholder="Username" name="name" v-bind:value="msg.name">
+                                        <input type="text" class="form-control" placeholder="Username" name="name" value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
                                 <div class="col-md-3 pl-1">
                                     <div class="form-group">
-                                        <label>年龄</label>
-                                        <input  class="form-control"  v-bind:value="msg.age" name="birthday">
+                                        <label>生日</label>
+                                        <input  class="form-control"  value="{{ Auth::user()->birthday }}" name="birthday" id="birthday">
                                     </div>
                                 </div>
                             </div>
@@ -59,21 +59,34 @@
                                 <div class="col-md-5 pr-1">
                                     <div class="form-group">
                                         <label>体重</label>
-                                        <input type="text" class="form-control" name="weight" v-bind:value="msg.weight">
+                                        <input type="text" class="form-control" name="weight" value="{{ Auth::user()->weight }}" >kg
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>身高</label>
-                                        <input type="text" class="form-control" name="height"  v-bind:value="msg.height">
+                                        <input type="text" class="form-control" name="height" value="{{ Auth::user()->height }}" >cm
                                     </div>
                                 </div>
                                 <div class="col-md-3 pl-1">
                                     <div class="form-group">
                                         <label>性别</label>
-                                        <input type="text" class="form-control" name="sex"  v-bind:value="msg.gender">
+                                        {{--<input type="text" class="form-control" name="sex" value="{{ Auth::user()->sex }}"  >--}}
+                                        <select name="city" lay-verify="" class="form-control" >
+                                            <option value="">保密</option>
+                                            <option value="男"
+                                                    @if(Auth::user()->sex == "男")
+                                                    selected
+                                                    @endif >男
+                                            </option>
+                                            <option value="女"
+                                                    @if(Auth::user()->sex == "女")
+                                                    selected
+                                                    @endif>女</option>
+                                        </select>
                                     </div>
                                 </div>
+
                             </div>
                             {{ csrf_field() }}
                             <input id="change" type="submit" class="btn btn-round btn-primary" value="确定">
@@ -81,37 +94,39 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-user">
-                    <div class="image">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <h5 class="title">@{{msg.email}}</h5>
-                                <h5 class="title">@{{msg.name}}</h5>
-                            </a>
-                            <p class="description"  style="color: #000">
-                                @{{msg.age}}岁
-                            </p>
-                        </div>
-                        <p class="description text-center" style="color: #000">
-                            @{{msg.height}}
-                            <br> @{{msg.weight}}<br><br>
-                        所属家庭账号@{{msg.familyID}}
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-            </div>
+            {{--<div class="col-md-4">--}}
+                {{--<div class="card card-user">--}}
+                    {{--<div class="image">--}}
+                    {{--</div>--}}
+                    {{--<div class="card-body">--}}
+                        {{--<div class="author">--}}
+                            {{--<a href="#">--}}
+                                {{--<h5 class="title">@{{msg.email}}</h5>--}}
+                                {{--<h5 class="title">@{{msg.name}}</h5>--}}
+                            {{--</a>--}}
+                            {{--<p class="description"  style="color: #000">--}}
+                                {{--@{{msg.age}}岁--}}
+                            {{--</p>--}}
+                        {{--</div>--}}
+                        {{--<p class="description text-center" style="color: #000">--}}
+                            {{--@{{msg.height}}--}}
+                            {{--<br> @{{msg.weight}}<br><br>--}}
+                        {{--所属家庭账号@{{msg.familyID}}--}}
+                        {{--</p>--}}
+                    {{--</div>--}}
+                    {{--<hr>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
     <script>
-        var vm=new Vue({
-            el:'#con',
-            data:{
-                msg: {id:1,email:'123@qq.com',familyID:1,name:'mldwyy',age:18,gender:'女',height:'170cm',weight:'40kg'}
-            }
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#birthday' //指定元素
+            });
         });
     </script>
 @endsection
