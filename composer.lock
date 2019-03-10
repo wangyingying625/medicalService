@@ -1,11 +1,55 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbaf98f7981a5bb3ab2e2aa7619ab5b1",
+    "content-hash": "38f13556d48b0329d67fa88fad9530e3",
     "packages": [
+        {
+            "name": "baidu/aip-sdk",
+            "version": "2.2.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Baidu-AIP/php-sdk.git",
+                "reference": "17c7a72411d0fa5e31adb1cd08d1a07e179ffdea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Baidu-AIP/php-sdk/zipball/17c7a72411d0fa5e31adb1cd08d1a07e179ffdea",
+                "reference": "17c7a72411d0fa5e31adb1cd08d1a07e179ffdea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/AipBase.php",
+                    "AipBodyAnalysis.php",
+                    "AipContentCensor.php",
+                    "AipFace.php",
+                    "AipImageClassify.php",
+                    "AipImageSearch.php",
+                    "AipKg.php",
+                    "AipNlp.php",
+                    "AipOcr.php",
+                    "AipSpeech.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "baidu"
+                }
+            ],
+            "description": "baidu pulic ai php sdk",
+            "time": "2019-01-25T08:29:48+00:00"
+        },
         {
             "name": "barryvdh/laravel-ide-helper",
             "version": "v2.5.3",

@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $a = '项目名称';
+        $b = '项目';
+        strpos($a,$b);
         return view('home');
     }
 }

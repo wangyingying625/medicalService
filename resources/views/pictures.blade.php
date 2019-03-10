@@ -34,7 +34,7 @@
                     <div class="card-header text-center">
                         <h4 class="card-title">上传图片</h4>
                     </div>
-                    <form class="card-body" action="/indicator/upload" method="post">
+                    {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
                         <div class="layui-upload">
                             <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px"  id="upload">上传图片</button>
                             <div class="layui-upload-list">
@@ -42,9 +42,13 @@
                                 <p id="demoText"></p>
                             </div>
                         </div>
-                        <input class="form-control"  type="text" placeholder="请输入您的检查名称" required name="">
+                    <form class="card-body" action="/ocr/" method="post" id="form">
+                        @csrf
+                        <input class="form-control"  type="text" placeholder="请输入您的检查名称" required name="type">
                         <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  value="确定">
                     </form>
+
+                    {{--</form>--}}
                 </div>
             </div>
         </div>
@@ -71,10 +75,19 @@
                         $('#demo1').attr('src', result);
                     });
                 }
-                ,done: function(res){
+                ,done: function(res, index, upload){
                     //如果上传失败
-                    if(res.code > 0){
+                    if(res.id == 0){
                         return layer.msg('上传失败');
+                    }
+                    if(res.id){
+                        layer.msg('上传成功');
+                        var form = document.getElementById('form');
+                        var imageId = document.createElement("input");
+                        imageId.type = "hidden";
+                        imageId.name = 'image_id';
+                        imageId.value = res.id;
+                        form.appendChild(imageId);
                     }
                 }
                 ,error: function(){
