@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/geRen">
+                    <a href="/user/info">
                         <i class="now-ui-icons users_single-02"></i>
                         <p>个人中心</p>
                     </a>

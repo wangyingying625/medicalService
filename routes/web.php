@@ -58,6 +58,7 @@ Route::group(['prefix'=>'family'],function(){
 
 Route::group(['prefix'=>'user'],function(){
     Route::get('info','User\UserController@info');
+    Route::get('change','User\UserController@change');
     Route::post('update','User\UserController@update');
 
 });
