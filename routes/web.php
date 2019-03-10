@@ -33,6 +33,8 @@ Route::get('/home',function (){
 
 Auth::routes();
 
+Route::post('/ocr','Indicator\ImageController@OCR');
+
 Route::any('/logout','Auth\LoginController@logout');
 
 

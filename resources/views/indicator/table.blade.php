@@ -17,6 +17,7 @@
                 <th>下限</th>
                 <th>上限</th>
                 <th>值</th>
+                <th>单位</th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +30,7 @@
                     <td><input type="text" name="{{ $indicator->id }}[upper_limit]" value="{{ $indicator->upper_limit }}"></td>
                     <td><input type="text" name="{{ $indicator->id }}[lower_limit]" value="{{ $indicator->lower_limit }}"></td>
                     <td><input type="text" name="{{ $indicator->id }}[value]" value="{{ $indicator->value }}"></td>
+                    <td><input type="text" name="{{ $indicator->id }}[unit]" value="{{ $indicator->unit }}"></td>
                 </tr>
 
                 @endforeach

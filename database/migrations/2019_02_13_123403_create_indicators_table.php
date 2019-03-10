@@ -15,13 +15,14 @@ class CreateIndicatorsTable extends Migration
     {
         Schema::create('indicators', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_en',10);
-            $table->string('name_ch',10);
-            $table->double('upper_limit');
-            $table->double('lower_limit');
-            $table->double('value');
+            $table->string('name_en',30)->nullable();
+            $table->string('name_ch',10)->nullable();
+            $table->string('unit',20)->nullable();
+            $table->double('upper_limit')->nullable();
+            $table->double('lower_limit')->nullable();
+            $table->double('value')->nullable();
             $table->integer('image_id');
-            $table->boolean('important');
+            $table->boolean('important')->default(false);
             $table->timestamps();
         });
     }
