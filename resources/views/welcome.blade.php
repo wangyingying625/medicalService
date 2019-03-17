@@ -1,103 +1,3 @@
-{{--
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
---}}
 @extends('layouts.app')
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
@@ -111,7 +11,6 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                <p class="navbar-brand">甲状腺激素含量</p>
             </div>
             <div class="navbar-wrapper">
 
@@ -131,14 +30,13 @@
     </nav>
     <!-- End Navbar -->
     <div class="panel-header panel-header-lg">
-        <canvas id="bigDashboardChart"></canvas>
+        <div class="container"  id="container0" style="height: 100%"></div>
     </div>
-    <div class="content">
+    <div class="content" id="content">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4"   v-for="(item,i) in data1">
                 <div class="card card-chart">
                     <div class="card-header">
-                        <h5 class="card-category">促甲状腺激素含量</h5>
                         <div class="dropdown">
                             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                                 <i class="now-ui-icons loader_gear"></i>
@@ -151,7 +49,8 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
-                            <canvas id="lineChartExample"></canvas>
+                            <div class="container"  :id="gernerateId(i+1)" style="height: 100%"></div>
+                            {{--<canvas id="lineChartExample"></canvas>--}}
                         </div>
                     </div>
                     <div class="card-footer">
@@ -161,58 +60,126 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-category">球蛋白</h5>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                                <i class="now-ui-icons loader_gear"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">设为主图</a>
-                                <a class="dropdown-item text-danger" href="#">移除</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="lineChartExampleWithNumbersAndGrid"></canvas>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="now-ui-icons arrows-1_refresh-69"></i>2018.10.10更新
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <h5 class="card-category">白细胞</h5>
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                                <i class="now-ui-icons loader_gear"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">设为主图</a>
-                                <a class="dropdown-item text-danger" href="#">移除</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="barChartSimpleGradientsNumbers"></canvas>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="now-ui-icons arrows-1_refresh-69"></i> 2018.9.12更新
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+    <script>
+        var vm=new Vue({
+            el:'#content',
+            data:{
+                data1:{!! $data !!}
+            },
+            methods:{
+                gernerateId: function (i){
+                    return "container" + i;
+
+                },
+
+            },
+        })
+        data = {!! $data !!};
+        var name;
+        function msg() {
+            for (i in data){
+                name=data[i]['name_ch']+'&';
+            }
+            alert(name);
+
+        };
+        msg();
+        function show() {
+            var times = 0;
+
+
+            var i;
+            for (i  in data) {
+                if (window.XMLHttpRequest) {
+                    test = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    test = new window.ActiveXObject();
+                } else {
+                    alert("请升级至最新版本的浏览器");
+                }
+
+                if (test != null) {
+                    console.log(data);
+                    console.log("type" + data);
+                    indicator = data[i]['name_ch'];
+                    alert(indicator);
+                    test.open("GET", "/indicator/show/" + indicator, true);
+                    test.send(null);
+                    test.onreadystatechange = function () {
+                        if (test.readyState == 4 && test.status == 200) {
+                            var OneIndicator = JSON.parse(test.responseText);
+                            var id = "container" + times;
+                            picture(OneIndicator, id);
+                            alert("picture了");
+                            times++;
+                        }
+                    };
+                }
+            }
+        }
+        show();
+        function picture(OneIndicator, id) {
+            var dom = document.getElementById(id);
+            var myChart = echarts.init(dom);
+            var indictorsData = new Array();
+            var timeArray = new Array();
+
+            var app = {};
+            for (i in OneIndicator)
+            {
+                indictorsData.push(OneIndicator[i]['value']);
+                timeArray.push(OneIndicator[i]['created_at']);
+            }
+            option = null;
+            option = {
+                title: {
+                    text: OneIndicator[i]['name_ch'],
+                    subtext: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: [OneIndicator[i]['name_ch']]
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: timeArray
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series: {
+                    name: OneIndicator[i]['name_ch'],
+                    type: 'line',
+                    data: indictorsData,
+                }
+            };
+
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+        }
+    </script>
 @endsection
