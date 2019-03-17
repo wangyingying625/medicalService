@@ -77,6 +77,15 @@
             },
         })
         data = {!! $data !!};
+        var name;
+        function msg() {
+            for (i in data){
+                name=data[i]['name_ch']+'&';
+            }
+            alert(name);
+
+        };
+        msg();
         function show() {
             var times = 0;
 
@@ -90,6 +99,7 @@
                 } else {
                     alert("请升级至最新版本的浏览器");
                 }
+
                 if (test != null) {
                     console.log(data);
                     console.log("type" + data);
