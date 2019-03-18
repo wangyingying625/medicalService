@@ -20,9 +20,9 @@ Route::get('/record', function () {
 Route::get('/pictures', function () {
     return view('pictures');
 });
-Route::get('/familyAdd', function () {
-    return view('familyAdd');
-})->middleware('auth');
+//Route::get('/familyAdd', function () {
+//    return view('familyAdd');
+//})->middleware('auth');
 Route::get('/geRen', function () {
     return view('geRen');
 });
@@ -47,6 +47,8 @@ Route::any('/logout','Auth\LoginController@logout');
 Route::group(['prefix'=>'family'],function(){
     Route::post('createFamily','Family\FamilyController@createFamily');
     Route::get('apply','Family\FamilyController@apply');
+    Route::get('add','Family\FamilyController@add');
+    Route::get('accept','Family\FamilyController@accept');
     Route::get('info/{FamilyId}','Family\FamilyController@showMembers');
     Route::get('showApply','Family\FamilyController@showApply');
     Route::get('dealWith','Family\FamilyController@dealWith');
@@ -59,5 +61,6 @@ Route::group(['prefix'=>'user'],function(){
     Route::get('info','User\UserController@info');
     Route::get('change','User\UserController@change');
     Route::post('update','User\UserController@update');
+    Route::post('upload','User\UserController@upload');
 
 });

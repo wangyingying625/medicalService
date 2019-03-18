@@ -66,7 +66,7 @@
                     @if (Auth::user()->family_id )
                         <a href="/family/info/{{ Auth::user()->family_id }}">
                     @else
-                        <a href="/familyAdd">
+                        <a href="/family/add">
                     @endif
                         <i class="now-ui-icons education_atom "></i>
                         <p>我的家人</p>

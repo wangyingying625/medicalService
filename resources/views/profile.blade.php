@@ -34,6 +34,8 @@
             </div>
             <div class="card-body">
             <div class="author">
+                <img src="{{ asset(Auth::user()->avatar) }}" class="layui-circle">
+
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>个人信息</legend>
                 </fieldset>

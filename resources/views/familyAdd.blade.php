@@ -10,8 +10,9 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
+                @if(Auth::user()->status == 'inviting' )
                 <button class="layui-btn layui-btn-warm" onclick="invited()">家庭邀请<span class="layui-badge layui-bg-gray">1</span></button>
-
+                @endif
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <form>
@@ -86,25 +87,25 @@
             },
             router:routerObj
         });
-
+        @if(Auth::user()->status == 'inviting' )
         function invited() {
             layui.use('layer', function(){
                 var layer = layui.layer;
 
                 layer.open({
                     title: false,
-                    content: '您有一条来自<font size="3" color="red">{}</font>家庭的邀请，是否确认加入？',
+                    content: '您有一条来自<font size="3" color="red">{{ App\Family::where('id',Auth::user()->family_id)->get()[0]->name }}</font>家庭的邀请，是否确认加入？',
                     btn: ['加入', '取消'],
                     success: function(layero){
                         var btn = layero.find('.layui-layer-btn');
                         btn.find('.layui-layer-btn0').attr({
-                            href: '/'
-                            ,target: '_blank'
+                            href: '/family/accept'
                         });
                     }
 
                 });
             })
         }
+        @endif
     </script>
 @endsection

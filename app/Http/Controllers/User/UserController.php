@@ -28,4 +28,13 @@ class UserController extends Controller
         return view('changeProfile');
     }
 
+
+    function upload(Request $request){
+        $file = $request->file('image');
+        $name = $file->store('avatar','public');
+        $user = Auth::user();
+        $user->avatar = '/storage/'.$name;
+        $user->save();
+        return $user;
+    }
 }

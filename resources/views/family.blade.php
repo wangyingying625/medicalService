@@ -10,11 +10,10 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                {{--<a class="navbar-brand" href="/familyAdd">邀请成员</a>--}}
+                @if(Auth::user()->status=='admin')
                 <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
                 <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
-                {{--<a class="navbar-brand" href="/pictures">退出家庭</a>--}}
-
+                @endif
             </div>
 
             <div class="navbar-wrapper">
@@ -41,8 +40,16 @@
                     <div class="image">
                     </div>
                     <div class="card-body">
+
                         <div class="author">
-                                <h5 class="title" style="color:#f96332">@{{ item.email }}</h5>
+                            <span class="layui-badge layui-bg-orange"  v-if="isSelf(item.id)">自己</span>
+                            <span class="layui-badge layui-bg-red"  v-if="isAdmin(item.status)">管理员</span>
+                            <span class="layui-badge layui-bg-gray"  v-if="!isMember(item.status)&!isAdmin(item.status)">待加入</span>
+                            <span class="layui-badge layui-bg-green"  v-if="isMember(item.status)&!isSelf(item.id)">已加入</span>
+
+                            <img :src="item.avatar" class="layui-circle" width="300px" height="400px">
+
+                            <h5 class="title" style="color:#f96332">@{{ item.email }}</h5>
                                 <h5 class="title"  style="color:#f96332">@{{ item.name }}</h5>
                             <p class="description">
                             <p class="title">@{{ item.age }}岁</p>
@@ -52,7 +59,9 @@
                             @{{ item.height }}KG
                             <br> @{{ item.weight }}CM<br>
                             <a href="#" class="btn btn-round btn-primary">查看病历</a>
-                            <a href="family/del"  class="btn btn-round btn-default">删除家人</a>
+                            @if(Auth::user()->status=='admin')
+                            <a href="family/del"  class="btn btn-round btn-default" v-if="!isSelf(item.id)">删除家人</a>
+                            @endif
                         </p>
                     </div>
                     <hr>
@@ -60,13 +69,35 @@
             </div>
         </div>
     </div>
-    {!! $members  !!}
-    {!! $family !!}
     <script>
         var vm=new Vue({
             el:'#con',
             data:{
                 familyList: {!! $members  !!}
+            },
+            methods: {
+                isSelf: function (id) {
+                    if (id == {{ Auth::id() }}){
+                        return 1;
+                    }else {
+                        return 0;
+                    }
+                },
+                isMember: function (status,id) {
+                    if (status=='member'){
+                        return 1;
+                    }else {
+                        return 0;
+                    }
+
+                },
+                isAdmin: function (status) {
+                    if (status=='admin'){
+                        return 1;
+                    }else {
+                        return 0;
+                    }
+                }
             }
         });
         function invite() {

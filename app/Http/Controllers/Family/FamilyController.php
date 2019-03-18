@@ -52,6 +52,16 @@ class FamilyController extends Controller
         }
     }
 
+    public function add(Request $request){
+        return view('familyAdd');
+    }
+
+    public function accept(Request $request){
+        $user = Auth::user();
+        $user->update(['status'=>'member']);
+        return redirect('/family/info/'.$user->family_id);
+    }
+
     /**
      * 向管理员显示申请加入家庭的人
      */
