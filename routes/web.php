@@ -39,21 +39,25 @@ Route::any('/logout','Auth\LoginController@logout');
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
     Route::get('changeData/{ImageId}','Indicator\ImageController@changeImageDate');
+    Route::get('record/{UserId}','Indicator\ImageController@record');
     Route::post('saveData','Indicator\ImageController@saveImageDate');
     Route::get('showAll','Indicator\IndicatorController@showIndicator');
+    Route::get('show/user/{UserId}','Indicator\IndicatorController@showIndicatorByUserId');
     Route::get('show/{IndicatorName}','Indicator\IndicatorController@showIndicatorByName');
 });
 
 Route::group(['prefix'=>'family'],function(){
     Route::post('createFamily','Family\FamilyController@createFamily');
-    Route::get('apply','Family\FamilyController@apply');
+    Route::get('apply/{familyName}','Family\FamilyController@apply');
     Route::get('add','Family\FamilyController@add');
-    Route::get('accept','Family\FamilyController@accept');
+    Route::get('accept/{UserId}','Family\FamilyController@accept');
     Route::get('info/{FamilyId}','Family\FamilyController@showMembers');
     Route::get('showApply','Family\FamilyController@showApply');
-    Route::get('dealWith','Family\FamilyController@dealWith');
+    Route::get('dealWith','Family\FamilyController@dealsWith');
+    Route::get('newMember','Family\FamilyController@showNewMembers');
     Route::post('invite','Family\FamilyController@invite');
-    Route::get('del','Family\FamilyController@del');
+    Route::get('del/{UserId}','Family\FamilyController@del');
+    Route::get('quit','Family\FamilyController@quit');
     Route::get('test','Family\FamilyController@test');
 });
 

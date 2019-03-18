@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/record">
+                    <a href="/indicator/record/{{ Auth::id() }}">
                         <i class="now-ui-icons education_agenda-bookmark"></i>
                         <p>
                             病例记录

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Family;
 
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Family;
@@ -21,6 +22,12 @@ class FamilyController extends Controller
      * 5.member: 该用户已加入家庭并且为普通成员
      *
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * 创建家庭,并将创建者身份初始化为管理员
@@ -42,14 +49,21 @@ class FamilyController extends Controller
      * 成员申请加入家庭
      */
     public function apply(Request $request){
-        $familyName = $request -> input('familyName');
-        $family = Family::where('name',$familyName);
+        $familyName = $request -> route('familyName');
+        $family = Family::where('name',$familyName)->get();
+        if (!$family->count()){
+            return "不存在该家庭，请确认填写是否有误";
+        }else{
+            $family = $family[0];
+        }
         $user = Auth::user();
-        if ($family && $user->status == ''){
+        if ($family && $user->status == 'no'){
             $user->status = 'joining';
             $user -> family_id = $family->id;
             $user->save();
+            return "申请成功,请等待管理员审核";
         }
+
     }
 
     public function add(Request $request){
@@ -57,9 +71,11 @@ class FamilyController extends Controller
     }
 
     public function accept(Request $request){
-        $user = Auth::user();
+
+        $userId = $request->route('UserId');
+        $user = User::find($userId);
         $user->update(['status'=>'member']);
-        return redirect('/family/info/'.$user->family_id);
+        return "已同意$user[name]申请";
     }
 
     /**
@@ -162,26 +178,42 @@ class FamilyController extends Controller
      */
     public function del(Request $request){
         //判断是否为管理员身份
-        $userId = $request -> session() -> get('id');
-        $familyId =$request -> session() -> get('family_id');
-        $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
-        if($permission != 'admin'){
-            return;
-        }
+        $userId = $request->route('UserId');
 
         $user = User::find($userId);
-        $status = $user -> where('id',$userId) -> where('family_id',$familyId)-> update([
-            'family_id' => null
+        $familyId = $user->family_id;
+        $status = $user -> update([
+            'family_id' => 0,
+            'status' => 'no'
         ]);
-        return $status?"删除成功":"删除失败";
+
+        return view('location')->with(['title'=>'false','message'=>'删除成功','url'=>'/family/info/'.$familyId]);
+
+//        return $status?"删除成功":"删除失败";
     }
 
     public function showMembers(Request $request){
         $FamilyId = $request->route('FamilyId');
         $family = Family::find($FamilyId);
         $members = User::where('family_id',$family->id)->get();
+        foreach ($members as $member){
+            $birthday = $member->birthday;
+            $birthday = new DateTime($birthday);
+            $now = new DateTime();
+            $interval = $birthday->diff($now);
+            $member['age'] = intval($interval->format('%Y'));
+        }
         return view('family')->with(['members'=> $members, 'family' => $family]);
     }
 
+    public function quit(Request $request){
+        Auth::user()->update(['status'=>'no','family_id'=>0]);
+        return redirect('/family/add');
+    }
 
+
+    public function showNewMembers(Request $request){
+        $NewMembers = User::where('status','joining')->where('family_id',Auth::user()->family_id)->get();
+        return view('newMember')->with(['members'=>$NewMembers]);
+    }
 }

@@ -153,7 +153,12 @@
                                     >
                                 </div>
                             </div>
-
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">生日</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="birthday" id="birthday" lay-verify="title" autocomplete="off" class="layui-input" value="{{ Auth::user()->birthday }}" >
+                                </div>
+                            </div>
 
                             <div class="layui-form-item">
                                 <div class="layui-input-block">

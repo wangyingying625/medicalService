@@ -74,7 +74,7 @@
 
             },
             created: function () {
-                this.$http.get('/indicator/showAll').then(function (result) {
+                this.$http.get('/indicator/show/user/{{ $user['id'] }}').then(function (result) {
                     var arr2 = Object.keys(result.body);
                     this.data1=arr2;
                 });
@@ -91,7 +91,7 @@
                 alert("请升级至最新版本的浏览器");
             }
             if(test !=null){
-                test.open("GET","/indicator/showAll",true);
+                test.open("GET","/indicator/show/user/{{ $user['id'] }}",true);
                 test.send(null);
                 test.onreadystatechange=function(){
                     if(test.readyState==4&&test.status==200){

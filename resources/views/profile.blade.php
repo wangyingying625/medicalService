@@ -52,7 +52,15 @@
                     </tr>
                     <tr>
                         <td>年龄</td>
-                        <td>岁</td>
+                        <td>
+                            @php
+                        $birthday = Auth::user()->birthday;
+                        $birthday = new DateTime($birthday);
+                        $now = new DateTime();
+                        $interval = $birthday->diff($now);
+                        echo intval($interval->format('%Y'));
+                            @endphp
+                            岁</td>
                     </tr>
                     <tr>
                         <td>身高</td>

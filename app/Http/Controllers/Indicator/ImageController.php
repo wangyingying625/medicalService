@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Indicator;
 use AipOcr;
 use App\Image;
 use App\Indicator;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,12 @@ class ImageController extends Controller
 
     }
 
+    public function record(Request $request){
+        $UserId = $request -> route('UserId');
+        $user = User::find($UserId);
+        return view('record')->with(['user'=>$user]);
+    }
+
     public function changeImageDate(Request $request){
 
         $ImageId = $request -> route('ImageId');
@@ -41,7 +48,6 @@ class ImageController extends Controller
     public function saveImageDate(Request $request){
 
         $indicators = $request -> input();
-        var_dump($indicators);
         foreach ($indicators as $id => $indicator) {
             if (is_array($indicator)) {
                 var_dump($id);

@@ -18,9 +18,9 @@ class IndicatorController extends Controller
         return view("indicator.upload");
     }
 
-    public function showIndicator(){
+    public function showIndicatorByUserId(Request $request){
         $indicators = array();
-        $id = Auth::id();
+        $id = $request -> route('UserId');
         $types = DB::table('images')->select('type')->where('user_id',$id)->distinct()->get();
         foreach ($types as $type){
             $type = $type->type;

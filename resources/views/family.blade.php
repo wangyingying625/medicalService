@@ -13,7 +13,14 @@
                 @if(Auth::user()->status=='admin')
                 <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
                 <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
+                @if(\App\User::where('family_id',$family['id'])->where('status','joining')->count())
+                <button class="layui-btn layui-btn-warm layui-btn-radius" onclick="showApply()">成员申请 <span class="layui-badge layui-bg-gray">{{ \App\User::where('family_id',$family['id'])->where('status','joining')->count() }}</span></button>
                 @endif
+                @elseif(Auth::user()->status=='member')
+                    <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="quit()">退出家庭</button>
+
+                @endif
+
             </div>
 
             <div class="navbar-wrapper">
@@ -58,15 +65,16 @@
                         <p class="description text-center">
                             @{{ item.height }}KG
                             <br> @{{ item.weight }}CM<br>
-                            <a href="#" class="btn btn-round btn-primary">查看病历</a>
+                            <a :href="'/indicator/record/' + item.id" class="btn btn-round btn-primary">查看病历</a>
                             @if(Auth::user()->status=='admin')
-                            <a href="family/del"  class="btn btn-round btn-default" v-if="!isSelf(item.id)">删除家人</a>
+                            <a :href="'/family/del/' + item.id"  class="btn btn-round btn-default" v-if="!isSelf(item.id)">删除家人</a>
                             @endif
                         </p>
                     </div>
                     <hr>
                 </div>
             </div>
+
         </div>
     </div>
     <script>
@@ -127,7 +135,24 @@
                 });
             });
         }
-        
+        function showApply() {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+
+                layer.open({
+                    title: false,
+                    type: 2,
+                    area: ['600px', '300px'],
+                    content: '/family/newMember',
+                    cancel: function(index, layero){
+                        layer.close(index);
+                        location.reload();
+
+                    }
+
+                });
+            })
+        }
         function disband() {
             layui.use('layer', function(){
                 var layer = layui.layer;
@@ -147,6 +172,24 @@
                 });
             })
                 }
+        function quit() {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+
+                layer.open({
+                    title: false,
+                    content: '确认退出该家庭吗？',
+                    btn: ['确认', '取消'],
+                    success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: '/family/quit'
+                        });
+                    }
+
+                });
+            })
+        }
 
 
     </script>
