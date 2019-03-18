@@ -4,12 +4,14 @@
         <div class="container-fluid">
             <div class="navbar-wrapper">
                 <div class="navbar-toggle">
+
                     <button type="button" class="navbar-toggler">
                         <span class="navbar-toggler-bar bar1"></span>
                         <span class="navbar-toggler-bar bar2"></span>
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
+                    <legend>{{ $family['name'] }}</legend>
                 @if(Auth::user()->status=='admin')
                 <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
                 <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
@@ -24,7 +26,9 @@
             </div>
 
             <div class="navbar-wrapper">
+
             </div>
+
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
                 <ul class="navbar-nav">
@@ -40,6 +44,7 @@
     <!-- End Navbar -->
     <div class="panel-header panel-header-sm">
     </div>
+
     <div class="content" id="con">
         <div class="row" >
             <div class="col-md-12">

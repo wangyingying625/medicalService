@@ -63,6 +63,10 @@
                             岁</td>
                     </tr>
                     <tr>
+                        <td>性别</td>
+                        <td>{{ Auth::user()->sex }}</td>
+                    </tr>
+                    <tr>
                         <td>身高</td>
                         <td>{{ Auth::user()->height }}KG</td>
                     </tr>
@@ -72,7 +76,7 @@
                     </tr>
                     <tr>
                         <td>家庭</td>
-                        <td>@if( Auth::user()->family_id) {{ Auth::user()->family_id }}
+                        <td>@if( Auth::user()->family_id) {{ \App\Family::find(Auth::user()->family_id)->name }}
                             @else
                                 未加入家庭
                             @endif</td>
