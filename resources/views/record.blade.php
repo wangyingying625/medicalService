@@ -161,10 +161,12 @@
                     trigger: 'axis'
                 },
                 legend: {
-                    data: Array.from(indictors)
+                    data: Array.from(indictors),
+                    type:'scroll',
+                    left: '50px'
                 },
                 toolbox: {
-                    show: true,
+                    show: false,
                     feature: {
                         mark: {show: true},
                         dataView: {show: true, readOnly: false},
