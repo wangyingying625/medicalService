@@ -10,8 +10,11 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                <a class="navbar-brand" href="/familyAdd">创建家庭</a>
-                <a class="navbar-brand" href="/pictures">退出家庭</a>
+                {{--<a class="navbar-brand" href="/familyAdd">邀请成员</a>--}}
+                <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
+                <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
+                {{--<a class="navbar-brand" href="/pictures">退出家庭</a>--}}
+
             </div>
 
             <div class="navbar-wrapper">
@@ -46,8 +49,8 @@
                             </p>
                         </div>
                         <p class="description text-center">
-                            @{{ item.height }}
-                            <br> @{{ item.weight }}<br>
+                            @{{ item.height }}KG
+                            <br> @{{ item.weight }}CM<br>
                             <a href="#" class="btn btn-round btn-primary">查看病历</a>
                             <a href="family/del"  class="btn btn-round btn-default">删除家人</a>
                         </p>
@@ -57,14 +60,63 @@
             </div>
         </div>
     </div>
+    {!! $members  !!}
+    {!! $family !!}
     <script>
         var vm=new Vue({
             el:'#con',
             data:{
-                familyList: [{id:1,email:'123@qq.com',familyId:1,name:'name1',age:18,gender:'女',height:'170cm',weight:'40kg'},
-                    {id:1,email:'12223@qq.com',familyId:1,name:'name2',age:19,gender:'女',height:'170cm',weight:'40kg'},
-                    {id:1,email:'123333@qq.com',familyId:1,name:'name3',age:20,gender:'女',height:'170cm',weight:'40kg'}]
+                familyList: {!! $members  !!}
             }
         });
+        function invite() {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+
+                layer.open({
+                    type: 1,
+                    area: ['400px', '160px'],
+                    closeBtn: 2,
+                    title: ['邀请用户', 'font-size:18px;'],
+                    content: '<form class="layui-form" action="/family/invite" method="post">\n' +
+                    '  <div class="layui-form-item">\n' +
+                    '    <label class="layui-form-label">用户名</label>\n' +
+                    '    <div class="layui-input-block">\n' +
+                    '@csrf' +
+                    '      <input type="text" name="name" required  lay-verify="required" placeholder="请输入受邀请用户用户名" autocomplete="off" class="layui-input">\n' +
+                    '<input type="hidden" name="familyId" value="{{ $family{'id'} }}">' +
+                    '    </div>\n' +
+                    '  </div>' +
+                    '  <div class="layui-form-item">\n' +
+                    '    <div class="layui-input-block">\n' +
+                    '      <button class="layui-btn" lay-submit lay-filter="formDemo">邀请</button>\n' +
+                    '    </div>\n' +
+                    '  </div>' +
+                    '</form>' //这里content是一个普通的String
+                });
+            });
+        }
+        
+        function disband() {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+
+                layer.open({
+                    title: false,
+                    content: '确认解散该家庭吗？',
+                    btn: ['确认', '取消'],
+                    success: function(layero){
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: '/'
+                        ,target: '_blank'
+                    });
+                }
+
+                });
+            })
+                }
+
+
     </script>
 @endsection

@@ -15,6 +15,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <script src="{{ asset('layui-v2.4.5/layui/layui.js')}}"></script>
+    <link href="{{ asset('layui-v2.4.5/layui/css/layui.css') }}" rel="stylesheet" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -75,14 +77,14 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">{{ __('Register') }}</div>
+                        <div class="card-header">注册</div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('register') }}" class="layui-form">
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-right">用户名</label>
 
                                     <div class="col-md-6">
                                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -96,7 +98,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <label for="email" class="col-md-4 col-form-label text-md-right">电子邮件</label>
 
                                     <div class="col-md-6">
                                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -110,7 +112,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
 
                                     <div class="col-md-6">
                                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -123,29 +125,28 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">确认密码</label>
 
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label  class="col-md-4 col-form-label text-md-right">gender*</label>
-
-                                    <div class="col-md-6" style="display: flex">
-                                        <input type="radio" style="margin-right: 0;width: 20%" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="男">男
-                                        <input type="radio"  style="margin-right: 0;width: 20%" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="女">女
-                                    </div>
+                                        <label class="layui-form-label col-md-4 col-form-label text-md-right">性别</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" name="sex" value="男" title="男" checked="">
+                                            <input type="radio" name="sex" value="女" title="女">
+                                        </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="height" class="col-md-4 col-form-label text-md-right">height*</label>
+                                    <label for="height" class="col-md-4 col-form-label text-md-right">身高</label>
 
                                     <div class="col-md-6">
                                         <input id="height" type="text" class="form-control{{ $errors->has('height') ? ' is-invalid' : '' }}" name="height">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="weight" class="col-md-4 col-form-label text-md-right">weight*</label>
+                                    <label for="weight" class="col-md-4 col-form-label text-md-right">体重</label>
 
                                     <div class="col-md-6">
                                         <input id="weight" type="text" class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight">
@@ -160,12 +161,19 @@
                                 </div>
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Register') }}
-                                        </button>
+                                        <div class="layui-input-block">
+                                            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                                        </div>
+                                        {{--<button type="submit" class="btn btn-primary">--}}
+                                            {{--{{ __('Register') }}--}}
+                                        {{--</button>--}}
                                     </div>
                                 </div>
                             </form>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -174,4 +182,24 @@
     </main>
 </div>
 </body>
+<script>
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+
+        //……
+
+        //但是，如果你的HTML是动态生成的，自动渲染就会失效
+        //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+        form.render();
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#birthday' //指定元素
+        });
+    });
+</script>
 </html>

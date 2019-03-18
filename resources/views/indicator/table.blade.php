@@ -38,8 +38,9 @@
 
             </tbody>
         </table>
-        <input type="submit" value="提交">
-
+        <div align="center">
+        <button class="layui-btn" lay-submit="" lay-filter="demo1">确认信息</button>
+        </div>
     </form>
 
 

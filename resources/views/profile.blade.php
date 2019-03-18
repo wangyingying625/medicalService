@@ -34,24 +34,42 @@
             </div>
             <div class="card-body">
             <div class="author">
-            <a href="#">
-            <h5 class="title">邮箱： {{ Auth::user()->email }}</h5>
-            <h5 class="title">用户名： {{ Auth::user()->name }}</h5>
-            </a>
-            <p class="description"  style="color: #000">
-{{--            {{ date('Y') }}岁--}}
-{{--                {{ Auth::user()->birthday->format('Y') }}--}}
-            </p>
-            </div>
-            <p class="description text-center" style="color: #000">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>个人信息</legend>
+                </fieldset>
 
-            身高{{ Auth::user()->height }}KG
-
-
-            <br> 体重{{ Auth::user()->weight }}KG<br><br>
-                {{--家庭这里我来改，后端传入数据--}}
-            所属家庭账号@{{msg.familyID}}
-            </p>
+                <table class="layui-table" lay-even="" lay-skin="nob">
+                    <tr>
+                        <td>邮箱</td>
+                        <td>{{ Auth::user()->email }}</td>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td>用户名 </td>
+                        <td>{{ Auth::user()->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>年龄</td>
+                        <td>岁</td>
+                    </tr>
+                    <tr>
+                        <td>身高</td>
+                        <td>{{ Auth::user()->height }}KG</td>
+                    </tr>
+                    <tr>
+                        <td>体重</td>
+                        <td>{{ Auth::user()->weight }}KG</td>
+                    </tr>
+                    <tr>
+                        <td>家庭</td>
+                        <td>@if( Auth::user()->family_id) {{ Auth::user()->family_id }}
+                            @else
+                                未加入家庭
+                            @endif</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </p>
                 <a href="/user/change" class="btn btn-round btn-primary">修改</a>
             </div>
             <hr>

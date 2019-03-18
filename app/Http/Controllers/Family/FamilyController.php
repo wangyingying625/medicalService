@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class FamilyController extends Controller
 {
+
+
+    /**
+     * 个人信息中status共计有种状态
+     * 1.no :该用户未加入任何家庭也未接到邀请
+     * 2.admin： 该用户拥有家庭并且为管理员
+     * 3.inviting： 该用户被邀请但未接受
+     * 4.joining： 该用户申请加入但未同意
+     * 5.member: 该用户已加入家庭并且为普通成员
+     *
+     */
+
     /**
      * 创建家庭,并将创建者身份初始化为管理员
      */
@@ -23,7 +35,7 @@ class FamilyController extends Controller
         $user -> family_id = $family->id;
         $user -> status = 'admin';
         $user->save();
-        return $family;
+        return redirect('/family/info/'.$family->id);
     }
 
     /**
@@ -34,7 +46,7 @@ class FamilyController extends Controller
         $family = Family::where('name',$familyName);
         $user = Auth::user();
         if ($family && $user->status == ''){
-            $user->status = 'applying';
+            $user->status = 'joining';
             $user -> family_id = $family->id;
             $user->save();
         }
@@ -99,23 +111,41 @@ class FamilyController extends Controller
 
     /**
      * 管理员邀请成员加入,略显复杂,暂时搁置
+     */
     public function invite(Request $request){
         //判断是否为管理员身份
-        $userId = $request -> input('id');
-        $familyId = $request -> input('family_id');
-        $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
-        if($permission != 'admin'){
-            return;
+        $username = $request -> input('name');
+        $familyId = $request -> input('familyId');
+//        $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
+//        if($permission != 'admin'){
+//            return;
+//        }
+
+        $user = User::where('name',$username)->get();
+        $status = false;
+        $reason = '';
+//        var_dump($user);
+        if ($user->isEmpty()){
+            return "没有此用户";
+        }
+        $user = $user[0];
+        $title = "邀请失败";
+        if ($user->status=='no'){
+            $status = User::where('name',$username)-> update([
+                'family_id' => $familyId,
+                'status'    => 'inviting'
+            ]);
+            $title = $status?"邀请成功":'邀请失败';
+        }elseif ($user->status=='member' or $user->status=='admin' ){
+            $reason = "该用户已加入家庭";
+        }else{
+            $reason = "该用户正在被邀请或申请加入其他家庭";
         }
 
-        $user = User::find($userId);
-        $status = $user -> where('id',$userId) -> update([
-            'family_id' => $familyId,
-            'status'    => 'waitting'
-        ]);
-        return $status?"邀请成功":"邀请失败";
+        return view('location')->with(['title'=>$title,'message'=>$reason,'url'=>'/family/info/'.$familyId]);
+//        return $status?"邀请成功":$reason;
     }
-     */
+
 
     /**
      * 管理员删除家庭成员

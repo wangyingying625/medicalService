@@ -10,6 +10,8 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
+                <button class="layui-btn layui-btn-warm" onclick="invited()">家庭邀请<span class="layui-badge layui-bg-gray">1</span></button>
+
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <form>
@@ -34,6 +36,8 @@
                         <div class="typography-line" style="width: 100%;margin:0;padding:0;text-align: center">
                             <h5>
                                 您还没有所属家庭 </h5>
+
+
                         </div>
                         <div class="row" style="width: 100%;align-items: center;justify-content: center">
                             <div class="col-md-4">
@@ -47,6 +51,7 @@
                         <router-view></router-view>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -80,6 +85,26 @@
             methods:{
             },
             router:routerObj
-        })
+        });
+
+        function invited() {
+            layui.use('layer', function(){
+                var layer = layui.layer;
+
+                layer.open({
+                    title: false,
+                    content: '您有一条来自<font size="3" color="red">{}</font>家庭的邀请，是否确认加入？',
+                    btn: ['加入', '取消'],
+                    success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: '/'
+                            ,target: '_blank'
+                        });
+                    }
+
+                });
+            })
+        }
     </script>
 @endsection

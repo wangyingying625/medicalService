@@ -50,6 +50,7 @@ Route::group(['prefix'=>'family'],function(){
     Route::get('info/{FamilyId}','Family\FamilyController@showMembers');
     Route::get('showApply','Family\FamilyController@showApply');
     Route::get('dealWith','Family\FamilyController@dealWith');
+    Route::post('invite','Family\FamilyController@invite');
     Route::get('del','Family\FamilyController@del');
     Route::get('test','Family\FamilyController@test');
 });
