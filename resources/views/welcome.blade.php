@@ -26,24 +26,35 @@
                     </li>
                 </ul>
             </div>
+
+            <div class="dropdown"  style="margin-top: -12px">
+                <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                    <i class="now-ui-icons loader_gear"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    {{--<a class="dropdown-item" href="#">设为主图</a>--}}
+                    <a class="dropdown-item text-danger" href="#" id="href0">移除</a>
+                </div>
+            </div>
         </div>
     </nav>
     <!-- End Navbar -->
     <div class="panel-header panel-header-lg" style="background: #85c2b0">
         <div class="container"  id="container0" style="height: 100%"></div>
     </div>
+
     <div class="content" id="content">
         <div class="row">
             <div class="col-lg-4"   v-for="(item,i) in data1" :id="'card' + i">
                 <div class="card card-chart">
                     <div class="card-header">
-                        <div class="dropdown">
+                        <div class="dropdown"  style="margin-top: -12px">
                             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                                 <i class="now-ui-icons loader_gear"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">设为主图</a>
-                                <a class="dropdown-item text-danger" href="#">移除</a>
+                                {{--<a class="dropdown-item" href="#">设为主图</a>--}}
+                                <a class="dropdown-item text-danger" href="#" :id="'href'+ (i+1)">移除</a>
                             </div>
                         </div>
                     </div>
@@ -53,11 +64,11 @@
                             {{--<canvas id="lineChartExample"></canvas>--}}
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新
-                        </div>
-                    </div>
+                    {{--<div class="card-footer">--}}
+                        {{--<div class="stats">--}}
+                            {{--<i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -116,6 +127,9 @@
                                 if (IndicatorsData[i].length != 0){
                                     console.log(IndicatorsData[i]);
                                     var id = "container" + times;
+                                    var hrefId = "href" + times;
+                                    var hrefEl = document.getElementById(hrefId);
+                                    hrefEl.href = "/indicator/unimportant/" + IndicatorsData[i][0]['name_ch'];
                                     picture(IndicatorsData[i], id);
                                     times++;
                                 }

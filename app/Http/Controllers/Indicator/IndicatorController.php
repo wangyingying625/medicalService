@@ -74,5 +74,26 @@ class IndicatorController extends Controller
     return $indicators;
     }
 
+    public function important(Request $request){
+        $IndicatorName = $request -> route('IndicatorName');
+        $Images = Image::where('user_id',Auth::id())->get();
+        foreach ($Images as $image){
+            Indicator::where('image_id',$image['id'])->where('name_ch',$IndicatorName)->update(['important'=>1]);
+        }
+
+        return view('location')->with(['title'=>'设置成功','message'=>$IndicatorName.'已显示在主页','url'=>'/home']);
+
+    }
+
+    public function unimportant(Request $request){
+        $IndicatorName = $request -> route('IndicatorName');
+        $Images = Image::where('user_id',Auth::id())->get();
+        foreach ($Images as $image){
+            Indicator::where('image_id',$image['id'])->where('name_ch',$IndicatorName)->update(['important'=>0]);
+        }
+        return view('location')->with(['title'=>'设置成功','message'=>$IndicatorName.'已取消在主页显示','url'=>'/home']);
+
+
+    }
 
 }

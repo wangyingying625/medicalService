@@ -32,12 +32,26 @@
             </div>
 
             <div class="card card-upgrade">
-                <div class="card-header text-center">
-                    <h2 class="card-title" id="title" ></h2>
+                <div class="card-header text-right">
+                    <div class="dropdown"  style="margin-top: -12px">
+                        <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
+                            <i class="now-ui-icons loader_gear"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right text-right">
+                            <a class="dropdown-item" href="#" id="important" onclick="">设为特别关心数据</a>
+                        </div>
+                    </div>
+                    <div align="center">
+                        <h2 class="card-title" id="title" ></h2>
+                    </div>
                 </div>
-                {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
+                <div class="card-body">
+                    <div class="chart-area">
+                {{--<form class="card-body" ac
+                tion="/indicator/upload" method="post" id="form">--}}
                 <div class="container"  id="chart" style="height: 300%"></div>
-
+                    </div>
+                </div>
                 {{--</form>--}}
             </div>
 
@@ -75,6 +89,8 @@
                 if (req.readyState == 4 && req.status == 200) {
                     var OneIndicator = JSON.parse(req.responseText);
                     picture(OneIndicator[0]);
+                    var important = document.getElementById('important');
+                    important.href = '/indicator/important/'+el.value;
                 }
             };
     }

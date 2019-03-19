@@ -49,7 +49,7 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a href="/">
+                    <a href="/home">
                         <i class="now-ui-icons design_app"></i>
                         <p>首页</p>
                     </a>
