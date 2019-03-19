@@ -142,17 +142,12 @@ class FamilyController extends Controller
         //判断是否为管理员身份
         $username = $request -> input('name');
         $familyId = $request -> input('familyId');
-//        $permission = User::where('id',$userId) -> where('family_id',$familyId) -> get('status');
-//        if($permission != 'admin'){
-//            return;
-//        }
 
         $user = User::where('name',$username)->get();
         $status = false;
         $reason = '';
-//        var_dump($user);
         if ($user->isEmpty()){
-            return "没有此用户";
+            return view('location')->with(['title'=>'邀请失败','message'=>'没有此用户,请确认用户名是否填写错误','url'=>'/family/info/'.$familyId]);
         }
         $user = $user[0];
         $title = "邀请失败";
