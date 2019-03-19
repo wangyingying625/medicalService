@@ -29,12 +29,12 @@
         </div>
     </nav>
     <!-- End Navbar -->
-    <div class="panel-header panel-header-lg">
+    <div class="panel-header panel-header-lg" style="background: #85c2b0">
         <div class="container"  id="container0" style="height: 100%"></div>
     </div>
     <div class="content" id="content">
         <div class="row">
-            <div class="col-lg-4"   v-for="(item,i) in data1">
+            <div class="col-lg-4"   v-for="(item,i) in data1" :id="'card' + i">
                 <div class="card card-chart">
                     <div class="card-header">
                         <div class="dropdown">
@@ -82,7 +82,6 @@
             for (i in data){
                 name=data[i]['name_ch']+'&';
             }
-            alert(name);
 
         };
         msg();
@@ -91,7 +90,10 @@
 
 
             var i;
+            var indicators = "";
             for (i  in data) {
+                indicators = indicators + data[i]['name_ch'] + "&";
+            }
                 if (window.XMLHttpRequest) {
                     test = new XMLHttpRequest();
                 } else if (window.ActiveXObject) {
@@ -99,25 +101,36 @@
                 } else {
                     alert("请升级至最新版本的浏览器");
                 }
-
+                console.log(i);
                 if (test != null) {
-                    console.log(data);
-                    console.log("type" + data);
                     indicator = data[i]['name_ch'];
-                    alert(indicator);
-                    test.open("GET", "/indicator/show/" + indicator, true);
+                    console.log(indicator);
+                    test.open("GET", "/indicator/show/" + indicators, true);
                     test.send(null);
                     test.onreadystatechange = function () {
                         if (test.readyState == 4 && test.status == 200) {
-                            var OneIndicator = JSON.parse(test.responseText);
-                            var id = "container" + times;
-                            picture(OneIndicator, id);
-                            alert("picture了");
-                            times++;
+                            var IndicatorsData = JSON.parse(test.responseText);
+                            console.log(IndicatorsData);
+                            for (i in IndicatorsData){
+//                                console.log(IndicatorsData[i]);
+                                if (IndicatorsData[i].length != 0){
+                                    console.log(IndicatorsData[i]);
+                                    var id = "container" + times;
+                                    picture(IndicatorsData[i], id);
+                                    times++;
+                                }
+
+                            }
+                            console.log("次数"+times);
+                            var rashId = times -1 ;
+                            var rash = document.getElementById('card'+rashId);
+                            rash.remove();
+
                         }
                     };
                 }
-            }
+
+
         }
         show();
         function picture(OneIndicator, id) {
@@ -143,16 +156,6 @@
                 },
                 legend: {
                     data: [OneIndicator[i]['name_ch']]
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        mark: {show: true},
-                        dataView: {show: true, readOnly: false},
-                        magicType: {show: true, type: ['line', 'bar']},
-                        restore: {show: true},
-                        saveAsImage: {show: true}
-                    }
                 },
                 calculable: true,
                 xAxis: [
