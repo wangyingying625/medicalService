@@ -31,7 +31,8 @@ class ImageController extends Controller
     }
 
     public function showUploadForm(){
-        return view('indicator.pictures');
+        $userImages = Image::where('user_id',Auth::id())->get();
+        return view('indicator.pictures')->with(['images'=>$userImages]);
     }
 
     public function record(Request $request){

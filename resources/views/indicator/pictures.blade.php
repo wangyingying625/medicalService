@@ -26,6 +26,45 @@
 
                     {{--</form>--}}
                 </div>
+
+                <div class="card card-upgrade">
+                    <div class="card-header text-center">
+                        <h4 class="card-title">上传历史</h4>
+                    </div>
+                    {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
+                    <ul class="layui-timeline">
+                        @foreach($images as $image)
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">{{ $image['created_at'] }}</h3>
+                                    <h2 class="layui-timeline-title">{{ $image['type'] }}</h2>
+                                    <a href="{{ asset('storage/'.$image['name']) }}"><img src="{{ asset('storage/'.$image['name']) }}" width="200px"></a>
+                                </div>
+                            </li>
+                            @endforeach
+                        {{--<li class="layui-timeline-item">--}}
+                            {{--<i class="layui-icon layui-timeline-axis"></i>--}}
+                            {{--<div class="layui-timeline-content layui-text">--}}
+                                {{--<h3 class="layui-timeline-title">8月18日</h3>--}}
+                                {{--<p>--}}
+                                    {{--layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。--}}
+                                    {{--<br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。--}}
+                                    {{--<br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>--}}
+                                {{--</p>--}}
+                            {{--</div>--}}
+                        {{--</li>--}}
+                        {{--<li class="layui-timeline-item">--}}
+                            {{--<i class="layui-icon layui-timeline-axis"></i>--}}
+                            {{--<div class="layui-timeline-content layui-text">--}}
+                                {{--<div class="layui-timeline-title">过去</div>--}}
+                            {{--</div>--}}
+                        {{--</li>--}}
+                    </ul>
+
+                    {{--</form>--}}
+                </div>
+
             </div>
         </div>
 
