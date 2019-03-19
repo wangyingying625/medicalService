@@ -14,18 +14,18 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/record', function () {
-    return view('record');
-});
-Route::get('/pictures', function () {
-    return view('pictures');
-});
+//Route::get('/record', function () {
+//    return view('record');
+//});
+//Route::get('/pictures', function () {
+//    return view('pictures');
+//});
 //Route::get('/familyAdd', function () {
 //    return view('familyAdd');
 //})->middleware('auth');
-Route::get('/geRen', function () {
-    return view('geRen');
-});
+//Route::get('/geRen', function () {
+//    return view('geRen');
+//});
 
 Route::get('/home','HomeController@index');
 
@@ -38,10 +38,11 @@ Route::any('/logout','Auth\LoginController@logout');
 
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
+    Route::get('upload','Indicator\ImageController@showUploadForm');
     Route::get('changeData/{ImageId}','Indicator\ImageController@changeImageDate');
     Route::get('record/{UserId}','Indicator\ImageController@record');
     Route::post('saveData','Indicator\ImageController@saveImageDate');
-    Route::get('showAll','Indicator\IndicatorController@showIndicator');
+    Route::get('one','Indicator\IndicatorController@showOne');
     Route::get('show/user/{UserId}','Indicator\IndicatorController@showIndicatorByUserId');
     Route::get('show/{IndicatorName}','Indicator\IndicatorController@showIndicatorByName');
 });

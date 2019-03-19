@@ -30,10 +30,14 @@ class ImageController extends Controller
 
     }
 
+    public function showUploadForm(){
+        return view('indicator.pictures');
+    }
+
     public function record(Request $request){
         $UserId = $request -> route('UserId');
         $user = User::find($UserId);
-        return view('record')->with(['user'=>$user]);
+        return view('indicator.record')->with(['user'=>$user]);
     }
 
     public function changeImageDate(Request $request){

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function PHPSTORM_META\type;
 
 class IndicatorController extends Controller
 {
@@ -16,6 +17,19 @@ class IndicatorController extends Controller
     public function showUpload(){
         var_dump(Auth::id());
         return view("indicator.upload");
+    }
+
+    public function showOne(Request $request){
+        $images = Image::where('user_id',Auth::id())->get();
+        $indicators = [];
+        foreach ($images as $image){
+            $tmps = Indicator::where('image_id',$image['id'])->get(['name_ch']);
+            foreach ($tmps as $tmp){
+                $indicators[] = $tmp['name_ch'];
+            }
+        }
+        $indicators = array_unique($indicators);
+        return view('indicator.oneIndicator')->with(['indicators'=>$indicators]);
     }
 
     public function showIndicatorByUserId(Request $request){
