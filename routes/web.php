@@ -52,6 +52,7 @@ Route::any('/logout','Auth\LoginController@logout');
 Route::group(['prefix'=>'family'],function(){
     Route::post('createFamily','Family\FamilyController@createFamily');
     Route::get('apply/{familyName}','Family\FamilyController@apply');
+    Route::get('accept','Family\FamilyController@accepted');
     Route::get('add','Family\FamilyController@add');
     Route::get('accept/{UserId}','Family\FamilyController@accept');
     Route::get('info/{FamilyId}','Family\FamilyController@showMembers');
