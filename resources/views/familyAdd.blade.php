@@ -42,7 +42,7 @@
                         <router-view></router-view>
                     </div>
                 </div>
-                @if(Auth::user()->family_id)
+                @if(Auth::user()->status == 'joining')
                 <div class="card">
                     <div class="card-body">
                         <div class="typography-line" style="width: 100%;margin:0;padding:0;text-align: center">

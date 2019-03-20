@@ -70,6 +70,12 @@ class FamilyController extends Controller
         return view('familyAdd');
     }
 
+    public function accepted(Request $request){
+        $user = Auth::user();
+        $user->update(['status'=>'member']);
+        return redirect('/family/info/'.$user->family_id);
+    }
+
     public function accept(Request $request){
 
         $userId = $request->route('UserId');
