@@ -78,8 +78,8 @@
                         <p>个人中心</p>
                     </a>
                 </li>
-                <li class="active-pro" style="margin-bottom: 25px;padding:0 15px;width: 100%;text-align: center">
-                        <p>距离上次检查已经<span style="font-size: 23px;">100</span>天了<br>请及时检查</p>
+                <li id="date" class="active-pro" style="margin-bottom: 25px;padding:0 15px;width: 100%;text-align: center">
+                        <p>距离上次检查已经<span style="font-size: 23px;">@{{lastTime}}</span>天了<br>请及时检查</p>
                 </li>
             </ul>
         </div>
@@ -97,4 +97,18 @@
 <script src="{{ asset('js/plugins/bootstrap-notify.js')}}"></script>
 <script src="{{ asset('js/now-ui-dashboard.js') }}"></script>
 <script src="{{ asset('js/demo.js')}}"></script>
+<script>
+    var vm=new Vue({
+        el:'#date',
+        data:{
+            lastTime: '',
+        },
+        created: function () {
+            this.$http.get('/showdata').then(function (result) {
+                this.date=result.body;
+            });
+        },
+
+    });
+</script>
 </html>
