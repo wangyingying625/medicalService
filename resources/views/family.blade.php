@@ -169,7 +169,7 @@
                     success: function(layero){
                     var btn = layero.find('.layui-layer-btn');
                     btn.find('.layui-layer-btn0').attr({
-                        href: '/'
+                        href: '/family/dissolve'
                         ,target: '_blank'
                     });
                 }

@@ -63,6 +63,7 @@ Route::group(['prefix'=>'family'],function(){
     Route::get('del/{UserId}','Family\FamilyController@del');
     Route::get('quit','Family\FamilyController@quit');
     Route::get('test','Family\FamilyController@test');
+    Route::get('dissolve','Family\FamilyController@dissolveFamily');
 });
 
 Route::group(['prefix'=>'user'],function(){

@@ -217,4 +217,32 @@ class FamilyController extends Controller
         $NewMembers = User::where('status','joining')->where('family_id',Auth::user()->family_id)->get();
         return view('newMember')->with(['members'=>$NewMembers]);
     }
+
+    public function dissolveFamily(Request $request)
+    {
+        /*
+         * TODO:解散家庭
+         */
+        $userId = Auth::user() -> id;
+        $familyId = Auth::user() -> family_id;
+        //如果该用户不是该家庭管理员
+        if(User::where('id',$userId) -> value('status') != 'admin')
+        {
+            return view('location')->with(['title'=>'提示','message'=>'只有家庭管理员才有删除权限','url'=>'/family/add/']);
+        }
+        //将该家庭成员的status字段设置为no、并将family_id清空
+        User::where('family_id',$familyId) -> update([
+            'family_id' => NULL,
+            'status' => 'no'
+        ]);
+        //删除该家庭
+        if(Family::where('id',$familyId) -> delete())
+        {
+            return view('location')->with(['title'=>'提示','message'=>'删除成功','url'=>'/family/add/']);
+        }
+        else
+        {
+            return view('location')->with(['title'=>'提示','message'=>'删除失败','url'=>'/family/add/']);
+        }
+    }
 }
