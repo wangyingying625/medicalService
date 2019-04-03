@@ -21,8 +21,18 @@
                     <form class="card-body" action="/ocr/" method="post" id="form">
                         @csrf
                         <input class="form-control"  type="text" placeholder="请输入您的检查名称" required name="type">
+                        <br>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日期</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="test5" placeholder="年-月-日 时-分-秒" name="date">
+                            </div>
+                        </div>
+
                         <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  value="确定">
                     </form>
+
+
 
                     {{--</form>--}}
                 </div>
@@ -113,6 +123,14 @@
                         uploadInst.upload();
                     });
                 }
+            });
+        });
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+
+            laydate.render({
+                elem: '#test5'
+                ,type: 'datetime'
             });
         });
     </script>

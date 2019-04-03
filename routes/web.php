@@ -1,4 +1,6 @@
 <?php
+//});
+//Route::get('/pictures', function () {
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,6 @@ Route::get('/', function () {
 });
 //Route::get('/record', function () {
 //    return view('record');
-//});
-//Route::get('/pictures', function () {
 //    return view('pictures');
 //});
 //Route::get('/familyAdd', function () {
