@@ -18,17 +18,23 @@
                                 <p id="demoText"></p>
                             </div>
                         </div>
-                    <form class="card-body" action="/ocr/" method="post" id="form">
+                    <form class="layui-form" action="/ocr/" method="post" id="form">
                         @csrf
-                        <input class="form-control"  type="text" placeholder="请输入您的检查名称" required name="type">
+
+                        <input class="form-control"   type="text" placeholder="请输入您的检查名称" required name="type">
                         <br>
                         <div class="layui-inline">
                             <label class="layui-form-label">日期</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="test5" placeholder="年-月-日 时-分-秒" name="date">
+                                <input type="text" class="layui-input" id="test5" placeholder="检查的时间" name="date">
                             </div>
                         </div>
-
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">智能匹配</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  name="is_memory" lay-skin="switch" lay-filter="switchTest" lay-text="开|关">
+                            </div>
+                        </div>
                         <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  value="确定">
                     </form>
 
@@ -53,23 +59,6 @@
                                 </div>
                             </li>
                             @endforeach
-                        {{--<li class="layui-timeline-item">--}}
-                            {{--<i class="layui-icon layui-timeline-axis"></i>--}}
-                            {{--<div class="layui-timeline-content layui-text">--}}
-                                {{--<h3 class="layui-timeline-title">8月18日</h3>--}}
-                                {{--<p>--}}
-                                    {{--layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。--}}
-                                    {{--<br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。--}}
-                                    {{--<br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>--}}
-                                {{--</p>--}}
-                            {{--</div>--}}
-                        {{--</li>--}}
-                        {{--<li class="layui-timeline-item">--}}
-                            {{--<i class="layui-icon layui-timeline-axis"></i>--}}
-                            {{--<div class="layui-timeline-content layui-text">--}}
-                                {{--<div class="layui-timeline-title">过去</div>--}}
-                            {{--</div>--}}
-                        {{--</li>--}}
                     </ul>
 
                     {{--</form>--}}
@@ -82,6 +71,17 @@
 
     </div>
     <script>
+        layui.use('form', function(){
+            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+            form.render();
+            form.on('switch(switchTest)', function(data){
+//                layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+//                    offset: '6px'
+//                });
+                layer.tips('如之前提交过相同格式的病例单请勾选此项，否则请勿勾选', data.othis)
+            });
+        });
+
         layui.use('upload', function(){
             var $ = layui.jquery
                 ,upload = layui.upload;
