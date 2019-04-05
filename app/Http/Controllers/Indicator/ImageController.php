@@ -44,27 +44,41 @@ class ImageController extends Controller
     public function changeImageDate(Request $request){
 
         $ImageId = $request -> route('ImageId');
-
         $indicators = Indicator::where('image_id',$ImageId)->get();
 //        var_dump($indicators);
         return view('indicator.table')->with('indicators',$indicators);
     }
 
     public function saveImageDate(Request $request){
-
+        //默认保存成功
+        $status = 1;
         $indicators = $request -> input();
         foreach ($indicators as $id => $indicator) {
             if (is_array($indicator)) {
-                var_dump($id);
-                var_dump($indicator);
-                Indicator::find($id)->update($indicator);
+                //var_dump($id);
+                //var_dump($indicator);
+                $indicator = array_add($indicator,'created_at', session('date'));
+                //Indicator::find($id)->update($indicator);
+                if(Indicator::find($id)->update($indicator) == false)
+                    $status = 0;
             }
         }
-
+        //删除session中的date字段
+        session()->forget('date');
+        if($status==1)
+        {
+            return view('location')->with(['title'=>'提示','message'=>'保存成功','url'=>'/indicator/record/'.Auth::user()->id]);
+        }
+        else
+        {
+            return view('location')->with(['title'=>'提示','message'=>'保存失败','url'=>'/indicator/record/'.Auth::user()->id]);
+        }
     }
 
     public function OCR(Request $request){
-
+        session([
+            'date' => $request->input('date')
+        ]);
 
 // 初始化
         $fault_tolerance = 50;
