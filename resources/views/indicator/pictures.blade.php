@@ -35,7 +35,7 @@
                                 <input type="checkbox"  name="is_memory" lay-skin="switch" lay-filter="switchTest" lay-text="开|关">
                             </div>
                         </div>
-                        <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  value="确定">
+                        <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  id='submit'  value="确定" disabled>
                     </form>
 
 
@@ -54,6 +54,7 @@
                                 <i class="layui-icon layui-timeline-axis"></i>
                                 <div class="layui-timeline-content layui-text">
                                     <h3 class="layui-timeline-title">{{ $image['created_at'] }}</h3>
+                                    <a href="/indicator/delete/{{ $image['id'] }}" class="layui-btn layui-btn-danger layui-timeline-title">删除</a>
                                     <h2 class="layui-timeline-title">{{ $image['type'] }}</h2>
                                     <a href="{{ asset('storage/'.$image['name']) }}"><img src="{{ asset('storage/'.$image['name']) }}" width="200px"></a>
                                 </div>
@@ -113,6 +114,8 @@
                         imageId.name = 'image_id';
                         imageId.value = res.id;
                         form.appendChild(imageId);
+                        var subtn = document.getElementById('submit');
+                        subtn.disabled = false;
                     }
                 }
                 ,error: function(){

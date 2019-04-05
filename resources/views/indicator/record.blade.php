@@ -7,7 +7,7 @@
     <div class="content" id="content">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-chart"  v-for="(item,i) in data1" >
+                <div class="card card-chart layui-anim layui-anim-up"  v-for="(item,i) in data1" >
                     <div class="card-header">
                         <div class="dropdown"  style="margin-top: -12px">
                             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">

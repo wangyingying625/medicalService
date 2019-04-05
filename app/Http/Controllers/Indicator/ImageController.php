@@ -35,7 +35,7 @@ class ImageController extends Controller
 
     public function showUploadForm()
     {
-        $userImages = Image::where('user_id', Auth::id())->get();
+        $userImages = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->get();
         return view('indicator.pictures')->with(['images' => $userImages]);
     }
 
@@ -130,7 +130,7 @@ class ImageController extends Controller
                 $deviation = $item['location']['top'] - $headTop;
                 if (abs($deviation) < $fault_tolerance) {
                     $flag = 1;
-//                    var_dump($item);
+                    var_dump($item);
                     array_push($row, $item['words']);
                 } elseif ($flag) {
                     if (count($row) != 0 && count($row) == 1) {
@@ -144,7 +144,6 @@ class ImageController extends Controller
                 }
             }
         }
-
         $tableHead = $table[0];
         unset($table[0]);
         $indicators = [];
@@ -227,6 +226,18 @@ class ImageController extends Controller
 
         return $indicators;
 
+
+    }
+
+
+    function deleteImage(Request $request){
+        $ImageId = $request->route('ImageId');
+        $deleted = Image::destroy($ImageId);
+        Indicator::where('image_id',$ImageId)->delete();
+        if ($deleted){
+            return view('location')->with(['title' => '提示', 'message' => '删除成功', 'url' => '/indicator/upload']);
+
+        }
 
     }
 
