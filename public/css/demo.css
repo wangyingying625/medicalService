@@ -60,3 +60,18 @@
 #change{
     margin-left: 42em;
 }
+.foeTemp{
+    width: 60%;
+}
+.temp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+#form tbody{
+    width: 100%;
+}
+#form tr{
+    width: 100%;
+}

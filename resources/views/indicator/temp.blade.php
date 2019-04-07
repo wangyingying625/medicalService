@@ -8,17 +8,30 @@
             <div class="col-md-8 ml-auto mr-auto">
                 <div class="card card-upgrade">
                     <div class="card-header text-center">
-                        <h4 class="card-title">智能上传</h4>
+                        <h4 class="card-title">模板上传</h4>
                     </div>
-                    {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
+                    <form class="layui-form" action="/ocr/" method="post" id="form">
+                        {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
+                        <div class="temp">
+                            <div style="width: 60%;display: inline-block;margin-left:10px">
+                                <select name="city" lay-verify="">
+                                    <option value="">请选择已有模板</option>
+                                    <option value="01">甲供</option>
+                                    <option value="02">血常规</option>
+                                </select>
+                            </div>
+                            <div style="width: 30%;display: inline-block">
+                                <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px" onclick="createT()">新建模板</button>
+                            </div>
+                        </div>
                         <div class="layui-upload">
-                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px"  id="upload">上传图片</button>
+                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px"  id="upload">按列上传图片</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" id="demo1">
                                 <p id="demoText"></p>
                             </div>
                         </div>
-                    <form class="layui-form" action="/ocr/" method="post" id="form">
+
                         @csrf
 
                         <input class="form-control"   type="text" placeholder="请输入您的检查名称" required name="type">
@@ -26,16 +39,10 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">日期</label>
                             <div class="layui-input-inline">
-                                <input type="text" required class="layui-input" id="test5" placeholder="检查的时间" name="date">
+                                <input type="text" class="layui-input" id="test5" placeholder="检查的时间" name="date">
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">智能匹配</label>
-                            <div class="layui-input-block">
-                                <input type="checkbox"  name="is_memory" lay-skin="switch" lay-filter="switchTest" lay-text="开|关">
-                            </div>
-                        </div>
-                        <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  id='submit'  value="确定" onclick="load()" disabled>
+                        <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  id='submit'  value="确定" disabled>
                     </form>
 
 
@@ -47,22 +54,6 @@
                     <div class="card-header text-center">
                         <h4 class="card-title">上传历史</h4>
                     </div>
-                    {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
-                    <ul class="layui-timeline">
-                        @foreach($images as $image)
-                            <li class="layui-timeline-item">
-                                <i class="layui-icon layui-timeline-axis"></i>
-                                <div class="layui-timeline-content layui-text">
-                                    <h3 class="layui-timeline-title">{{ $image['created_at'] }}</h3>
-                                    <a href="/indicator/delete/{{ $image['id'] }}" class="layui-btn layui-btn-danger layui-timeline-title">删除</a>
-                                    <h2 class="layui-timeline-title">{{ $image['type'] }}</h2>
-                                    <a href="{{ asset('storage/'.$image['name']) }}"><img src="{{ asset('storage/'.$image['name']) }}" width="200px"></a>
-                                </div>
-                            </li>
-                            @endforeach
-                    </ul>
-
-                    {{--</form>--}}
                 </div>
 
             </div>
@@ -71,7 +62,9 @@
 
 
     </div>
+
     <script>
+
         layui.use('form', function(){
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
@@ -82,11 +75,24 @@
                 layer.tips('如之前提交过相同格式的病例单请勾选此项，否则请勿勾选', data.othis)
             });
         });
-        function load() {
-            layer.msg('识别中,请稍后', {
-                icon: 16
-                ,fixed: true
+        function addRow() {
+            var Tr=document.createElement("tr");
+            var Td=document.createElement("td");
+            var string='<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><p style="cursor: pointer" onclick="del(this)">删除</p></td></tr>'
+            $("#tBody").append(string);
+        }
+        function createT () {
+            layer.open({
+                type: 1,
+                title: "新建模板",
+                area: ['1200px','500px'],
+                content: '<form id="create"><table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>id</th><th>英文名</th><th>中文名</th><th>下限</th><th>上限</th><th><p style="cursor: pointer"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
             });
+        };
+        function del(e) {
+            /*console.log(e);
+            console.log(typeof(e))*/
+            var t=$(e).parent().parent("tr").remove();
         }
         layui.use('upload', function(){
             var $ = layui.jquery
