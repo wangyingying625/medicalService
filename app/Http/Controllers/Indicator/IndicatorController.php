@@ -96,4 +96,10 @@ class IndicatorController extends Controller
 
     }
 
+    public function showHistory(Request $request){
+        $userImages = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->get();
+        return view('indicator.history')->with(['images' => $userImages]);
+
+    }
+
 }

@@ -48,9 +48,7 @@ Route::any('/logout','Auth\LoginController@logout');
         Route::get('manual', function () {
             return view('indicator.manual');
         });
-        Route::get('history', function () {
-            return view('indicator.history');
-        });
+    Route::get('history', 'Indicator\IndicatorController@showHistory');
     Route::get('important/{IndicatorName}','Indicator\IndicatorController@important');
     Route::get('unimportant/{IndicatorName}','Indicator\IndicatorController@unimportant');
     Route::get('changeData/{ImageId}','Indicator\ImageController@changeImageDate');
