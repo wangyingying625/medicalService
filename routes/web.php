@@ -40,6 +40,7 @@ Route::any('/logout','Auth\LoginController@logout');
     Route::post('upload','Indicator\ImageController@upload');
     Route::get('upload','Indicator\ImageController@showUploadForm');
     Route::post('temp/create','Indicator\TemplateController@createTemplate');
+    Route::post('temp/ocr','Indicator\TemplateController@OCR');
     Route::get('temp','Indicator\TemplateController@uploadTemplate');
 //        Route::get('temp', function () {
 //            return view('indicator.temp');

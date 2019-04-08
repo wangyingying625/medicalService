@@ -15,8 +15,7 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('name',10);
+            $table->integer('temp_name_id');
             $table->string('name_en',30)->nullable();
             $table->string('name_ch',30);
             $table->string('unit',20)->nullable();

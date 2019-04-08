@@ -10,11 +10,11 @@
                     <div class="card-header text-center">
                         <h4 class="card-title">模板上传</h4>
                     </div>
-                    <form class="layui-form" action="/ocr/" method="post" id="form">
+                    <form class="layui-form" action="/indicator/temp/ocr" method="post" id="form">
                         {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
                         <div class="temp">
                             <div style="width: 60%;display: inline-block;margin-left:10px">
-                                <select name="city" lay-verify="">
+                                <select name="temp" lay-verify="">
                                     <option value="">请选择已有模板</option>
                                     @foreach($templates as $template)
                                     <option value="{{ $template['id'] }}">{{ $template['name'] }}</option>
@@ -35,9 +35,6 @@
                         </div>
 
                         @csrf
-
-                        <input class="form-control"   type="text" placeholder="请输入您的检查名称" required name="type">
-
 
                         <br>
                         <div class="layui-inline">

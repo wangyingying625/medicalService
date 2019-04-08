@@ -20,7 +20,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/indicator/upload">智能上传</a>
                     <a class="dropdown-item" href="/indicator/temp">模板上传</a>
-                    <a class="dropdown-item" href="/indicator/manual">手动上传</a>
+                    {{--<a class="dropdown-item" href="/indicator/manual">手动上传</a>--}}
                 </div>
                 </li>
 

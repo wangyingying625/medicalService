@@ -144,7 +144,6 @@ class ImageController extends Controller
                 }
             }
         }
-        dd($table);
         $tableHead = $table[0];
         unset($table[0]);
         $indicators = [];
