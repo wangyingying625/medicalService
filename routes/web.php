@@ -39,9 +39,11 @@ Route::any('/logout','Auth\LoginController@logout');
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
     Route::get('upload','Indicator\ImageController@showUploadForm');
-        Route::get('temp', function () {
-            return view('indicator.temp');
-        });
+    Route::post('temp/create','Indicator\TemplateController@createTemplate');
+    Route::get('temp','Indicator\TemplateController@uploadTemplate');
+//        Route::get('temp', function () {
+//            return view('indicator.temp');
+//        });
         Route::get('manual', function () {
             return view('indicator.manual');
         });

@@ -16,8 +16,10 @@
                             <div style="width: 60%;display: inline-block;margin-left:10px">
                                 <select name="city" lay-verify="">
                                     <option value="">请选择已有模板</option>
-                                    <option value="01">甲供</option>
-                                    <option value="02">血常规</option>
+                                    @foreach($templates as $template)
+                                    <option value="{{ $template['id'] }}">{{ $template['name'] }}</option>
+                                    @endforeach
+                                    {{--<option value="02">血常规</option>--}}
                                 </select>
                             </div>
                             <div style="width: 30%;display: inline-block">
@@ -86,7 +88,7 @@
                 type: 1,
                 title: "新建模板",
                 area: ['1200px','500px'],
-                content: '<form id="create"><table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
+                content: '<form id="create" action="/indicator/temp/create" method="post">@csrf<table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
             });
         };
         function del(e) {

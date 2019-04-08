@@ -144,6 +144,7 @@ class ImageController extends Controller
                 }
             }
         }
+        dd($table);
         $tableHead = $table[0];
         unset($table[0]);
         $indicators = [];
@@ -209,6 +210,10 @@ class ImageController extends Controller
                     $indicators['name_ch'] = $result[1];
 //                    var_dump($result[1]);
 
+                }else{
+//                    var_dump($item);
+//                    echo $item;
+                    $indicators['name_ch'] = $item;
                 }
             } elseif (preg_match("/^(-?\d+)(\.\d+)?$/", $item)) {
                 $indicators['value'] = $item;
