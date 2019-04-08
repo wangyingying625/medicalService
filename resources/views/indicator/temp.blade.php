@@ -17,9 +17,8 @@
                                 <select name="temp" lay-verify="">
                                     <option value="">请选择已有模板</option>
                                     @foreach($templates as $template)
-                                    <option value="{{ $template['id'] }}">{{ $template['name'] }}</option>
+                                        <option value="{{ $template['id'] }}">{{ $template['name'] }}</option>
                                     @endforeach
-                                    {{--<option value="02">血常规</option>--}}
                                 </select>
                             </div>
                             <div style="width: 30%;display: inline-block">
@@ -47,9 +46,9 @@
                     </form>
                     {{--</form>--}}
                 </div>
-                <div class="card card-upgrade">
+                <div class="card card-upgrade" id="tab">
                     <div class="card-header text-center">
-                        <div class="card-body" id="tab">
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
@@ -71,9 +70,6 @@
                                     <th  style="color: #009688">
                                         单位
                                     </th>
-                                    <th class="text-right"  style="color: #009688">
-                                        操作
-                                    </th>
                                     </thead>
                                     <tbody>
                                     <tr>
@@ -92,15 +88,13 @@
                                         <td>
                                             @{{ msg[4] }}
                                         </td>
-                                        <td>
+                                        <td  class="text-right">
                                             @{{ msg[5] }}
-                                        </td>
-                                        <td class="text-right">
-                                            <p style="cursor: pointer">删除</p>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <a href="#" class="btn btn-primary btn-block layui-btn" style="width: 100px;float: right">删除模板</a>
                             </div>
                         </div>
                     </div>
@@ -117,7 +111,15 @@
             el:'#tab',
             data:{
                 display:'none',
-                msg:['甲状腺激素','Jiazhuangxian','1000','100','g','甲状腺功能']
+                //msg:['甲状腺激素','Jiazhuangxian','1000','100','g','甲状腺功能']
+                msg:''
+            },
+            created:function () {
+                if(this.msg=='')
+                    this.display='none';
+                else
+                    this.display='inline-block';
+                document.getElementById("tab").style.display=this.display;
             }
         });
 
