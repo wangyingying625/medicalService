@@ -74,6 +74,14 @@ class TemplateController extends Controller
     function deleteTemplate(Request $request){
         $temp_id = $request -> route('TemplateId');
         $template = Template::Where('id',$temp_id);
+        return view('location')->with(['title'=>'提示','message'=>"删除成功",'url'=>'/indicator/temp']);
+
+    }
+
+    function showTemplateByName(Request $request){
+        $temp_id = $request -> route('TemplateNameId');
+        $temps = Template::where('temp_name_id',$temp_id)->get();
+        return $temps;
     }
 
 }

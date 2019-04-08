@@ -41,6 +41,8 @@ Route::any('/logout','Auth\LoginController@logout');
     Route::get('upload','Indicator\ImageController@showUploadForm');
     Route::post('temp/create','Indicator\TemplateController@createTemplate');
     Route::post('temp/ocr','Indicator\TemplateController@OCR');
+    Route::get('temp/delete/{TemplateId}','Indicator\TemplateController@deleteTemplate');
+    Route::get('temp/{TemplateNameId}','Indicator\TemplateController@showTemplateByName');
     Route::get('temp','Indicator\TemplateController@uploadTemplate');
 //        Route::get('temp', function () {
 //            return view('indicator.temp');
