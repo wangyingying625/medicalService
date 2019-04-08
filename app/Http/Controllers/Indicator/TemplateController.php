@@ -32,7 +32,8 @@ class TemplateController extends Controller
     function createTemplate(Request $request){
         $id = Auth::id();
         $name = $request->input('tempName');
-        $temp_name = TemplateName::create(['name'=>$name,'user_id'=>$id]);
+        $type = $request->input('type');
+        $temp_name = TemplateName::create(['name'=>$name,'user_id'=>$id,'type'=>$type]);
         foreach($request->input('temp') as $template){
            $template['temp_name_id']=$temp_name['id'];
            Template::create($template);
@@ -58,7 +59,7 @@ class TemplateController extends Controller
             $i++;
         }
         $template_name = TemplateName::find($temp);
-        $image->type = $template_name['name'];
+        $image->type = $template_name['type'];
         $image->created_at = $request->input('date');
         $image->save();
         return Redirect::to("/indicator/changeData/".$imageId);
