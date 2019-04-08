@@ -35,6 +35,8 @@
                         @csrf
 
                         <input class="form-control"   type="text" placeholder="请输入您的检查名称" required name="type">
+
+
                         <br>
                         <div class="layui-inline">
                             <label class="layui-form-label">日期</label>
@@ -44,9 +46,6 @@
                         </div>
                         <input type="submit" style="margin-top: 30px" class="btn btn-primary btn-block"  id='submit'  value="确定" disabled>
                     </form>
-
-
-
                     {{--</form>--}}
                 </div>
 
@@ -64,7 +63,6 @@
     </div>
 
     <script>
-
         layui.use('form', function(){
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
@@ -75,18 +73,20 @@
                 layer.tips('如之前提交过相同格式的病例单请勾选此项，否则请勿勾选', data.othis)
             });
         });
+        var i=0;
         function addRow() {
             var Tr=document.createElement("tr");
             var Td=document.createElement("td");
-            var string='<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><p style="cursor: pointer" onclick="del(this)">删除</p></td></tr>'
+            var string='<tr><td><input required name="temp['+i+'][name_ch]" type="text"></td><td><input  name="temp['+i+'][name_en]"  type="text"></td><td><input type="text"  name="temp['+i+'][upper_limit]" ></td><td><input type="text"  name="temp['+i+'][lower_limit]" ></td><td><input type="text"  name="temp['+i+'][unit]" ></td><td><p style="cursor: pointer" onclick="del(this)">删除</p></td></tr>'
             $("#tBody").append(string);
+            i++;
         }
         function createT () {
             layer.open({
                 type: 1,
                 title: "新建模板",
                 area: ['1200px','500px'],
-                content: '<form id="create"><table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>id</th><th>英文名</th><th>中文名</th><th>下限</th><th>上限</th><th><p style="cursor: pointer"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
+                content: '<form id="create"><table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
             });
         };
         function del(e) {
