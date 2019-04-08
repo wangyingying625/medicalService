@@ -12,7 +12,19 @@
                 </div>
 
                 <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/record/{{ Auth::id() }}">病历图表</a>
-                <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/upload">上传病历</a>
+              {{--  <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/upload"  aria-labelledby="navbarDropdownMenuLink">上传病历</a>--}}
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle layui-btn layui-btn-normal layui-btn-radius" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   上传病历
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/indicator/upload">智能上传</a>
+                    <a class="dropdown-item" href="/indicator/temp">模板上传</a>
+                    <a class="dropdown-item" href="/indicator/manual">手动上传</a>
+                </div>
+                </li>
+
+
                 <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/one">单项指标查询</a>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">

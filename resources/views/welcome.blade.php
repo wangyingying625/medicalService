@@ -27,25 +27,30 @@
                 </ul>
             </div>
 
-            <div class="dropdown"  style="margin-top: -12px">
+            <div class="dropdown"  style="margin-top: -12px" id="down">
                 <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                     <i class="now-ui-icons loader_gear"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    {{--<a class="dropdown-item" href="#">设为主图</a>--}}
+                    <a class="dropdown-item" href="#">设为主图</a>
                     <a class="dropdown-item text-danger" href="#" id="href0">移除</a>
                 </div>
             </div>
         </div>
     </nav>
     <!-- End Navbar -->
-    <div class="panel-header panel-header-lg" style="background: #85c2b0">
+    <div id="welcome" style="display:none;height: 500px;text-align: center;padding-top: 200px;background-color:#85c2b0">
+        <h3 style="color: #fff">感谢使用个人病历本,您还没有设置主图</h3>
+    </div>
+    <div class="panel-header panel-header-lg" style="background: #85c2b0"   id="zhuTu1" >
         <div class="container"  id="container0" style="height: 100%"></div>
     </div>
 
     <div class="content" id="content">
+
         <div class="row">
-            <div class="col-lg-4"   v-for="(item,i) in data1" :id="'card' + i">
+
+            <div class="col-lg-4"  v-for="(item,i) in data1" :id="'card' + i">
                 <div class="card card-chart">
                     <div class="card-header">
                         <div class="dropdown"  style="margin-top: -12px">
@@ -86,6 +91,22 @@
                 },
 
             },
+            created:function () {
+                //alert(this.data1)
+                if(this.data1=='')
+                {
+                    document.getElementById("welcome").style.display="block";
+                    document.getElementById("content").style.display='none';
+                    document.getElementById("zhuTu1").style.display='none';
+                    document.getElementById("down").style.display='none'
+                }
+                else {
+                    document.getElementById("welcome").style.display="none";
+                    document.getElementById("content").style.display='block';
+                    document.getElementById("zhuTu1").style.display='block';
+                    document.getElementById("down").style.display='block'
+                }
+            }
         })
         data = {!! $data !!};
         var name;

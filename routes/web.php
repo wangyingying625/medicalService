@@ -39,9 +39,16 @@ Route::any('/logout','Auth\LoginController@logout');
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
     Route::get('upload','Indicator\ImageController@showUploadForm');
+        Route::get('temp', function () {
+            return view('indicator.temp');
+        });
+        Route::get('manual', function () {
+            return view('indicator.manual');
+        });
     Route::get('important/{IndicatorName}','Indicator\IndicatorController@important');
     Route::get('unimportant/{IndicatorName}','Indicator\IndicatorController@unimportant');
     Route::get('changeData/{ImageId}','Indicator\ImageController@changeImageDate');
+    Route::get('delete/{ImageId}','Indicator\ImageController@deleteImage');
     Route::get('record/{UserId}','Indicator\ImageController@record');
     Route::post('saveData','Indicator\ImageController@saveImageDate');
     Route::get('one','Indicator\IndicatorController@showOne');
