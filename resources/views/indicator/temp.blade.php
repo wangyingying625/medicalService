@@ -47,13 +47,64 @@
                     </form>
                     {{--</form>--}}
                 </div>
-
                 <div class="card card-upgrade">
                     <div class="card-header text-center">
-                        <h4 class="card-title">上传历史</h4>
+                        <div class="card-body" id="tab">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                    <th style="color: #009688">
+                                        中文名
+                                    </th>
+                                    <th  style="color: #009688">
+                                        英文名
+                                    </th>
+                                    <th style="color: #009688">
+                                        上限
+                                    </th>
+                                    <th  style="color: #009688">
+                                        下限
+                                    </th>
+                                    <th  style="color: #009688">
+                                        单位
+                                    </th>
+                                    <th  style="color: #009688">
+                                        单位
+                                    </th>
+                                    <th class="text-right"  style="color: #009688">
+                                        操作
+                                    </th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            @{{ msg[0] }}
+                                        </td>
+                                        <td>
+                                            @{{ msg[1] }}
+                                        </td>
+                                        <td>
+                                            @{{ msg[2] }}
+                                        </td>
+                                        <td>
+                                            @{{ msg[3] }}
+                                        </td>
+                                        <td>
+                                            @{{ msg[4] }}
+                                        </td>
+                                        <td>
+                                            @{{ msg[5] }}
+                                        </td>
+                                        <td class="text-right">
+                                            <p style="cursor: pointer">删除</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -62,6 +113,17 @@
     </div>
 
     <script>
+        var vm=new Vue({
+            el:'#tab',
+            data:{
+                display:'none',
+                msg:['甲状腺激素','Jiazhuangxian','1000','100','g','甲状腺功能']
+            }
+        });
+
+
+
+
         layui.use('form', function(){
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
@@ -76,7 +138,7 @@
         function addRow() {
             var Tr=document.createElement("tr");
             var Td=document.createElement("td");
-            var string='<tr><td><input required name="temp['+i+'][name_ch]" type="text"></td><td><input  name="temp['+i+'][name_en]"  type="text"></td><td><input type="text"  name="temp['+i+'][upper_limit]" ></td><td><input type="text"  name="temp['+i+'][lower_limit]" ></td><td><input type="text"  name="temp['+i+'][unit]" ></td><td><p style="cursor: pointer" onclick="del(this)">删除</p></td></tr>'
+            var string='<tr><td><input required name="temp['+i+'][name_ch]" type="text"></td><td><input  name="temp['+i+'][name_en]"  type="text"></td><td><input type="text"  name="temp['+i+'][upper_limit]" ></td><td><input type="text"  name="temp['+i+'][lower_limit]" ></td><td><input type="text"  name="temp['+i+'][unit]" ></td><td><input type="text"  name="temp['+i+'][type]" ></td><td><p style="cursor: pointer" onclick="del(this)">删除</p></td></tr>'
             $("#tBody").append(string);
             i++;
         }
@@ -84,8 +146,8 @@
             layer.open({
                 type: 1,
                 title: "新建模板",
-                area: ['1200px','500px'],
-                content: '<form id="create" action="/indicator/temp/create" method="post">@csrf<table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
+                area: ['1300px','500px'],
+                content: '<form id="create" action="/indicator/temp/create" method="post">@csrf<table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th>化验名称</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
             });
         };
         function del(e) {
