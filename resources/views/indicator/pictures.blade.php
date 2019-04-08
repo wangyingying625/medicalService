@@ -11,22 +11,29 @@
                         <h4 class="card-title">智能上传</h4>
                     </div>
                     {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
-                        <div class="layui-upload">
-                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px"  id="upload">上传图片</button>
-                            <div class="layui-upload-list">
-                                <img class="layui-upload-img" id="demo1">
-                                <p id="demoText"></p>
-                            </div>
+                    <div class="layui-upload">
+                        <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px"  id="upload">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" id="demo1">
+                            <p id="demoText"></p>
                         </div>
+                    </div>
                     <form class="layui-form" action="/ocr/" method="post" id="form">
                         @csrf
 
-                        <input class="form-control"   type="text" placeholder="请输入您的检查名称" required name="type">
+                        <input  class="form-control"  required name="type" id="wlmsinput" name="type"   placeholder="请输入您的检查名称"  list="wlmslist" />
+                        <datalist id="wlmslist"  lay-verify="">
+                            <option  v-for="(item,i) in list" >@{{item}}</option>
+                        </datalist>
+
+
+
                         <br>
                         <div class="layui-inline">
                             <label class="layui-form-label">日期</label>
                             <div class="layui-input-inline">
                                 <input type="text" required class="layui-input" id="test5" placeholder="检查的时间" name="date">
+
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -59,7 +66,7 @@
                                     <a href="{{ asset('storage/'.$image['name']) }}"><img src="{{ asset('storage/'.$image['name']) }}" width="200px"></a>
                                 </div>
                             </li>
-                            @endforeach
+                        @endforeach
                     </ul>
 
                     {{--</form>--}}
@@ -72,6 +79,22 @@
 
     </div>
     <script>
+        var vm=new Vue({
+            el:'#wlmslist',
+            data:{
+                list:['甲状腺功能','肝功','血常规']
+            },
+            methods:{
+                gernerateId: function (i){
+                    return "container" + i;
+
+                },
+
+            },
+        });
+
+
+
         layui.use('form', function(){
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
             form.render();
@@ -83,9 +106,12 @@
             });
         });
         function load() {
-            layer.msg('识别中,请稍后', {
-                icon: 16
-                ,fixed: true
+            layer.open({
+                type:3,
+                //icon: 16,
+                shadeClose:false,
+                content:'识别中',
+                closeBtn: 0
             });
         }
         layui.use('upload', function(){
