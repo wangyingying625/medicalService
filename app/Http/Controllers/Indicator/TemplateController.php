@@ -42,9 +42,13 @@ class TemplateController extends Controller
     }
 
     function OCR(Request $request){
+        session([
+            'date' => $request->input('date')
+        ]);
         $imageId = $request->input('image_id');
         $image = Image::find($imageId);
         $temp = $request->input('temp');
+        $date = $request->input('date');
 
         $file_path = storage_path('app/public/' . $image->name);
         $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
@@ -54,13 +58,14 @@ class TemplateController extends Controller
         foreach ($templates as $template){
             $indicator = $template->toArray();;
             $indicator['image_id'] = $imageId;
+            $indicator['created_at'] = $date;
             $indicator['value'] = $result['words_result'][$i]['words'];
             Indicator::create($indicator);
             $i++;
         }
         $template_name = TemplateName::find($temp);
         $image->type = $template_name['type'];
-        $image->created_at = $request->input('date');
+        $image->created_at = $date;
         $image->save();
         return Redirect::to("/indicator/changeData/".$imageId);
 

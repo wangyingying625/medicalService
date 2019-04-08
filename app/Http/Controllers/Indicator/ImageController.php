@@ -239,7 +239,7 @@ class ImageController extends Controller
         $deleted = Image::destroy($ImageId);
         Indicator::where('image_id',$ImageId)->delete();
         if ($deleted){
-            return view('location')->with(['title' => '提示', 'message' => '删除成功', 'url' => '/indicator/upload']);
+            return view('location')->with(['title' => '提示', 'message' => '删除成功', 'url' => '/indicator/history']);
 
         }
 

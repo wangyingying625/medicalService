@@ -8,7 +8,7 @@
             <div class="col-md-8 ml-auto mr-auto">
                 <div class="card card-upgrade">
                     <ul class="layui-timeline">
-                        @foreach($images as $image)
+                        @forelse($images as $image)
                             <li class="layui-timeline-item">
                                 <i class="layui-icon layui-timeline-axis"></i>
                                 <div class="layui-timeline-content layui-text">
@@ -18,7 +18,10 @@
                                     <a href="{{ asset('storage/'.$image['name']) }}"><img src="{{ asset('storage/'.$image['name']) }}" width="200px"></a>
                                 </div>
                             </li>
-                        @endforeach
+                        @empty
+                            <h3>您还未曾上传过图片</h3>
+                        @endforelse
+
                     </ul>
                     {{--<div class="card-header text-center">--}}
                         {{--<h4 class="card-title">上传历史</h4>--}}
