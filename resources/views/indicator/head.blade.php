@@ -11,8 +11,7 @@
                     </button>
                 </div>
 
-                <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/record/{{ Auth::id() }}">病历图表</a>
-              {{--  <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/upload"  aria-labelledby="navbarDropdownMenuLink">上传病历</a>--}}
+                <a class="layui-btn layui-btn-normal layui-btn-radius" style="margin-right: 10px" href="/indicator/record/{{ Auth::id() }}">病历图表</a>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle layui-btn layui-btn-normal layui-btn-radius" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    上传病历
@@ -25,7 +24,8 @@
                 </li>
 
 
-                <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/one">单项指标查询</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius" style="margin-left: 10px" href="/indicator/one">单项指标查询</a>
+                <a class="layui-btn layui-btn-normal layui-btn-radius" href="/indicator/history">上传历史</a>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
