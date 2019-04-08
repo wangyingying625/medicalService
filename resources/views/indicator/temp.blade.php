@@ -4,7 +4,8 @@
     <div class="panel-header panel-header-sm">
     </div>
     <div class="content">
-        <div class="row">
+
+        <div class="row" id="content">
             <div class="col-md-8 ml-auto mr-auto">
                 <div class="card card-upgrade">
                     <div class="card-header text-center">
@@ -14,8 +15,8 @@
                         {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
                         <div class="temp">
                             <div style="width: 60%;display: inline-block;margin-left:10px">
-                                <select name="temp" lay-verify="">
-                                    <option value="">请选择已有模板</option>
+                                <select  lay-filter="test" name="temp" lay-verify="" id="temp">
+                                    <option value="none">请选择已有模板</option>
                                     @foreach($templates as $template)
                                         <option value="{{ $template['id'] }}">{{ $template['name'] }}</option>
                                     @endforeach
@@ -46,7 +47,7 @@
                     </form>
                     {{--</form>--}}
                 </div>
-                <div class="card card-upgrade" id="tab">
+                <div class="card card-upgrade" id="tab" style="display: none">
                     <div class="card-header text-center">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -64,37 +65,31 @@
                                     <th  style="color: #009688">
                                         下限
                                     </th>
-                                    <th  style="color: #009688">
-                                        单位
-                                    </th>
-                                    <th  style="color: #009688">
+                                    <th class="text-right"  style="color: #009688">
                                         单位
                                     </th>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr  v-for="(item) in msg">
                                         <td>
-                                            @{{ msg[0] }}
+                                            @{{item.name_ch }}
                                         </td>
                                         <td>
-                                            @{{ msg[1] }}
+                                            @{{ item.name_en}}
                                         </td>
                                         <td>
-                                            @{{ msg[2] }}
+                                            @{{ item.upper_limit}}
                                         </td>
                                         <td>
-                                            @{{ msg[3] }}
-                                        </td>
-                                        <td>
-                                            @{{ msg[4] }}
+                                            @{{ item.lower_limit }}
                                         </td>
                                         <td  class="text-right">
-                                            @{{ msg[5] }}
+                                            @{{item.unit}}
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a href="#" class="btn btn-primary btn-block layui-btn" style="width: 100px;float: right">删除模板</a>
+                                <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;float: right" @click="delT">删除模板</button>
                             </div>
                         </div>
                     </div>
@@ -108,23 +103,43 @@
 
     <script>
         var vm=new Vue({
-            el:'#tab',
+            el:'#content',
             data:{
+                value:'',
                 display:'none',
-                //msg:['甲状腺激素','Jiazhuangxian','1000','100','g','甲状腺功能']
                 msg:''
             },
+            methods:{
+
+                show:function () {
+                    var that=this;
+                    layui.use('form', function(){
+                        var form = layui.form;
+                        form.on('select(test)', function(data){
+                            that.value=data.value;
+                            if(that.value!='null') {
+                                that.$http.get('/indicator/temp/' + that.value).then(function (result) {
+                                    that.msg = result.body;
+                                    if(that.msg=='')
+                                        that.display='none';
+                                    else
+                                        that.display='inline-block';
+                                    document.getElementById("tab").style.display=that.display;
+                                });
+                            }
+                        });
+                    });
+
+
+                },
+                delT:function () {
+                    window.location="/indicator/temp/delete/"+this.value;
+                }
+            },
             created:function () {
-                if(this.msg=='')
-                    this.display='none';
-                else
-                    this.display='inline-block';
-                document.getElementById("tab").style.display=this.display;
+                this.show();
             }
         });
-
-
-
 
         layui.use('form', function(){
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -135,6 +150,7 @@
 //                });
                 layer.tips('如之前提交过相同格式的病例单请勾选此项，否则请勿勾选', data.othis)
             });
+
         });
         var i=0;
         function addRow() {
@@ -148,7 +164,7 @@
             layer.open({
                 type: 1,
                 title: "新建模板",
-                area: ['1300px','500px'],
+                area: ['1100px','500px'],
                 content: '<form id="create" action="/indicator/temp/create" method="post">@csrf<table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr><th>中文名</th><th>英文名</th><th>上限</th><th>下限</th><th>单位</th><th><p style="cursor: pointer;color: #FF5722"  onclick="addRow()">添加一行</p></th></tr></thead><tbody id="tBody"></tbody></table>        <input type="text" class="form-control" style="margin-bottom: 10px" placeholder="请输入化验名称"  name="type" ><input class="form-control"   type="text" placeholder="请输入模板名称" required name="tempName"><button type="submit" class="btn btn-primary btn-block" style="width: 100px;margin-left:990px">确定</button></form>'
             });
         };
