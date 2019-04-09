@@ -33,6 +33,12 @@ class ImageController extends Controller
 
     }
 
+    public function uploadTmp(Request $request){
+        $file = $request->file('image');
+        $name = $file->store('tmp', 'public');
+        return ['id'=>'1','name'=>$name];
+    }
+
     public function showUploadForm()
     {
 //        $userImages = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->get();

@@ -22,6 +22,7 @@
     <link href="{{ asset('layui-v2.4.5/layui/css/layui.css') }}" rel="stylesheet" />
 
     <link href="{{ asset('css/demo.css') }}" rel="stylesheet" />
+    <script src="{{ asset('js/core/jquery.min.js') }}"></script>
     <script src="{{asset('js/vue/dist/vue.js')}}"></script>
     <script src="{{asset('js/vue-resource/dist/vue-resource.js')}}"></script>
     <script src="{{asset('js/vue-router.js')}}"></script>

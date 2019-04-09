@@ -1,6 +1,9 @@
 @extends('indicator.head')
 @section('record')
     <!-- End Navbar -->
+
+    <link  href="{{ asset('cropper/cropper.css') }}" rel="stylesheet">
+    <script src="{{ asset('cropper/cropper.js') }}"></script>
     <div class="panel-header panel-header-sm">
     </div>
     <div class="content">
@@ -27,7 +30,8 @@
                             </div>
                         </div>
                         <div class="layui-upload">
-                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px"  id="upload">按列上传图片</button>
+                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px"  id="upload">上传图片</button>
+                            <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px" onclick="confirm_it()" id="Screenshot" disabled="true">确认截图</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" id="demo1">
                                 <p id="demoText"></p>
@@ -35,8 +39,13 @@
                         </div>
 
                         @csrf
-
+                        <div disabled="true" id="img_div">
+                            {{--<img id="image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  style="width: 100%;height: 600px">--}}
+                            <img id="image" src="{{ asset('cropper/back.jpg') }}"  style="width: 100%;height: 600px">
+                            {{--<img id="image" src="#"  style="width: 100%;height: 600px">--}}
+                        </div>
                         <br>
+                        <input type="hidden" name="select" id="select">
                         <div class="layui-inline">
                             <label class="layui-form-label">日期</label>
                             <div class="layui-input-inline">
@@ -102,6 +111,70 @@
     </div>
 
     <script>
+        var img = $('#image');
+        //const image = document.getElementById('image');
+        Screenshot();
+
+function Screenshot() {
+
+            img.cropper({
+                viewMode:3,
+                autoCrop: false,
+                crop: function (e) {
+//                console.log(e);
+
+                }
+            });
+
+        }
+
+        function changeImg(url) {
+            img.cropper('replace',url,true);
+        }
+
+        function confirm_it() {
+            var cropCanvas = img.cropper('getCroppedCanvas');
+            console.log(cropCanvas);
+            var cropUrl = cropCanvas.toDataURL('image/jpeg', 1);
+            cropCanvas.toBlob((blob) => {
+                console.log(blob);
+                const formData = new FormData();
+
+                formData.append('image', blob);
+
+                $.ajax('/indicator/uploadTmp', {
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success(res) {
+                        console.log(res);
+                        layer.msg('裁剪成功');
+                        var form = document.getElementById('form');
+                        var imageId = document.createElement("input");
+                        imageId.type = "hidden";
+                        imageId.name = 'select';
+                        imageId.value = res.name;
+                        form.appendChild(imageId);
+                        var subtn = document.getElementById('submit');
+                        subtn.disabled=false;
+                        console.log('res');
+                        changeImg(cropUrl);
+                        img.cropper('clear');
+                        img.cropper('disable');
+                    },
+                    error() {
+                        console.log('Upload error');
+                    },
+                });
+            });
+        }
+
+
+        // Get the Cropper.js instance after initialized
         var vm=new Vue({
             el:'#content',
             data:{
@@ -185,12 +258,6 @@
                 , headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 }
-                ,before: function(obj){
-                    //预读本地文件示例，不支持ie8
-                    obj.preview(function(index, file, result){
-                        $('#demo1').attr('src', result);
-                    });
-                }
                 ,done: function(res, index, upload){
                     //如果上传失败
                     if(res.id == 0){
@@ -198,14 +265,18 @@
                     }
                     if(res.id){
                         layer.msg('上传成功');
+                        var url = "/storage/"+res.name;
                         var form = document.getElementById('form');
                         var imageId = document.createElement("input");
                         imageId.type = "hidden";
                         imageId.name = 'image_id';
                         imageId.value = res.id;
                         form.appendChild(imageId);
-                        var subtn = document.getElementById('submit');
-                        subtn.disabled = false;
+                        changeImg(url);
+                        var subtn = document.getElementById('Screenshot');
+                        subtn.disabled=false;
+                        img.cropper('clear');
+
                     }
                 }
                 ,error: function(){

@@ -47,10 +47,11 @@ class TemplateController extends Controller
         ]);
         $imageId = $request->input('image_id');
         $image = Image::find($imageId);
+        $select = $request->input('select');
         $temp = $request->input('temp');
         $date = $request->input('date');
 
-        $file_path = storage_path('app/public/' . $image->name);
+        $file_path = storage_path('app/public/' . $select);
         $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
         $result = $aipOcr->general(file_get_contents($file_path));
         $templates = Template::where('temp_name_id',$temp)->get();
