@@ -134,11 +134,12 @@
 		// Nav Panel.
 
 			// Toggle.
-				/*$navPanelToggle = $(
+				$navPanelToggle = $(
 					'<a href="#navPanel" id="navPanelToggle">Menu</a>'
 				)
 					.appendTo($wrapper);
 
+				// Change toggle styling once we've scrolled past the header.
 					$header.scrollex({
 						bottom: '5vh',
 						enter: function() {
@@ -149,6 +150,7 @@
 						}
 					});
 
+			// Panel.
 				$navPanel = $(
 					'<div id="navPanel">' +
 						'<nav>' +
@@ -166,7 +168,7 @@
 						side: 'right',
 						target: $body,
 						visibleClass: 'is-navPanel-visible'
-					});*/
+					});
 
 				// Get inner.
 					$navPanelInner = $navPanel.children('nav');

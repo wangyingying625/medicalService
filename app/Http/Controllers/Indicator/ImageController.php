@@ -33,6 +33,12 @@ class ImageController extends Controller
 
     }
 
+    public function uploadTmp(Request $request){
+        $file = $request->file('image');
+        $name = $file->store('tmp', 'public');
+        return ['id'=>'1','name'=>$name];
+    }
+
     public function showUploadForm()
     {
 //        $userImages = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->get();
@@ -130,7 +136,6 @@ class ImageController extends Controller
                 $deviation = $item['location']['top'] - $headTop;
                 if (abs($deviation) < $fault_tolerance) {
                     $flag = 1;
-                    var_dump($item);
                     array_push($row, $item['words']);
                 } elseif ($flag) {
                     if (count($row) != 0 && count($row) == 1) {
