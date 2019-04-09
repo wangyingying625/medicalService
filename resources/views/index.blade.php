@@ -32,7 +32,7 @@
     <div id="main">
 
         <!-- Featured Post -->
-        <article class="post featured">
+        <article class="post featured"  style="padding-bottom: 20px">
             <header class="major">
                 <h2>上传病历<br />
                         如此简单</h2>
@@ -65,14 +65,14 @@
 
 
 
-        <article class="post featured">
+        <article class="post featured" style="padding-bottom: 20px">
             <header class="major">
                 <h2>健康情况<br />
                     如此清晰</h2>
                 <p>指标变化情况一目了然</p>
             </header>
         </article>
-        <article class="post featured">
+        <article class="post featured"   style="border-top: none;padding-top: 20px">
             <header class="major">
 
 
@@ -84,14 +84,14 @@
         </article>
 
 
-        <article class="post featured">
+        <article class="post featured"  style="padding-bottom: 0">
             <header class="major">
                 <h2>家人健康<br />
                     放在心上</h2>
                 <p>为家人的健康保驾护航</p>
             </header>
         </article>
-        <article class="post featured">
+        <article class="post featured"  style="border-top: none;padding-top: 0">
             <header class="major">
 
 
