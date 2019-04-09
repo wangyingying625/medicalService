@@ -38,6 +38,7 @@ Route::any('/logout','Auth\LoginController@logout');
 
     Route::group(['prefix'=>'indicator'],function(){
     Route::post('upload','Indicator\ImageController@upload');
+    Route::post('uploadTmp','Indicator\ImageController@uploadTmp');
     Route::get('upload','Indicator\ImageController@showUploadForm');
     Route::post('temp/create','Indicator\TemplateController@createTemplate');
     Route::post('temp/ocr','Indicator\TemplateController@OCR');
