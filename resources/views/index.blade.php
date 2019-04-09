@@ -36,7 +36,7 @@
             <header class="major">
                 <h2>上传病历<br />
                         如此简单</h2>
-                <p>您可以选择智能上传通过拍照的方式一键传入化验记录<br>也可以通过精确度更高的模板上传裁剪图片传入化验记录</p>
+                <p>我们提供了两种上传方式</p>
             </header>
         </article>
         <section class="posts">
@@ -45,24 +45,63 @@
                     <h2>智能上传</h2>
                 </header>
                 <a href="#" class="image fit"><img src="../img/pic04.png" alt="" /></a>
-                <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                <p>我们采用业内领先的<strong>OCR识别</strong>技术+自研<strong>智能信息匹配算法</strong>，正在支持<strong越来越来多的病历一键化上传。</p>
                 <ul class="actions">
                     <li><a href="/indicator/upload" class="button">体验一下</a></li>
                 </ul>
             </article>
             <article>
                 <header>
-                    <span class="date">April 14, 2017</span>
-                    <h2><a href="#">Tempus sed<br />
-                            nulla imperdiet</a></h2>
+                    <h2>模板上传</h2>
                 </header>
                 <a href="#" class="image fit"><img src="../img/pic05.png" alt="" /></a>
-                <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                <p>我们也提供了用户自建模板上传的方式，只需要建立一次模板，每次指标信息就可上传上去。</p>
                 <ul class="actions">
                     <li><a href="/" class="button">体验一下</a></li>
                 </ul>
             </article>
         </section>
+
+
+
+
+        <article class="post featured">
+            <header class="major">
+                <h2>健康情况<br />
+                    如此清晰</h2>
+                <p>指标变化情况一目了然</p>
+            </header>
+        </article>
+        <article class="post featured">
+            <header class="major">
+
+
+
+            </header>
+            <ul class="actions">
+                <li><a href="/indicator/record" class="button big">点击查看</a></li>
+            </ul>
+        </article>
+
+
+        <article class="post featured">
+            <header class="major">
+                <h2>家人健康<br />
+                    放在心上</h2>
+                <p>为家人的健康保驾护航</p>
+            </header>
+        </article>
+        <article class="post featured">
+            <header class="major">
+
+
+
+            </header>
+            <a href="#" class="image main"><img style="width: 70%;margin-left: 15%" src="img/family.jpg" alt="" /></a>
+            <ul class="actions">
+                <li><a href="/family" class="button big">家庭直达</a></li>
+            </ul>
+        </article>
     </div>
 
 </div>
