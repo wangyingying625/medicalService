@@ -119,6 +119,39 @@
 
             </ul>
         </article>
+        <article class="post featured"  style="padding-bottom: 0">
+            <header class="major">
+                <h2>微信小程序<br>
+                    便捷使用</h2>
+            </header>
+        </article>
+        <section class="posts">
+            <article>
+                <a href="#" class="image fit"><img src="../img/wechat.jpg" alt="" /></a>
+            </article>
+            <article style="text-align: center">
+                <a href="#" class="image fit"><img src="../img/wechat1.jpg" alt="" /></a>
+            </article>
+        </section>
+
+
+        <article class="post featured"  style="padding-bottom: 0">
+            <header class="major">
+                <h2>开启我的病历本</h2>
+            </header>
+        </article>
+        <article class="post featured"  style="border-top: none;padding-top: 0">
+            <header class="major">
+
+
+
+            </header>
+            <a href="/register" title="点击开启" class="image main"><img style="width: 30%;margin-left: 35%" src="img/Logo.png" alt="" /></a>
+            {{--<ul class="actions">
+                <li><a href="/family" class="button big">开启我的病历本</a></li>
+            </ul>--}}
+
+        </article>
     </div>
 
 </div>
