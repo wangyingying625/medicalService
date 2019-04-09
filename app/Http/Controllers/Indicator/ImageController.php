@@ -21,6 +21,12 @@ const SECRET_KEY = '1geqDEj3jeWBalQBao6KiOqARARZ3q48';
 class ImageController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function upload(Request $request)
     {
         $file = $request->file('image');

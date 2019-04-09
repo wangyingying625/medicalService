@@ -79,7 +79,7 @@
                     </a>
                 </li>
                 <li id="date" class="active-pro" style="margin-bottom: 25px;padding:0 15px;width: 100%;text-align: center">
-                        <p>距离上次检查已经<span style="font-size: 23px;">@{{lastTime}}</span>天了<br>请及时检查</p>
+                        <p>距离上次检查已经<span style="font-size: 23px;">@{{date}}</span>天了<br>请及时检查</p>
                 </li>
             </ul>
         </div>
@@ -102,9 +102,10 @@
         el:'#date',
         data:{
             lastTime: '',
+            date:'',
         },
         created: function () {
-            this.$http.get('/showdata').then(function (result) {
+            this.$http.get('/showdate').then(function (result) {
                 this.date=result.body;
             });
         },

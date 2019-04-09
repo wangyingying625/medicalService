@@ -15,6 +15,11 @@ class IndicatorController extends Controller
 {
     //
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function showUpload(){
 //        var_dump(Auth::id());
         return view("indicator.upload");

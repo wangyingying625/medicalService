@@ -13,10 +13,10 @@
                             <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
                                 <i class="now-ui-icons loader_gear"></i>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">设为主图</a>
-                                <a class="dropdown-item text-danger" href="#">移除</a>
-                            </div>
+                            {{--<div class="dropdown-menu dropdown-menu-right">--}}
+                                {{--<a class="dropdown-item" href="#">设为主图</a>--}}
+                                {{--<a class="dropdown-item text-danger" href="#">移除</a>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                     <div class="card-body">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新
+                            {{--<i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新--}}
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,12 @@ const SECRET_KEY = '1geqDEj3jeWBalQBao6KiOqARARZ3q48';
 
 class TemplateController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //
     /*
      * 模板上传，用户上传模板，如果选择模板上传，每次就把本次所以
