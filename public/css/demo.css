@@ -75,3 +75,32 @@
 #form tr{
     width: 100%;
 }
+#wlmslist{
+    position: absolute;
+    left: 0;
+    top: 42px;
+    padding: 5px 0;
+    z-index: 899;
+    min-width: 100%;
+    border: 1px solid #d2d2d2;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+    box-sizing: border-box;
+}
+#wlmslist option{
+    line-height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;}
+.tableInp{
+    width: 13%;
+}
+.tableInp input{
+    width: 10px;
+}
+.table{
+    width: 100%;
+}

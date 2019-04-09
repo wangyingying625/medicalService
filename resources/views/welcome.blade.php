@@ -107,7 +107,7 @@
                     document.getElementById("down").style.display='block'
                 }
             }
-        })
+        });
         data = {!! $data !!};
         var name;
         function msg() {
