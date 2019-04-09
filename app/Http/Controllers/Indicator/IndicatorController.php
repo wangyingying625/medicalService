@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Indicator;
 
 use App\Image;
 use App\Indicator;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class IndicatorController extends Controller
     //
 
     public function showUpload(){
-        var_dump(Auth::id());
+//        var_dump(Auth::id());
         return view("indicator.upload");
     }
 
@@ -100,6 +101,14 @@ class IndicatorController extends Controller
         $userImages = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->get();
         return view('indicator.history')->with(['images' => $userImages]);
 
+    }
+
+    public function checkTime(Request $request){
+        $userImage = Image::where('user_id', Auth::id())->orderBy('created_at','DESC')->first();
+        $last_time = new DateTime($userImage->created_at);
+        $now = new DateTime();
+        $days = $last_time->diff($now)->days;
+        return $days;
     }
 
 }

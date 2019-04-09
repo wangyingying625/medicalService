@@ -28,6 +28,7 @@ Route::get('/', function () {
 //});
 
 Route::get('/home','HomeController@index');
+Route::get('/showdate','Indicator\IndicatorController@checkTime');
 
 Auth::routes();
 

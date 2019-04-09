@@ -136,7 +136,6 @@ class ImageController extends Controller
                 $deviation = $item['location']['top'] - $headTop;
                 if (abs($deviation) < $fault_tolerance) {
                     $flag = 1;
-                    var_dump($item);
                     array_push($row, $item['words']);
                 } elseif ($flag) {
                     if (count($row) != 0 && count($row) == 1) {
