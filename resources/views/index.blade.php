@@ -57,7 +57,7 @@
                 <a href="#" class="image fit"><img src="../img/pic05.png" alt="" /></a>
                 <p>我们也提供了用户自建模板上传的方式，只需要建立一次模板，每次指标信息就可上传上去。</p>
                 <ul class="actions">
-                    <li><a href="/" class="button">体验一下</a></li>
+                    <li><a href="/indicator/temp" class="button">体验一下</a></li>
                 </ul>
             </article>
         </section>
@@ -72,17 +72,23 @@
                 <p>指标变化情况一目了然</p>
             </header>
         </article>
-        <article class="post featured"   style="border-top: none;padding-top: 20px">
-            <header class="major">
-
-
-
-            </header>
+        <section class="posts">
+        <article>
+            <a href="#" class="image fit"><img src="../img/p1.jpg" alt="" /></a>
+            <p  style="font-size: 1.3em">多时多样指标,一图尽收眼底</p>
             <ul class="actions">
-                <li><a href="/indicator/record" class="button big">点击查看</a></li>
+                <li><a href="/indicator/upload" class="button">体验一下</a></li>
             </ul>
         </article>
+        <article style="text-align: center">
 
+            <a href="#" class="image fit"><img src="../img/p2.jpg" alt="" /></a>
+           <p style="font-size: 1.3em">重点关心数据,主页特别提醒</p>
+            <ul class="actions">
+                <li><a href="/" class="button">体验一下</a></li>
+            </ul>
+        </article>
+        </section>
 
         <article class="post featured"  style="padding-bottom: 0">
             <header class="major">

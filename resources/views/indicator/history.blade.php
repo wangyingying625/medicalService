@@ -6,7 +6,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-8 ml-auto mr-auto">
-                <div class="card card-upgrade">
+                <div class="card card-upgrade" style="padding:30px">
                     <ul class="layui-timeline">
                         @forelse($images as $image)
                             <li class="layui-timeline-item">
