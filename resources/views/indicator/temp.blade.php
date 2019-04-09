@@ -3,7 +3,12 @@
     <!-- End Navbar -->
 
 
-
+<style>
+    /* Limit image width to avoid overflow the container */
+    img {
+        max-width: 100%; /* This rule is very important, please do not ignore this! */
+    }
+</style>
     <div class="panel-header panel-header-sm">
     </div>
     <div class="content">
@@ -119,7 +124,7 @@
         function Screenshot() {
 
             img.cropper({
-                viewMode:3,
+                viewMode:2,
                 autoCrop: false,
                 crop: function (e) {
 //                console.log(e);
