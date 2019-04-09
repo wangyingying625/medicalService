@@ -2,13 +2,13 @@
 @section('record')
     <!-- End Navbar -->
 
-    <link  href="{{ asset('cropper/cropper.css') }}" rel="stylesheet">
-    <script src="{{ asset('cropper/cropper.js') }}"></script>
+
+
     <div class="panel-header panel-header-sm">
     </div>
     <div class="content">
 
-        <div class="row" id="content">
+        <div class="row">
             <div class="col-md-8 ml-auto mr-auto">
                 <div class="card card-upgrade">
                     <div class="card-header text-center">
@@ -16,6 +16,7 @@
                     </div>
                     <form class="layui-form" action="/indicator/temp/ocr" method="post" id="form">
                         {{--<form class="card-body" action="/indicator/upload" method="post" id="form">--}}
+                        <div  id="content">
                         <div class="temp">
                             <div style="width: 60%;display: inline-block;margin-left:10px">
                                 <select  lay-filter="test" name="temp" lay-verify="" id="temp">
@@ -29,6 +30,54 @@
                                 <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;margin-left: 20px" onclick="createT()">新建模板</button>
                             </div>
                         </div>
+                        <div class="card card-upgrade" id="tab" style="display: none">
+                            <div class="card-header text-center">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <th style="color: #009688">
+                                                中文名
+                                            </th>
+                                            <th  style="color: #009688">
+                                                英文名
+                                            </th>
+                                            <th style="color: #009688">
+                                                上限
+                                            </th>
+                                            <th  style="color: #009688">
+                                                下限
+                                            </th>
+                                            <th class="text-right"  style="color: #009688">
+                                                单位
+                                            </th>
+                                            </thead>
+                                            <tbody>
+                                            <tr  v-for="(item) in msg">
+                                                <td>
+                                                    @{{item.name_ch }}
+                                                </td>
+                                                <td>
+                                                    @{{ item.name_en}}
+                                                </td>
+                                                <td>
+                                                    @{{ item.upper_limit}}
+                                                </td>
+                                                <td>
+                                                    @{{ item.lower_limit }}
+                                                </td>
+                                                <td  class="text-right">
+                                                    @{{item.unit}}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;float: right" @click="delT">删除模板</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                         <div class="layui-upload">
                             <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px"  id="upload">上传图片</button>
                             <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 115px;margin-left: 20px" onclick="confirm_it()" id="Screenshot" disabled="true">确认截图</button>
@@ -40,9 +89,7 @@
 
                         @csrf
                         <div disabled="true" id="img_div">
-                            {{--<img id="image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"  style="width: 100%;height: 600px">--}}
                             <img id="image" src="{{ asset('cropper/back.jpg') }}"  style="width: 100%;height: 600px">
-                            {{--<img id="image" src="#"  style="width: 100%;height: 600px">--}}
                         </div>
                         <br>
                         <input type="hidden" name="select" id="select">
@@ -56,66 +103,20 @@
                     </form>
                     {{--</form>--}}
                 </div>
-                <div class="card card-upgrade" id="tab" style="display: none">
-                    <div class="card-header text-center">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                    <th style="color: #009688">
-                                        中文名
-                                    </th>
-                                    <th  style="color: #009688">
-                                        英文名
-                                    </th>
-                                    <th style="color: #009688">
-                                        上限
-                                    </th>
-                                    <th  style="color: #009688">
-                                        下限
-                                    </th>
-                                    <th class="text-right"  style="color: #009688">
-                                        单位
-                                    </th>
-                                    </thead>
-                                    <tbody>
-                                    <tr  v-for="(item) in msg">
-                                        <td>
-                                            @{{item.name_ch }}
-                                        </td>
-                                        <td>
-                                            @{{ item.name_en}}
-                                        </td>
-                                        <td>
-                                            @{{ item.upper_limit}}
-                                        </td>
-                                        <td>
-                                            @{{ item.lower_limit }}
-                                        </td>
-                                        <td  class="text-right">
-                                            @{{item.unit}}
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary btn-block layui-btn" style="width: 100px;float: right" @click="delT">删除模板</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
 
 
     </div>
-
+    <script src="{{ asset('cropper/cropper.js') }}"></script>
     <script>
+
         var img = $('#image');
         //const image = document.getElementById('image');
         Screenshot();
 
-function Screenshot() {
+        function Screenshot() {
 
             img.cropper({
                 viewMode:3,
@@ -138,43 +139,42 @@ function Screenshot() {
             var cropUrl = cropCanvas.toDataURL('image/jpeg', 1);
             cropCanvas.toBlob((blob) => {
                 console.log(blob);
-                const formData = new FormData();
+            const formData = new FormData();
 
-                formData.append('image', blob);
+            formData.append('image', blob);
 
-                $.ajax('/indicator/uploadTmp', {
-                    method: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    success(res) {
-                        console.log(res);
-                        layer.msg('裁剪成功');
-                        var form = document.getElementById('form');
-                        var imageId = document.createElement("input");
-                        imageId.type = "hidden";
-                        imageId.name = 'select';
-                        imageId.value = res.name;
-                        form.appendChild(imageId);
-                        var subtn = document.getElementById('submit');
-                        subtn.disabled=false;
-                        console.log('res');
-                        changeImg(cropUrl);
-                        img.cropper('clear');
-                        img.cropper('disable');
-                    },
-                    error() {
-                        console.log('Upload error');
-                    },
-                });
+            $.ajax('/indicator/uploadTmp', {
+                method: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success(res) {
+                    console.log(res);
+                    layer.msg('裁剪成功');
+                    var form = document.getElementById('form');
+                    var imageId = document.createElement("input");
+                    imageId.type = "hidden";
+                    imageId.name = 'select';
+                    imageId.value = res.name;
+                    form.appendChild(imageId);
+                    var subtn = document.getElementById('submit');
+                    subtn.disabled=false;
+                    console.log('res');
+                    changeImg(cropUrl);
+                    img.cropper('clear');
+                    img.cropper('disable');
+                },
+                error() {
+                    console.log('Upload error');
+                },
             });
+        });
         }
 
 
-        // Get the Cropper.js instance after initialized
         var vm=new Vue({
             el:'#content',
             data:{
