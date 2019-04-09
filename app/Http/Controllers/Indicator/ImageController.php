@@ -229,8 +229,13 @@ class ImageController extends Controller
                 $indicators['value'] = $item;
             } elseif ($key > 1 && (strpos($item, '/') || preg_match("/^[A-Za-z]+$/", $item) || $item == '%')) {
 //                这里为单位
-
                 $indicators['unit'] = $item;
+                if (preg_match("/^(.+)\/m{0,1}1{1,2}([0-9]+\.{0,1}[0-9]{0,2})-{1,2}([0-9]+\.{0,1}[0-9]{0,2})$/", $item,$result)){
+
+                    $indicators['unit'] = $result[1].'/l';
+                    $indicators['upper_limit'] = $result[2];
+                    $indicators['lower_limit'] = $result[3];
+                }
             } elseif (preg_match("/^([0-9]+\.{0,1}[0-9]{0,2})[^0-9]+([0-9]+\.{0,1}[0-9]{0,2})$/", $item, $result)) {
                 $indicators['upper_limit'] = $result[1];
                 $indicators['lower_limit'] = $result[2];

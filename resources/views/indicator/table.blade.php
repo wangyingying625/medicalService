@@ -28,7 +28,7 @@
                             <td class="tableInp" ><input style="width: 100%" type="text" name="{{ $indicator->id }}[upper_limit]" value="{{ $indicator->upper_limit }}"></td>
                             <td class="tableInp" ><input  style="width: 100%" type="text" name="{{ $indicator->id }}[lower_limit]" value="{{ $indicator->lower_limit }}"></td>
                             <td class="tableInp" ><input  style="width: 100%" type="text" name="{{ $indicator->id }}[value]" value="{{ $indicator->value }}"></td>
-                            <td  class="text-right tableInp"><input type="text" name="{{ $indicator->id }}[unit]" value="{{ $indicator->unit }}"></td>
+                            <td  class="text-right tableInp"><input  style="width: 100%" type="text" name="{{ $indicator->id }}[unit]" value="{{ $indicator->unit }}"></td>
                         </tr>
 
                         @endforeach
