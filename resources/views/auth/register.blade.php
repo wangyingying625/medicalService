@@ -20,6 +20,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        body{
+            background-color:rgba(255, 165, 35, 0.5);
+        }
+        nav{
+            background-color: rgba(255, 165, 35, 0.5);
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -41,11 +49,11 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">登录</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">注册</a>
                             </li>
                         @endif
                         @else
@@ -58,7 +66,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        退出
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -84,7 +92,7 @@
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">用户名</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-right">用户名<span style="color: #ff0000">*</span></label>
 
                                     <div class="col-md-6">
                                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -98,7 +106,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">电子邮件</label>
+                                    <label for="email" class="col-md-4 col-form-label text-md-right">邮箱<span style="color: #ff0000">*</span></label>
 
                                     <div class="col-md-6">
                                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -112,7 +120,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">密码<span style="color: #ff0000">*</span></label>
 
                                     <div class="col-md-6">
                                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
@@ -125,14 +133,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">确认密码</label>
+                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">确认密码<span style="color: #ff0000">*</span></label>
 
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                        <label class="layui-form-label col-md-4 col-form-label text-md-right">性别</label>
+                                    <label class="layui-form-label col-md-4 col-form-label text-md-right">性别<span style="color: #ff0000">*</span></label>
                                         <div class="layui-input-block">
                                             <input type="radio" name="sex" value="男" title="男" checked="">
                                             <input type="radio" name="sex" value="女" title="女">
@@ -162,7 +170,7 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <div class="layui-input-block">
-                                            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                                            <button class="layui-btn" style="background-color: #f96332" lay-submit="" lay-filter="demo1">提交</button>
                                         </div>
                                         {{--<button type="submit" class="btn btn-primary">--}}
                                             {{--{{ __('Register') }}--}}
