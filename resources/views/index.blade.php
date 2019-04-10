@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>个人病历本</title>
+    <title>健康随身册</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
@@ -17,7 +17,7 @@
 
     <!-- Intro -->
     <div id="intro">
-        <h1>个人病历本</h1>
+        <h1>健康随身册</h1>
         <p>您的私人病历管家</p>
         <ul class="actions">
             <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
@@ -26,7 +26,7 @@
 
     <!-- Header -->
     <header id="header">
-        <a href="/home" class="logo">病历本</a>
+        <a href="/home" class="logo">点击体验</a>
     </header>
 
 
@@ -137,7 +137,7 @@
 
         <article class="post featured"  style="padding-bottom: 0">
             <header class="major">
-                <h2>开启我的病历本</h2>
+                <h2>开启我的随身册</h2>
             </header>
         </article>
         <article class="post featured"  style="border-top: none;padding-top: 0">

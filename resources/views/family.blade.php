@@ -11,7 +11,7 @@
                         <span class="navbar-toggler-bar bar3"></span>
                     </button>
                 </div>
-                    <legend>{{ $family['name'] }}</legend>
+                    <legend style="width: 200px">{{ $family['name'] }}</legend>
                 @if(Auth::user()->status=='admin')
                 <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
                 <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
@@ -54,12 +54,13 @@
                     <div class="card-body">
 
                         <div class="author">
+                            <div>
                             <span class="layui-badge layui-bg-orange"  v-if="isSelf(item.id)">自己</span>
                             <span class="layui-badge layui-bg-red"  v-if="isAdmin(item.status)">管理员</span>
                             <span class="layui-badge layui-bg-gray"  v-if="!isMember(item.status)&!isAdmin(item.status)">待加入</span>
                             <span class="layui-badge layui-bg-green"  v-if="isMember(item.status)&!isSelf(item.id)">已加入</span>
-
-                            <img :src="item.avatar" class="layui-circle" width="300px" height="400px">
+                            </div>
+                            <img :src="item.avatar" class="layui-circle" width="150px" height="150px">
 
                             <h5 class="title" style="color:#f96332">@{{ item.email }}</h5>
                                 <h5 class="title"  style="color:#f96332">@{{ item.name }}</h5>
