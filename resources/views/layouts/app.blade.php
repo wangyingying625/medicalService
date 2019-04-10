@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>健康随身册</title>
-
+    <link rel="shortcut icon" href="{{ asset('img/logo.ico') }}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
     <script src="{{asset('js/vue-resource/dist/vue-resource.js')}}"></script>
     <script src="{{asset('js/vue-router.js')}}"></script>
     <script src="{{ asset('layui-v2.4.5/layui/layui.js')}}"></script>
-    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="https://www.echartsjs.com/gallery/vendors/echarts/echarts.min.js"></script>
     <style>
         .layui-upload-file{
             display: none;
