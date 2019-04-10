@@ -47,9 +47,7 @@
                     <h2>智能上传</h2>
                 </header>
                 <a href="#" class="image fit"><img src="../img/pic04.png" alt=""/></a>
-                <p>我们采用业内领先的<strong>OCR识别</strong>技术+自研<strong>智能信息匹配算法</strong>，正在支持
-                    <strong越来越来多的病历一键化上传
-                    。
+                <p>我们采用业内领先的<strong>OCR识别</strong>技术+自研<strong>智能信息匹配算法</strong>，正在支持<strong>越来越多</strong>的化验单一键上传。
                 </p>
                 <ul class="actions">
                     <li><a href="/indicator/upload" class="button">体验一下</a></li>
@@ -60,7 +58,7 @@
                     <h2>模板上传</h2>
                 </header>
                 <a href="#" class="image fit"><img src="../img/pic05.png" alt=""/></a>
-                <p>我们也提供了用户自建模板上传的方式，只需要建立一次模板，每次指标信息就可上传上去。</p>
+                <p>我们也提供了用户自建模板上传的方式，只需要建立一次模板，每次指标信息就可轻松上传。</p>
                 <ul class="actions">
                     <li><a href="/indicator/temp" class="button">体验一下</a></li>
                 </ul>
@@ -77,7 +75,7 @@
         </article>
         <section class="posts">
             <article>
-                <a href="#" class="image fit"><img src="../img/p1.jpg" alt=""/></a>
+                <a href="#" class="image fit"><img src="../img/p1.png" alt=""/></a>
                 <p style="font-size: 1.3em">多时多样指标,一图尽收眼底</p>
                 <ul class="actions">
                     <li><a href="@if(Auth::check())/indicator/record/{{ Auth::user()->id }} @else /login @endif" class="button">体验一下</a></li>
@@ -85,7 +83,7 @@
             </article>
             <article style="text-align: center">
 
-                <a href="#" class="image fit"><img src="../img/p2.jpg" alt=""/></a>
+                <a href="#" class="image fit"><img src="../img/p2.png" alt=""/></a>
                 <p style="font-size: 1.3em">重点关心数据,主页特别提醒</p>
                 <ul class="actions">
                     <li><a href="/home" class="button">体验一下</a></li>
@@ -127,12 +125,31 @@
         </article>
         <section class="posts">
             <article>
-                <a href="#" class="image fit"><img src="../img/wechat.jpg" alt="" /></a>
+                <a href="#" class="image fit"><img src="../img/wechat.png" alt="" /></a>
             </article>
             <article style="text-align: center">
-                <a href="#" class="image fit"><img src="../img/wechat1.jpg" alt="" /></a>
+                <a href="#" class="image fit"><img src="../img/wechat1.png" alt="" /></a>
             </article>
         </section>
+
+
+
+        <article class="post featured" style="padding-bottom: 0">
+            <header class="major">
+                <h2>有底线<br/>
+                    不作恶</h2>
+                <p>我们致力于为用户提供更完善的服务，并且承诺不恶意泄露用户个人隐私。</p>
+            </header>
+        </article>
+        <article class="post featured" style="border-top: none;padding-top: 0">
+            <header class="major">
+
+
+            </header>
+            <a href="#" class="image main"><img style="width: 70%;margin-left: 15%" src="img/p.jpg" alt=""/></a>
+        </article>
+
+
 
 
         <article class="post featured"  style="padding-bottom: 0">
