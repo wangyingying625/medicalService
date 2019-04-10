@@ -47,8 +47,8 @@
 
     <div class="content" id="con">
         <div class="row" >
-            <div class="col-md-12">
-                <div class="card card-user col-md-3"  v-for="(item,i) in familyList">
+            <div class="col-md-12" style="display: flex">
+                <div class="card card-user col-md-3"   v-for="(item,i) in familyList">
                     <div class="image">
                     </div>
                     <div class="card-body">
@@ -68,7 +68,7 @@
                             <p class="title">@{{ item.age }}岁</p>
                             </p>
                         </div>
-                        <p class="description text-center">
+                        <p class="description text-center" >
                             @{{ item.height }}KG
                             <br> @{{ item.weight }}CM<br>
                             <a :href="'/indicator/record/' + item.id" class="btn btn-round btn-primary">查看病历</a>
