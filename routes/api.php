@@ -21,4 +21,4 @@ Route::group(['prefix'=>'indicator'],function(){
    Route::any('upload','Indicator\ImageController@upload');
 });
 
-Route::post('login','Wechat\AuthController@getWxUserInfo');
+Route::any('login','Wechat\AuthController@getWxUserInfo');
