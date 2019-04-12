@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'indicator'],function(){
    Route::any('upload','Indicator\ImageController@upload');
 });
+
+Route::post('login','Wechat\AuthController@getWxUserInfo');

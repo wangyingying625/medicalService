@@ -40,7 +40,7 @@
     </nav>
     <!-- End Navbar -->
     <div id="welcome" style="display:none;height: 500px;text-align: center;padding-top: 200px;background-color:#85c2b0">
-        <h3 style="color: #fff">感谢使用个人病历本,您还没有设置主图</h3>
+        <h3 style="color: #fff">感谢使用健康随身册,您还没有设置主图</h3>
     </div>
     <div class="panel-header panel-header-lg" style="background: #85c2b0"   id="zhuTu1" >
         <div class="container"  id="container0" style="height: 100%"></div>
