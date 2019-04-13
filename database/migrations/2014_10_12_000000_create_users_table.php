@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('avatar',100)->default('/img/default.jpg');
             $table->string('sex',3)->nullable();
             $table->date('birthday')->nullable();
@@ -23,10 +23,10 @@ class CreateUsersTable extends Migration
             $table->double('weight')->nullable();
             $table->integer('family_id')->nullable();
             $table->string('status',10)->default('no');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('openId',100);
+            $table->string('openId',100)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

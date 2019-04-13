@@ -37,7 +37,7 @@ class AuthController extends Controller
         $userInfo = $this->wxxcx->getLoginInfo($code);
 
         //获取解密后的用户信息
-        $openId = $userInfo['openId'];
+        $openId = $userInfo['openid'];
 //        $user_profile = $this->wxxcx->getUserInfo($encryptedData, $iv);
         $user = User::where('openId', $openId)->first();
         $result = [];
@@ -54,20 +54,23 @@ class AuthController extends Controller
 
 
     public function register(Request $request){
-        $user  =  User::create($request->input());
+        $info = $request->input();
+        $info['password'] = bcrypt($info['password']);
+        $user  =  User::create($info);
         return $user;
     }
 
     public function binding(Request $request){
-        $username = request()->get('username');
+        $username = request()->get('name');
         $password = request()->get('password');
         $openId = request()->get('openId');
         $result = [];
         //验证账号密码，postdata数据key为数据库存储字段名。
         $postdata = ['name' => $username, 'password'=>$password];
         $ret = Auth::attempt($postdata);
+//        var_dump($ret);
         if($ret){
-            $user = User::where('name',$username);
+            $user = User::where('name',$username)->first();
             $user->openId = $openId;
             $user->save();
             $result['user'] = $user;
