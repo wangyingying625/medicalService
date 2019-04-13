@@ -91,7 +91,7 @@ class AuthController extends Controller
         $openId = request('openId', '');
         $user = User::where('openId',$openId)->first();
         $status = $user->update($request->all());
-
-        return ['status'=>$status];
+        $user = User::where('openId',$openId)->first();
+        return $user;
     }
 }
