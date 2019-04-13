@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Wechat;
 
 use App\Image;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Nexmo\User\User;
+
 
 class IndicatorController extends Controller
 {
