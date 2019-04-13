@@ -72,18 +72,20 @@ class ImageController extends Controller
         //默认保存成功
         $status = 1;
         $indicators = $request->input();
+        $date = $request->input('date');
         foreach ($indicators as $id => $indicator) {
             if (is_array($indicator)) {
                 //var_dump($id);
                 //var_dump($indicator);
-                $indicator = array_add($indicator, 'created_at', session('date'));
+                $indicator = array_add($indicator, 'created_at', $date);
+//                $indicator = array_add($indicator, 'created_at', session('date'));
                 //Indicator::find($id)->update($indicator);
                 if (Indicator::find($id)->update($indicator) == false)
                     $status = 0;
             }
         }
         //删除session中的date字段
-        session()->forget('date');
+//        session()->forget('date');
         if ($status == 1) {
             return view('location')->with(['title' => '提示', 'message' => '保存成功', 'url' => '/indicator/record/' . Auth::user()->id]);
         } else {
@@ -93,9 +95,10 @@ class ImageController extends Controller
 
     public function OCR(Request $request)
     {
-        session([
-            'date' => $request->input('date')
-        ]);
+//        session([
+//            'date' => $request->input('date')
+//        ]);
+        $date = $request->input('date');
         $is_memory = $request->input('is_memory', false);
 // 初始化
         $fault_tolerance = 50;
@@ -181,7 +184,7 @@ class ImageController extends Controller
                 $i++;
             }
         }
-        return Redirect::to("/indicator/changeData/".$imageId);
+        return Redirect::to("/indicator/changeData/".$imageId."?date=".$date);
     }
 
 

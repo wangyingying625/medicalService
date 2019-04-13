@@ -26,4 +26,5 @@ Route::any('register','Wechat\AuthController@register');
 Route::any('binding','Wechat\AuthController@binding');
 Route::any('info','Wechat\AuthController@getUserInfo');
 Route::any('change','Wechat\AuthController@changeUserInfo');
+Route::any('upload','Wechat\IndicatorController@upload');
 Route::any('mail','MailController@mail');
