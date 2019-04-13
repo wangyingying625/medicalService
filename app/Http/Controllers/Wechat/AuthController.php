@@ -84,6 +84,6 @@ class AuthController extends Controller
 
     public function getUserInfo(Request $request){
         $openId = request('openId', '');
-        return User::find('openId',$openId)->first();
+        return User::where('openId',$openId)->first();
     }
 }
