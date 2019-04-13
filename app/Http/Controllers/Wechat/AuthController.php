@@ -43,7 +43,7 @@ class AuthController extends Controller
         $result = [];
         $result['openId'] = $openId;
         if ($user) {
-            $result['status']=true;
+            $result['status'] = true;
             $result['user'] = $user;
         } else {
             $result['status'] = false;
@@ -53,45 +53,57 @@ class AuthController extends Controller
     }
 
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $info = $request->input();
         $info['password'] = bcrypt($info['password']);
-        $user  =  User::create($info);
+        $user = User::create($info);
         return $user;
     }
 
-    public function binding(Request $request){
+    public function binding(Request $request)
+    {
         $username = request()->get('name');
         $password = request()->get('password');
         $openId = request()->get('openId');
         $result = [];
         //验证账号密码，postdata数据key为数据库存储字段名。
-        $postdata = ['name' => $username, 'password'=>$password];
+        $postdata = ['name' => $username, 'password' => $password];
         $ret = Auth::attempt($postdata);
-        if($ret){
-            $user = User::where('name',$username)->first();
+        if ($ret) {
+            $user = User::where('name', $username)->first();
             $user->openId = $openId;
             $user->save();
             $result['user'] = $user;
             $result['status'] = true;
             return $result;
-        }else{
+        } else {
             $result['status'] = false;
             return $result;
 
         }
     }
 
-    public function getUserInfo(Request $request){
+    public function getUserInfo(Request $request)
+    {
         $openId = request('openId', '');
-        return User::where('openId',$openId)->first();
+        $user = User::where('openId', $openId)->first();
+//        dd($user->toArray());
+        $user = $user->toArray();
+        foreach ($user as $key => $value) {
+            if (empty($value)) {
+                $user[$key] = '';
+            }
+        }
+        return $user;
     }
 
-    public function changeUserInfo(Request $request){
+    public function changeUserInfo(Request $request)
+    {
         $openId = request('openId', '');
-        $user = User::where('openId',$openId)->first();
+        $user = User::where('openId', $openId)->first();
         $status = $user->update($request->all());
-        $user = User::where('openId',$openId)->first();
+        $user = User::where('openId', $openId)->first();
         return $user;
     }
 }
