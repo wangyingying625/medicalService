@@ -90,7 +90,8 @@ class AuthController extends Controller
     public function changeUserInfo(Request $request){
         $openId = request('openId', '');
         $user = User::where('openId',$openId)->first();
-        $user = $user->update($request->all());
-        return $user;
+        $status = $user->update($request->all());
+
+        return ['status'=>$status];
     }
 }
