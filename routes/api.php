@@ -24,4 +24,5 @@ Route::group(['prefix'=>'indicator'],function(){
 Route::any('login','Wechat\AuthController@getWxUserInfo');
 Route::any('register','Wechat\AuthController@register');
 Route::any('binding','Wechat\AuthController@binding');
+Route::any('info','Wechat\AuthController@getUserInfo');
 Route::any('mail','MailController@mail');

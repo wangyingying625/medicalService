@@ -68,7 +68,6 @@ class AuthController extends Controller
         //验证账号密码，postdata数据key为数据库存储字段名。
         $postdata = ['name' => $username, 'password'=>$password];
         $ret = Auth::attempt($postdata);
-//        var_dump($ret);
         if($ret){
             $user = User::where('name',$username)->first();
             $user->openId = $openId;
@@ -81,5 +80,10 @@ class AuthController extends Controller
             return $result;
 
         }
+    }
+
+    public function getUserInfo(Request $request){
+        $openId = request('openId', '');
+        return User::find('openId',$openId)->first();
     }
 }
