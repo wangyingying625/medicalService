@@ -66,10 +66,9 @@ class IndicatorController extends Controller
             }
         }
         if ($status == 1) {
-            return view('location')->with(['title' => '提示', 'message' => '保存成功', 'url' => '/indicator/record/' . Auth::user()->id]);
+            return ['status'=>true];
         } else {
-            return view('location')->with(['title' => '提示', 'message' => '保存失败', 'url' => '/indicator/record/' . Auth::user()->id]);
-        }
+            return ['status'=>false];        }
     }
 
     public function OCR(Request $request)
@@ -171,7 +170,6 @@ class IndicatorController extends Controller
             if (is_array($indicator)) {
                 $indicator['created_at'] = $date;
                 $indicator->save();
-//                $indicator = array_add($indicator, 'created_at', $date);
             }
         }
 //        var_dump($indicators);
