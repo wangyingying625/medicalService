@@ -6,6 +6,7 @@ use AipOcr;
 use App\Image;
 use App\Indicator;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -267,5 +268,15 @@ class IndicatorController extends Controller
             }
         }
         return $indicators;
+    }
+
+    public function checkTime(Request $request){
+        $openId = $request->input('openId');
+        $id = User::where('openId', $openId)->first()->id;
+        $userImage = Image::where('user_id', $id)->orderBy('created_at','DESC')->first();
+        $last_time = new DateTime($userImage->created_at);
+        $now = new DateTime();
+        $days = $last_time->diff($now)->days;
+        return ['days'=>$days];
     }
 }
