@@ -188,12 +188,6 @@ class ImageController extends Controller
     }
 
 
-//    function checkCh($name_ch){
-//        var_dump($name_ch);
-//        $name_ch = str_replace("★","",$name_ch);
-//        var_dump($name_ch);
-//        return $name_ch;
-//    }
 
     function arrayToIndicators($row, $imagesId)
     {
