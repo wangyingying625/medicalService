@@ -28,7 +28,7 @@ class FamilyController extends Controller
     }
 
     public function showMembers(Request $request){
-        $FamilyId = $request->input('FamilyId');
+        $FamilyId = $request->input('family_id');
         $openId = $request->input('openId');
         $family = Family::find($FamilyId);
         $members = User::where('family_id',$family->id)->get();
