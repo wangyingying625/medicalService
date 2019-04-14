@@ -8,6 +8,7 @@ use App\Indicator;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 const APP_ID = 'l3QjgNFp9SfrldOlsGmX0hkx';
@@ -234,5 +235,21 @@ class IndicatorController extends Controller
         return $indicators;
 
 
+    }
+
+
+    public function showIndicatorByOpenId(Request $request){
+        $indicators = array();
+        $openId = $request->input('openId');
+        $id = User::where('openId', $openId)->first()->id;
+        $types = DB::table('images')->select('type')->where('user_id',$id)->distinct()->get();
+        foreach ($types as $type){
+            $type = $type->type;
+            $indicators[$type]=Image::where('user_id',$id)->where('type',$type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo){
+                $foo['indicators'] = Indicator::where('image_id',$foo->id)->get();
+            }
+        }
+        return $indicators;
     }
 }

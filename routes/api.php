@@ -29,5 +29,6 @@ Route::any('change','Wechat\AuthController@changeUserInfo');
 Route::any('upload','Wechat\IndicatorController@upload');
 Route::any('ocr','Wechat\IndicatorController@OCR');
 Route::any('save','Wechat\IndicatorController@saveImageDate');
+Route::get('show/user','Wechat\IndicatorController@showIndicatorByOpenId');
 
 Route::any('mail','MailController@mail');
