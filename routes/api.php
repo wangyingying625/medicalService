@@ -34,5 +34,6 @@ Route::get('show/user','Wechat\IndicatorController@showIndicatorByOpenId');
 Route::any('mail','MailController@mail');
 Route::group(['prefix'=>'family'],function() {
     Route::any('create','Wechat\FamilyController@createFamily');
+    Route::any('info','Wechat\FamilyController@showMembers');
 
 });

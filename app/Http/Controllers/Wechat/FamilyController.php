@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wechat;
 
 use App\Family;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,5 +25,20 @@ class FamilyController extends Controller
         $user->save();
         return $family;
 //        return redirect('/family/info/'.$family->id);
+    }
+
+    public function showMembers(Request $request){
+        $FamilyId = $request->input('FamilyId');
+        $openId = $request->input('openId');
+        $family = Family::find($FamilyId);
+        $members = User::where('family_id',$family->id)->get();
+        foreach ($members as $member){
+            $birthday = $member->birthday;
+            $birthday = new DateTime($birthday);
+            $now = new DateTime();
+            $interval = $birthday->diff($now);
+            $member['age'] = intval($interval->format('%Y'));
+        }
+        return ['members'=> $members, 'family' => $family];
     }
 }
