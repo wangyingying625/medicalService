@@ -22,6 +22,7 @@ class FamilyController extends Controller
         $user -> family_id = $family->id;
         $user -> status = 'admin';
         $user->save();
-        return redirect('/family/info/'.$family->id);
+        return $family;
+//        return redirect('/family/info/'.$family->id);
     }
 }
