@@ -104,4 +104,17 @@ class FamilyController extends Controller
         $user->update(['status'=>'no','family_id'=>0]);
         return ['status'=>true];
     }
+
+    public function manage(Request $request){
+        $openId = $request->input('openId');
+        $user = User::where('openId',$openId)->first();
+//        $familyId = $user -> family_id;
+        //遍历family_id=管理员所在家庭id用户的status字段,如果为waiting,则进行处理
+        //进行遍历
+        $NewMembers = User::where('status','joining')->where('family_id',$user->family_id)->get();
+        foreach ($NewMembers as $member){
+            $member['msg'] = $member['name']."申请加入家庭";
+        }
+        return $NewMembers;
+    }
 }
