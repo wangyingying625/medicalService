@@ -83,7 +83,7 @@ class FamilyController extends Controller
         $familyName = $request -> input('family_name');
         $family = Family::where('name',$familyName)->get();
         if (!$family->count()){
-            return "不存在该家庭，请确认填写是否有误";
+            return ['status'=>false,'message'=>"不存在该家庭，请确认填写是否有误"];
         }else{
             $family = $family[0];
         }
