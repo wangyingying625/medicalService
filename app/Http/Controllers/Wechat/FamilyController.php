@@ -78,4 +78,23 @@ class FamilyController extends Controller
         }
         return $result;
     }
+
+    public function apply(Request $request){
+        $familyName = $request -> input('family_name');
+        $family = Family::where('name',$familyName)->get();
+        if (!$family->count()){
+            return "不存在该家庭，请确认填写是否有误";
+        }else{
+            $family = $family[0];
+        }
+        $openId = $request->input('openId');
+        $user = User::where('openId',$openId)->first();
+        if ($family && $user->status == 'no'){
+            $user->status = 'joining';
+            $user -> family_id = $family->id;
+            $user->save();
+            return ['status'=>true,'message'=>"申请成功,请等待管理员审核"];
+        }
+
+    }
 }
