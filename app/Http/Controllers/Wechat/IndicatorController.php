@@ -252,4 +252,20 @@ class IndicatorController extends Controller
         }
         return $indicators;
     }
+
+    public function  showIndicatorByUserId(Request $request){
+        $indicators = array();
+//        $openId = $request->input('user_id');
+//        $id = User::where('openId', $openId)->first()->id;
+        $id = User::find($request->input('user_id'))->id;
+        $types = DB::table('images')->select('type')->where('user_id',$id)->distinct()->get();
+        foreach ($types as $type){
+            $type = $type->type;
+            $indicators[$type]=Image::where('user_id',$id)->where('type',$type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo){
+                $foo['indicators'] = Indicator::where('image_id',$foo->id)->get();
+            }
+        }
+        return $indicators;
+    }
 }
