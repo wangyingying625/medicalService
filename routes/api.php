@@ -35,5 +35,6 @@ Route::any('mail','MailController@mail');
 Route::group(['prefix'=>'family'],function() {
     Route::any('create','Wechat\FamilyController@createFamily');
     Route::any('info','Wechat\FamilyController@showMembers');
+    Route::any('dissolve','Wechat\FamilyController@dissolveFamily');
 
 });
