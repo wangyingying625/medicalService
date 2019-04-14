@@ -37,5 +37,6 @@ Route::group(['prefix'=>'family'],function() {
     Route::any('info','Wechat\FamilyController@showMembers');
     Route::any('dissolve','Wechat\FamilyController@dissolveFamily');
     Route::any('apply','Wechat\FamilyController@apply');
+    Route::any('quit','Wechat\FamilyController@quit');
 
 });

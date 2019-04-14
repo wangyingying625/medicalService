@@ -97,4 +97,11 @@ class FamilyController extends Controller
         }
 
     }
+
+    public function quit(Request $request){
+        $openId = $request->input('openId');
+        $user = User::where('openId',$openId)->first();
+        $user->update(['status'=>'no','family_id'=>0]);
+        return ['status'=>true];
+    }
 }
