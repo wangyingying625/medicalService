@@ -145,7 +145,7 @@ class IndicatorController extends Controller
         $i = 0;
         $last_indicators_list = [];
         if ($is_memory) {
-            $last_images = Image::where('user_id', $user_id->where('type', $type)->first();
+            $last_images = Image::where('user_id', $user_id)->where('type', $type)->first();
             $last_indicators = Indicator::where('image_id', $last_images['id'])->get();
             foreach ($last_indicators as $last_indicator) {
                 $last_indicator = $last_indicator->toArray();
