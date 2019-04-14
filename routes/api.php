@@ -30,7 +30,7 @@ Route::any('upload','Wechat\IndicatorController@upload');
 Route::any('ocr','Wechat\IndicatorController@OCR');
 Route::any('save','Wechat\IndicatorController@saveImageDate');
 Route::get('show/user','Wechat\IndicatorController@showIndicatorByOpenId');
-Route::get('show/useridw','Wechat\IndicatorController@showIndicatorByUserId');
+Route::get('show/userid','Wechat\IndicatorController@showIndicatorByUserId');
 
 Route::any('mail','MailController@mail');
 Route::group(['prefix'=>'family'],function() {
