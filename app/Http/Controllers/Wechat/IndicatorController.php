@@ -79,7 +79,7 @@ class IndicatorController extends Controller
 //        ]);
         $date = $request->input('date');
         $openId = $request->input('openId');
-        $user_id = User::where('openId', $openId)->frist()->id;
+        $user_id = User::where('openId', $openId)->first()->id;
         $is_memory = $request->input('is_memory', false);
 // 初始化
         $fault_tolerance = 50;
