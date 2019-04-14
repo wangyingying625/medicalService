@@ -238,7 +238,7 @@ class IndicatorController extends Controller
     }
 
 
-    public function showIndicatorByOpenId(Request $request){
+    public function  showIndicatorByOpenId(Request $request){
         $indicators = array();
         $openId = $request->input('openId');
         $id = User::where('openId', $openId)->first()->id;
