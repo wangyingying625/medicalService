@@ -270,13 +270,27 @@ class IndicatorController extends Controller
         return $indicators;
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function checkTime(Request $request){
         $openId = $request->input('openId');
         $id = User::where('openId', $openId)->first()->id;
+        $result = [];
+        $result['status'] = true;
+
         $userImage = Image::where('user_id', $id)->orderBy('created_at','DESC')->first();
-        $last_time = new DateTime($userImage->created_at);
-        $now = new DateTime();
-        $days = $last_time->diff($now)->days;
-        return ['days'=>$days];
+
+        if ($userImage){
+            $last_time = new DateTime($userImage->created_at);
+            $now = new DateTime();
+            $days = $last_time->diff($now)->days;
+            $result['days'] = $days;
+        }else{
+            $result['status'] = false;
+        }
+
+        return $result;
     }
 }
