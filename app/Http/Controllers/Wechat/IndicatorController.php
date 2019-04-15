@@ -68,9 +68,10 @@ class IndicatorController extends Controller
             }
         }
         if ($status == 1) {
-            return ['status'=>true];
+            return ['status' => true];
         } else {
-            return ['status'=>false];        }
+            return ['status' => false];
+        }
     }
 
     public function OCR(Request $request)
@@ -78,104 +79,113 @@ class IndicatorController extends Controller
 //        session([
 //            'date' => $request->input('date')
 //        ]);
-        $date = $request->input('date');
-        $openId = $request->input('openId');
-        $user_id = User::where('openId', $openId)->first()->id;
-        $is_memory = $request->input('is_memory', false);
-// 初始化
-        $fault_tolerance = 50;
+        DB::beginTransaction();
         $imageId = $request->input('image_id');
-        $type = $request->input('type');
         $image = Image::find($imageId);
-        $image->type = $type;
-        $image->created_at = $request->input('date');
-        $image->save();
+        try {
+            $date = $request->input('date');
+            $openId = $request->input('openId');
+            $user_id = User::where('openId', $openId)->first()->id;
+            $is_memory = $request->input('is_memory', false);
+// 初始化
+            $fault_tolerance = 50;
+            $type = $request->input('type');
+            $image->type = $type;
+            $image->created_at = $request->input('date');
+            $image->save();
 //        var_dump($image);
 //        var_dump(storage_path('app/public/'.$image->name));
-        $file_path = storage_path('app/public/' . $image->name);
-        $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
-        $result = $aipOcr->general(file_get_contents($file_path));
+            $file_path = storage_path('app/public/' . $image->name);
+            $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+            $result = $aipOcr->general(file_get_contents($file_path));
 //        var_dump($result);
-        $NAMEFLAGS = ['项目', '名称'];
+            $NAMEFLAGS = ['项目', '名称'];
 //        $columns = ['行','项目名称','校验结果','单位','参考值','实验方法'];
-        $headTop = 0;
-        $columns = [];
-        foreach ($result as $item) {
-            if (is_array($item)) {
-                $result = $item;
+            $headTop = 0;
+            $columns = [];
+            foreach ($result as $item) {
+                if (is_array($item)) {
+                    $result = $item;
+                }
             }
-        }
-        $tmp = 0;
-        foreach ($result as $item) {
-            foreach ($NAMEFLAGS as $column) {
-                if (strpos($item['words'], $column)) {
-                    $headTop = $item['location']['top'];
-                    $tmp = 1;
+            $tmp = 0;
+            foreach ($result as $item) {
+                foreach ($NAMEFLAGS as $column) {
+                    if (strpos($item['words'], $column)) {
+                        $headTop = $item['location']['top'];
+                        $tmp = 1;
+                        break;
+                    }
+                }
+                if ($tmp) {
                     break;
                 }
             }
-            if ($tmp) {
-                break;
-            }
-        }
 
-        $table = [];
-        $flag = 0;
-        if ($headTop != 0) {
-            $row = [];
-            foreach ($result as $item) {
-                $deviation = $item['location']['top'] - $headTop;
-                if (abs($deviation) < $fault_tolerance) {
-                    $flag = 1;
-                    array_push($row, $item['words']);
-                } elseif ($flag) {
-                    if (count($row) != 0 && count($row) == 1) {
+            $table = [];
+            $flag = 0;
+            if ($headTop != 0) {
+                $row = [];
+                foreach ($result as $item) {
+                    $deviation = $item['location']['top'] - $headTop;
+                    if (abs($deviation) < $fault_tolerance) {
+                        $flag = 1;
+                        array_push($row, $item['words']);
+                    } elseif ($flag) {
+                        if (count($row) != 0 && count($row) == 1) {
 
-                        break;
+                            break;
+                        }
+                        array_push($table, $row);
+                        $row = [];
+                        array_push($row, $item['words']);
+                        $headTop = $item['location']['top'];
                     }
-                    array_push($table, $row);
-                    $row = [];
-                    array_push($row, $item['words']);
-                    $headTop = $item['location']['top'];
                 }
             }
-        }
-        $tableHead = $table[0];
-        unset($table[0]);
-        $indicators = [];
-        $i = 0;
-        $last_indicators_list = [];
-        if ($is_memory) {
-            $last_images = Image::where('user_id', $user_id)->where('type', $type)->first();
-            $last_indicators = Indicator::where('image_id', $last_images['id'])->get();
-            foreach ($last_indicators as $last_indicator) {
-                $last_indicator = $last_indicator->toArray();
-                $last_indicator['image_id'] = $imageId;
-                $last_indicators_list[] = $last_indicator;
+            $tableHead = $table[0];
+            unset($table[0]);
+            $indicators = [];
+            $i = 0;
+            $last_indicators_list = [];
+            if ($is_memory) {
+                $last_images = Image::where('user_id', $user_id)->where('type', $type)->first();
+                $last_indicators = Indicator::where('image_id', $last_images['id'])->get();
+                foreach ($last_indicators as $last_indicator) {
+                    $last_indicator = $last_indicator->toArray();
+                    $last_indicator['image_id'] = $imageId;
+                    $last_indicators_list[] = $last_indicator;
+                }
             }
-        }
 
-        foreach ($table as $item) {
-            $indicators_value = $this->arrayToIndicators($item, $imageId);
-            array_push($indicators, $indicators_value);
-            if (!$is_memory) {
-                Indicator::create($indicators_value);
-            } else {
-                $last_indicators_list[$i]['value'] = $indicators_value['value'];
-                Indicator::create($last_indicators_list[$i]);
-                $i++;
+            foreach ($table as $item) {
+                $indicators_value = $this->arrayToIndicators($item, $imageId);
+                array_push($indicators, $indicators_value);
+                if (!$is_memory) {
+                    Indicator::create($indicators_value);
+                } else {
+                    $last_indicators_list[$i]['value'] = $indicators_value['value'];
+                    Indicator::create($last_indicators_list[$i]);
+                    $i++;
+                }
             }
-        }
 
-        $indicators = Indicator::where('image_id', $imageId)->get();
-        foreach ($indicators as $id => $indicator) {
-            if (is_array($indicator)) {
-                $indicator['created_at'] = $date;
-                $indicator->save();
+            $indicators = Indicator::where('image_id', $imageId)->get();
+            foreach ($indicators as $id => $indicator) {
+                if (is_array($indicator)) {
+                    $indicator['created_at'] = $date;
+                    $indicator->save();
+                }
             }
+            DB::commit();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            DB::rollback();
+            $image->delete();
+
+            return ['status'=>false];
         }
 //        var_dump($indicators);
-        return $indicators;
+        return ['status'=>true,'indicators'=>$indicators];
 
 //        return Redirect::to("/indicator/changeData/".$imageId."?date=".$date);
     }
@@ -239,32 +249,34 @@ class IndicatorController extends Controller
     }
 
 
-    public function  showIndicatorByOpenId(Request $request){
+    public function showIndicatorByOpenId(Request $request)
+    {
         $indicators = array();
         $openId = $request->input('openId');
         $id = User::where('openId', $openId)->first()->id;
-        $types = DB::table('images')->select('type')->where('user_id',$id)->distinct()->get();
-        foreach ($types as $type){
+        $types = DB::table('images')->select('type')->where('user_id', $id)->distinct()->get();
+        foreach ($types as $type) {
             $type = $type->type;
-            $indicators[$type]=Image::where('user_id',$id)->where('type',$type)->orderBy('created_at')->get();
-            foreach ($indicators[$type] as $foo){
-                $foo['indicators'] = Indicator::where('image_id',$foo->id)->get();
+            $indicators[$type] = Image::where('user_id', $id)->where('type', $type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo) {
+                $foo['indicators'] = Indicator::where('image_id', $foo->id)->get();
             }
         }
         return $indicators;
     }
 
-    public function  showIndicatorByUserId(Request $request){
+    public function showIndicatorByUserId(Request $request)
+    {
         $indicators = array();
 //        $openId = $request->input('user_id');
 //        $id = User::where('openId', $openId)->first()->id;
         $id = User::find($request->input('user_id'))->id;
-        $types = DB::table('images')->select('type')->where('user_id',$id)->distinct()->get();
-        foreach ($types as $type){
+        $types = DB::table('images')->select('type')->where('user_id', $id)->distinct()->get();
+        foreach ($types as $type) {
             $type = $type->type;
-            $indicators[$type]=Image::where('user_id',$id)->where('type',$type)->orderBy('created_at')->get();
-            foreach ($indicators[$type] as $foo){
-                $foo['indicators'] = Indicator::where('image_id',$foo->id)->get();
+            $indicators[$type] = Image::where('user_id', $id)->where('type', $type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo) {
+                $foo['indicators'] = Indicator::where('image_id', $foo->id)->get();
             }
         }
         return $indicators;
@@ -274,20 +286,21 @@ class IndicatorController extends Controller
      * @param Request $request
      * @return array
      */
-    public function checkTime(Request $request){
+    public function checkTime(Request $request)
+    {
         $openId = $request->input('openId');
         $id = User::where('openId', $openId)->first()->id;
         $result = [];
         $result['status'] = true;
 
-        $userImage = Image::where('user_id', $id)->orderBy('created_at','DESC')->first();
+        $userImage = Image::where('user_id', $id)->orderBy('created_at', 'DESC')->first();
 
-        if ($userImage){
+        if ($userImage) {
             $last_time = new DateTime($userImage->created_at);
             $now = new DateTime();
             $days = $last_time->diff($now)->days;
             $result['days'] = $days;
-        }else{
+        } else {
             $result['status'] = false;
         }
 

@@ -6,10 +6,12 @@ use AipOcr;
 use App\Image;
 use App\Indicator;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Expr\Array_;
 
@@ -39,10 +41,11 @@ class ImageController extends Controller
 
     }
 
-    public function uploadTmp(Request $request){
+    public function uploadTmp(Request $request)
+    {
         $file = $request->file('image');
         $name = $file->store('tmp', 'public');
-        return ['id'=>'1','name'=>$name];
+        return ['id' => '1', 'name' => $name];
     }
 
     public function showUploadForm()
@@ -98,95 +101,104 @@ class ImageController extends Controller
 //        session([
 //            'date' => $request->input('date')
 //        ]);
-        $date = $request->input('date');
-        $is_memory = $request->input('is_memory', false);
-// 初始化
-        $fault_tolerance = 50;
         $imageId = $request->input('image_id');
-        $type = $request->input('type');
         $image = Image::find($imageId);
-        $image->type = $type;
-        $image->created_at = $request->input('date');
-        $image->save();
+        DB::beginTransaction();
+        try {
+            $date = $request->input('date');
+            $is_memory = $request->input('is_memory', false);
+// 初始化
+            $fault_tolerance = 50;
+            $imageId = $request->input('image_id');
+            $type = $request->input('type');
+            $image->type = $type;
+            $image->created_at = $request->input('date');
+            $image->save();
 //        var_dump($image);
 //        var_dump(storage_path('app/public/'.$image->name));
-        $file_path = storage_path('app/public/' . $image->name);
-        $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
-        $result = $aipOcr->general(file_get_contents($file_path));
+            $file_path = storage_path('app/public/' . $image->name);
+            $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+            $result = $aipOcr->general(file_get_contents($file_path));
 //        var_dump($result);
-        $NAMEFLAGS = ['项目', '名称'];
+            $NAMEFLAGS = ['项目', '名称'];
 //        $columns = ['行','项目名称','校验结果','单位','参考值','实验方法'];
-        $headTop = 0;
-        $columns = [];
-        foreach ($result as $item) {
-            if (is_array($item)) {
-                $result = $item;
+            $headTop = 0;
+            $columns = [];
+            foreach ($result as $item) {
+                if (is_array($item)) {
+                    $result = $item;
+                }
             }
-        }
-        $tmp = 0;
-        foreach ($result as $item) {
-            foreach ($NAMEFLAGS as $column) {
-                if (strpos($item['words'], $column)) {
-                    $headTop = $item['location']['top'];
-                    $tmp = 1;
+            $tmp = 0;
+            foreach ($result as $item) {
+                foreach ($NAMEFLAGS as $column) {
+                    if (strpos($item['words'], $column)) {
+                        $headTop = $item['location']['top'];
+                        $tmp = 1;
+                        break;
+                    }
+                }
+                if ($tmp) {
                     break;
                 }
             }
-            if ($tmp) {
-                break;
-            }
-        }
 
-        $table = [];
-        $flag = 0;
-        if ($headTop != 0) {
-            $row = [];
-            foreach ($result as $item) {
-                $deviation = $item['location']['top'] - $headTop;
-                if (abs($deviation) < $fault_tolerance) {
-                    $flag = 1;
-                    array_push($row, $item['words']);
-                } elseif ($flag) {
-                    if (count($row) != 0 && count($row) == 1) {
+            $table = [];
+            $flag = 0;
+            if ($headTop != 0) {
+                $row = [];
+                foreach ($result as $item) {
+                    $deviation = $item['location']['top'] - $headTop;
+                    if (abs($deviation) < $fault_tolerance) {
+                        $flag = 1;
+                        array_push($row, $item['words']);
+                    } elseif ($flag) {
+                        if (count($row) != 0 && count($row) == 1) {
 
-                        break;
+                            break;
+                        }
+                        array_push($table, $row);
+                        $row = [];
+                        array_push($row, $item['words']);
+                        $headTop = $item['location']['top'];
                     }
-                    array_push($table, $row);
-                    $row = [];
-                    array_push($row, $item['words']);
-                    $headTop = $item['location']['top'];
                 }
             }
-        }
-        $tableHead = $table[0];
-        unset($table[0]);
-        $indicators = [];
-        $i = 0;
-        $last_indicators_list = [];
-        if ($is_memory) {
-            $last_images = Image::where('user_id', Auth::id())->where('type', $type)->first();
-            $last_indicators = Indicator::where('image_id',$last_images['id'])->get();
-            foreach ($last_indicators as $last_indicator) {
-                $last_indicator = $last_indicator->toArray();
-                $last_indicator['image_id'] = $imageId;
-                $last_indicators_list[] = $last_indicator;
+            $tableHead = $table[0];
+            unset($table[0]);
+            $indicators = [];
+            $i = 0;
+            $last_indicators_list = [];
+            if ($is_memory) {
+                $last_images = Image::where('user_id', Auth::id())->where('type', $type)->first();
+                $last_indicators = Indicator::where('image_id', $last_images['id'])->get();
+                foreach ($last_indicators as $last_indicator) {
+                    $last_indicator = $last_indicator->toArray();
+                    $last_indicator['image_id'] = $imageId;
+                    $last_indicators_list[] = $last_indicator;
+                }
             }
-        }
 
-        foreach ($table as $item) {
-            $indicators_value = $this->arrayToIndicators($item, $imageId);
-            array_push($indicators, $indicators_value);
-            if (!$is_memory) {
-                Indicator::create($indicators_value);
-            } else {
-                $last_indicators_list[$i]['value']=$indicators_value['value'];
-                Indicator::create($last_indicators_list[$i]);
-                $i++;
+            foreach ($table as $item) {
+                $indicators_value = $this->arrayToIndicators($item, $imageId);
+                array_push($indicators, $indicators_value);
+                if (!$is_memory) {
+                    Indicator::create($indicators_value);
+                } else {
+                    $last_indicators_list[$i]['value'] = $indicators_value['value'];
+                    Indicator::create($last_indicators_list[$i]);
+                    $i++;
+                }
             }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            $image->delete();
+            return view('location')->with(['title' => '解析失败', 'message' => '图片解析失败,请调整图片后重试或尝试模板上传', 'url' => '/indicator/upload']);
+            //            return \Response::json(['status' => 'error', 'error_msg' => 'Failed, please contact supervisor']);
         }
-        return Redirect::to("/indicator/changeData/".$imageId."?date=".$date);
+        return Redirect::to("/indicator/changeData/" . $imageId . "?date=" . $date);
     }
-
 
 
     function arrayToIndicators($row, $imagesId)
@@ -217,7 +229,7 @@ class ImageController extends Controller
                     $indicators['name_ch'] = $result[1];
 //                    var_dump($result[1]);
 
-                }else{
+                } else {
 //                    var_dump($item);
 //                    echo $item;
                     $indicators['name_ch'] = $item;
@@ -227,9 +239,9 @@ class ImageController extends Controller
             } elseif ($key > 1 && (strpos($item, '/') || preg_match("/^[A-Za-z]+$/", $item) || $item == '%')) {
 //                这里为单位
                 $indicators['unit'] = $item;
-                if (preg_match("/^(.+)\/m{0,1}1{1,2}([0-9]+\.{0,1}[0-9]{0,2})-{1,2}([0-9]+\.{0,1}[0-9]{0,2})$/", $item,$result)){
+                if (preg_match("/^(.+)\/m{0,1}1{1,2}([0-9]+\.{0,1}[0-9]{0,2})-{1,2}([0-9]+\.{0,1}[0-9]{0,2})$/", $item, $result)) {
 
-                    $indicators['unit'] = $result[1].'/l';
+                    $indicators['unit'] = $result[1] . '/l';
                     $indicators['upper_limit'] = $result[2];
                     $indicators['lower_limit'] = $result[3];
                 }
@@ -247,11 +259,12 @@ class ImageController extends Controller
     }
 
 
-    function deleteImage(Request $request){
+    function deleteImage(Request $request)
+    {
         $ImageId = $request->route('ImageId');
         $deleted = Image::destroy($ImageId);
-        Indicator::where('image_id',$ImageId)->delete();
-        if ($deleted){
+        Indicator::where('image_id', $ImageId)->delete();
+        if ($deleted) {
             return view('location')->with(['title' => '提示', 'message' => '删除成功', 'url' => '/indicator/history']);
 
         }
