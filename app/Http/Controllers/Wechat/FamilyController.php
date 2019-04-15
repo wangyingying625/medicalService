@@ -31,7 +31,7 @@ class FamilyController extends Controller
         $FamilyId = $request->input('family_id');
         $openId = $request->input('openId');
         $family = Family::find($FamilyId);
-        $members = User::where('family_id',$family->id)->get();
+        $members = User::where('family_id',$family->id)->where('status','member')->get();
         foreach ($members as $member){
             $birthday = $member->birthday;
             $birthday = new DateTime($birthday);
