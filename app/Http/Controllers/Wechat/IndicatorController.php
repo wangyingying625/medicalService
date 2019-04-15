@@ -7,6 +7,7 @@ use App\Image;
 use App\Indicator;
 use App\User;
 use DateTime;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -178,7 +179,7 @@ class IndicatorController extends Controller
                 }
             }
             DB::commit();
-        } catch (\Illuminate\Database\QueryException $ex) {
+        } catch (Exception $e) {
             DB::rollback();
             $image->delete();
 
