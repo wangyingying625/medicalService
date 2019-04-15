@@ -97,6 +97,7 @@ class FamilyController extends Controller
             $user->save();
             return ['status'=>true,'message'=>"申请成功,请等待管理员审核"];
         }
+        return ['status'=>false,'message'=>"您已申请加入此家庭,请勿重复申请"];
 
     }
 
