@@ -88,3 +88,9 @@ Route::group(['prefix'=>'user'],function(){
     Route::post('upload','User\UserController@upload');
 
 });
+
+Route::group(['prefix'=>'warning'],function() {
+//    Route::get('info','WarningController@getWarningInfo');
+    Route::get('info/{IndicatorName}','WarningController@getWarningInfo');
+//    Route::get('info/{userId}','WarningController@getWarningInfo');
+});
