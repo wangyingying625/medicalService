@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Detail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,5 +46,11 @@ WHERE indicators.image_id = ? AND indicators.image_id = images.id AND images.typ
               (indicators.value > indicators.upper_limit OR indicators.value < indicators.lower_limit)
          */
 
+    }
+
+    public function getDetailByName(Request $request){
+        $name = $request->route('IndicatorName');
+        $detail = Detail::where('name_ch',$name)->first();
+        return $detail;
     }
 }

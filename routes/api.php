@@ -28,6 +28,7 @@ Route::any('info','Wechat\AuthController@getUserInfo');
 Route::any('change','Wechat\AuthController@changeUserInfo');
 Route::any('upload','Wechat\IndicatorController@upload');
 Route::any('ocr','Wechat\IndicatorController@OCR');
+Route::any('detail/{IndicatorName}','WarningController@getDetailByName');
 Route::any('days','Wechat\IndicatorController@checkTime');
 Route::any('save','Wechat\IndicatorController@saveImageDate');
 Route::get('show/user','Wechat\IndicatorController@showIndicatorByOpenId');
