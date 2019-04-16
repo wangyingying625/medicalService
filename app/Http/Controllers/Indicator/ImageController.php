@@ -66,8 +66,10 @@ class ImageController extends Controller
 
         $ImageId = $request->route('ImageId');
         $indicators = Indicator::where('image_id', $ImageId)->get();
+        $date = $request->input('date');
+
 //        var_dump($indicators);
-        return view('indicator.table')->with('indicators', $indicators);
+        return view('indicator.table')->with(['indicators'=>$indicators,'date'=>$date]);
     }
 
     public function saveImageDate(Request $request)
@@ -242,12 +244,12 @@ class ImageController extends Controller
                 if (preg_match("/^(.+)\/m{0,1}1{1,2}([0-9]+\.{0,1}[0-9]{0,2})-{1,2}([0-9]+\.{0,1}[0-9]{0,2})$/", $item, $result)) {
 
                     $indicators['unit'] = $result[1] . '/l';
-                    $indicators['upper_limit'] = $result[2];
-                    $indicators['lower_limit'] = $result[3];
+                    $indicators['upper_limit'] = $result[3];
+                    $indicators['lower_limit'] = $result[2];
                 }
             } elseif (preg_match("/^([0-9]+\.{0,1}[0-9]{0,2})[^0-9]+([0-9]+\.{0,1}[0-9]{0,2})$/", $item, $result)) {
-                $indicators['upper_limit'] = $result[1];
-                $indicators['lower_limit'] = $result[2];
+                $indicators['upper_limit'] = $result[2];
+                $indicators['lower_limit'] = $result[1];
 
             }
 
