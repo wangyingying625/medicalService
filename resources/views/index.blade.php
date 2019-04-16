@@ -165,10 +165,6 @@
 
             </header>
             <a href="/register" title="点击开启" class="image main"><img style="width: 30%;margin-left: 35%" src="img/Logo.png" alt="" /></a>
-            {{--<ul class="actions">
-                <li><a href="/family" class="button big">开启我的病历本</a></li>
-            </ul>--}}
-
         </article>
     </div>
 

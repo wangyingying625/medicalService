@@ -63,6 +63,14 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/analyze">
+                        <i class="now-ui-icons  ui-1_bell-53"></i>
+                        <p>
+                            健康状况
+                        </p>
+                    </a>
+                </li>
+                <li>
                     @if (Auth::user()->family_id )
                         <a href="/family/info/{{ Auth::user()->family_id }}">
                     @else
