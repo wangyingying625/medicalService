@@ -1,41 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Indicator;
+namespace App\Http\Controllers\Wechat;
 
 use AipOcr;
 use App\Image;
 use App\Indicator;
 use App\User;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use PhpParser\Node\Expr\Array_;
 
 const APP_ID = 'l3QjgNFp9SfrldOlsGmX0hkx';
 const API_KEY = 'l3QjgNFp9SfrldOlsGmX0hkx ';
 const SECRET_KEY = '1geqDEj3jeWBalQBao6KiOqARARZ3q48';
 
-
-class ImageController extends Controller
+class IndicatorController extends Controller
 {
     //
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function upload(Request $request)
     {
         $file = $request->file('image');
+        $openId = $request->input('openId');
+        $user = User::where('openId', $openId)->first();
         $name = $file->store('upload', 'public');
         $image = new Image();
         $image->name = $name;
-        $image->user_id = Auth::id();
+        $image->user_id = $user->id;
         $image->save();
         return $image;
 
@@ -61,14 +54,6 @@ class ImageController extends Controller
         return view('indicator.record')->with(['user' => $user]);
     }
 
-    public function changeImageDate(Request $request)
-    {
-
-        $ImageId = $request->route('ImageId');
-        $indicators = Indicator::where('image_id', $ImageId)->get();
-//        var_dump($indicators);
-        return view('indicator.table')->with('indicators', $indicators);
-    }
 
     public function saveImageDate(Request $request)
     {
@@ -78,21 +63,15 @@ class ImageController extends Controller
         $date = $request->input('date');
         foreach ($indicators as $id => $indicator) {
             if (is_array($indicator)) {
-                //var_dump($id);
-                //var_dump($indicator);
                 $indicator = array_add($indicator, 'created_at', $date);
-//                $indicator = array_add($indicator, 'created_at', session('date'));
-                //Indicator::find($id)->update($indicator);
                 if (Indicator::find($id)->update($indicator) == false)
                     $status = 0;
             }
         }
-        //删除session中的date字段
-//        session()->forget('date');
         if ($status == 1) {
-            return view('location')->with(['title' => '提示', 'message' => '保存成功', 'url' => '/indicator/record/' . Auth::user()->id]);
+            return ['status' => true];
         } else {
-            return view('location')->with(['title' => '提示', 'message' => '保存失败', 'url' => '/indicator/record/' . Auth::user()->id]);
+            return ['status' => false];
         }
     }
 
@@ -101,15 +80,16 @@ class ImageController extends Controller
 //        session([
 //            'date' => $request->input('date')
 //        ]);
+        DB::beginTransaction();
         $imageId = $request->input('image_id');
         $image = Image::find($imageId);
-        DB::beginTransaction();
         try {
             $date = $request->input('date');
+            $openId = $request->input('openId');
+            $user_id = User::where('openId', $openId)->first()->id;
             $is_memory = $request->input('is_memory', false);
 // 初始化
             $fault_tolerance = 50;
-            $imageId = $request->input('image_id');
             $type = $request->input('type');
             $image->type = $type;
             $image->created_at = $request->input('date');
@@ -170,7 +150,7 @@ class ImageController extends Controller
             $i = 0;
             $last_indicators_list = [];
             if ($is_memory) {
-                $last_images = Image::where('user_id', Auth::id())->where('type', $type)->first();
+                $last_images = Image::where('user_id', $user_id)->where('type', $type)->first();
                 $last_indicators = Indicator::where('image_id', $last_images['id'])->get();
                 foreach ($last_indicators as $last_indicator) {
                     $last_indicator = $last_indicator->toArray();
@@ -190,14 +170,25 @@ class ImageController extends Controller
                     $i++;
                 }
             }
+
+            $indicators = Indicator::where('image_id', $imageId)->get();
+            foreach ($indicators as $id => $indicator) {
+                if (is_array($indicator)) {
+                    $indicator['created_at'] = $date;
+                    $indicator->save();
+                }
+            }
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             $image->delete();
-            return view('location')->with(['title' => '解析失败', 'message' => '图片解析失败,请调整图片后重试或尝试模板上传', 'url' => '/indicator/upload']);
-            //            return \Response::json(['status' => 'error', 'error_msg' => 'Failed, please contact supervisor']);
+
+            return ['status'=>false];
         }
-        return Redirect::to("/indicator/changeData/" . $imageId . "?date=" . $date);
+//        var_dump($indicators);
+        return ['status'=>true,'indicators'=>$indicators];
+
+//        return Redirect::to("/indicator/changeData/".$imageId."?date=".$date);
     }
 
 
@@ -259,16 +250,61 @@ class ImageController extends Controller
     }
 
 
-    function deleteImage(Request $request)
+    public function showIndicatorByOpenId(Request $request)
     {
-        $ImageId = $request->route('ImageId');
-        $deleted = Image::destroy($ImageId);
-        Indicator::where('image_id', $ImageId)->delete();
-        if ($deleted) {
-            return view('location')->with(['title' => '提示', 'message' => '删除成功', 'url' => '/indicator/history']);
-
+        $indicators = array();
+        $openId = $request->input('openId');
+        $id = User::where('openId', $openId)->first()->id;
+        $types = DB::table('images')->select('type')->where('user_id', $id)->distinct()->get();
+        foreach ($types as $type) {
+            $type = $type->type;
+            $indicators[$type] = Image::where('user_id', $id)->where('type', $type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo) {
+                $foo['indicators'] = Indicator::where('image_id', $foo->id)->get();
+            }
         }
-
+        return $indicators;
     }
 
+    public function showIndicatorByUserId(Request $request)
+    {
+        $indicators = array();
+//        $openId = $request->input('user_id');
+//        $id = User::where('openId', $openId)->first()->id;
+        $id = User::find($request->input('user_id'))->id;
+        $types = DB::table('images')->select('type')->where('user_id', $id)->distinct()->get();
+        foreach ($types as $type) {
+            $type = $type->type;
+            $indicators[$type] = Image::where('user_id', $id)->where('type', $type)->orderBy('created_at')->get();
+            foreach ($indicators[$type] as $foo) {
+                $foo['indicators'] = Indicator::where('image_id', $foo->id)->get();
+            }
+        }
+        return $indicators;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function checkTime(Request $request)
+    {
+        $openId = $request->input('openId');
+        $id = User::where('openId', $openId)->first()->id;
+        $result = [];
+        $result['status'] = true;
+
+        $userImage = Image::where('user_id', $id)->orderBy('created_at', 'DESC')->first();
+
+        if ($userImage) {
+            $last_time = new DateTime($userImage->created_at);
+            $now = new DateTime();
+            $days = $last_time->diff($now)->days;
+            $result['days'] = $days;
+        } else {
+            $result['status'] = false;
+        }
+
+        return $result;
+    }
 }
