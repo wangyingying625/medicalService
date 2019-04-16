@@ -10,24 +10,22 @@
                 <div class="card card-chart layui-anim layui-anim-up"  v-for="(item,i) in data1" >
                     <div class="card-header">
                         <div class="dropdown"  style="margin-top: -12px">
-                            <button type="button" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" data-toggle="dropdown">
-                                <i class="now-ui-icons loader_gear"></i>
+                            {{--<button type="button" class="btn btn-danger btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" >
+                                --}}{{--<i class="now-ui-icons emoticons_satisfied"></i>--}}{{--
+                                <i class="now-ui-icons gestures_tap-01"></i>
+                            </button>--}}
+                            <button title="健康" type="button" class="btn btn-success btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" >
+                                <i class="now-ui-icons emoticons_satisfied"></i>
                             </button>
-                            {{--<div class="dropdown-menu dropdown-menu-right">--}}
-                                {{--<a class="dropdown-item" href="#">设为主图</a>--}}
-                                {{--<a class="dropdown-item text-danger" href="#">移除</a>--}}
-                            {{--</div>--}}
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
                             <div class="container"  :id="gernerateId(i)" style="height: 100%"></div>
-                            {{--<canvas id="lineChartExample"></canvas>--}}
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            {{--<i class="now-ui-icons arrows-1_refresh-69"></i> 2018.11.2更新--}}
                         </div>
                     </div>
                 </div>
@@ -74,28 +72,23 @@
                        data = JSON.parse(test.responseText);
                        var times=0;
                        for(key in data){
-                           console.log(key);
                            var id="container"+times;
-                           console.log(id);
                            picture(key,id);
                            times++;
 
                        }
-//                        picture('肝功能');
                     }
                 };
 
             }
         }
         showJson();
-        {{--var data = {!!  $data !!};--}}
         function picture(key,id) {
             var dom = document.getElementById(id);
             var myChart = echarts.init(dom);
             var indictors = new Array();
             var indictorsMap= new Map();
             var timeArray = new Array();
-//               var images = new Array();
             for (var image in data[key]){
                 timeArray.push(data[key][image]['created_at']);
                 for (var indictor in data[key][image]['indicators']){
@@ -103,16 +96,13 @@
                 }
             }
 
-            console.log(data[key]);
 
             indictors = new Set(indictors);
-            console.log(indictors);
             for (var indictor of indictors){
                 for (var image in data[key]){
                     for (var indic in data[key][image]['indicators']){
                         if (data[key][image]['indicators'][indic]['name_ch']==indictor){
                             if(indictorsMap.has(indictor)){
-                                console.log(data[key][image]['indicators'][indic]);
                                 indictorsMap.get(indictor).push(data[key][image]['indicators'][indic]['value']);
                             }else {
                                 indictorsMap.set(indictor,[]);
@@ -124,8 +114,6 @@
                 }
             }
             var seriesObject = mapToObject(indictorsMap);
-            console.log(seriesObject);
-//               console.log(indictorsMap);
             var app = {};
             option = null;
             option = {
@@ -179,7 +167,6 @@
         function mapToObject(indictors) {
             var series = new Array();
             for (var name of indictors){
-                console.log(name);
                 series.push({
                     name: name[0],
                     type: 'line',
