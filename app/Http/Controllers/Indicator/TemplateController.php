@@ -12,9 +12,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-const APP_ID = 'l3QjgNFp9SfrldOlsGmX0hkx';
-const API_KEY = 'l3QjgNFp9SfrldOlsGmX0hkx ';
-const SECRET_KEY = '1geqDEj3jeWBalQBao6KiOqARARZ3q48';
 
 
 class TemplateController extends Controller
@@ -58,7 +55,7 @@ class TemplateController extends Controller
         $date = $request->input('date');
 
         $file_path = storage_path('app/public/' . $select);
-        $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+        $aipOcr = new AipOcr(env('BAIDU_APP_ID',''), env('BAIDU_APP_KEY',''), env('BAIDU_SECRET_KEY',''));
         $result = $aipOcr->general(file_get_contents($file_path));
         $templates = Template::where('temp_name_id',$temp)->get();
         $i = 0;

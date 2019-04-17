@@ -13,10 +13,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
-const APP_ID = 'l3QjgNFp9SfrldOlsGmX0hkx';
-const API_KEY = 'l3QjgNFp9SfrldOlsGmX0hkx ';
-const SECRET_KEY = '1geqDEj3jeWBalQBao6KiOqARARZ3q48';
-
 class IndicatorController extends Controller
 {
     //
@@ -97,7 +93,7 @@ class IndicatorController extends Controller
 //        var_dump($image);
 //        var_dump(storage_path('app/public/'.$image->name));
             $file_path = storage_path('app/public/' . $image->name);
-            $aipOcr = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+            $aipOcr = new AipOcr(env('BAIDU_APP_ID',''), env('BAIDU_APP_KEY',''), env('BAIDU_SECRET_KEY',''));
             $result = $aipOcr->general(file_get_contents($file_path));
 //        var_dump($result);
             $NAMEFLAGS = ['项目', '名称'];
