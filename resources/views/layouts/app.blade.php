@@ -35,6 +35,14 @@
         .layui-upload-file{
             display: none;
         }
+        .likeA{
+            background:none;
+            border: none;
+            color: #1E9FFF;
+            cursor: pointer;
+        }
+        body .demo-class .layui-layer-title{background:#f96332; color:#fff; border: none;}
+        body .demo-class .layui-layer-btn0{border-radius: 7px;background-color: #1E9FFF;color: #fff}
     </style>
 </head>
 <body>
@@ -64,7 +72,7 @@
                 </li>
                 <li>
                     <a href="/analyze">
-                        <i class="now-ui-icons  ui-1_bell-53"></i>
+                        <i class="now-ui-icons  ui-1_bell-53""></i>
                         <p>
                             健康状况
                         </p>
