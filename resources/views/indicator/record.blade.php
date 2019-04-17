@@ -163,8 +163,30 @@
             return {better: better, badder: bader}
         }
         function show(i,status) {
-            var t = {heigh: "甲亢",eng:"jiaKang",low: "加减", des: "促进甲状腺激素"};
-            var ill='';
+            var t;
+           // console.log(resultMsg)
+            $.ajax({url:'/api/detail/'+i,success:function(result){
+                console.log(result)
+                t=result;
+                console.log(t)
+                if(t==''||!t)
+                {
+                    layer.open({
+                        title: i,
+                        content:"<h4>啊哦，暂时还没有这个指标的相关数据呢</h4>"
+                        ,skin: 'demo-class'
+                        ,area: ['450px', '260px']
+                        ,tipsMore: true
+                        ,zIndex: layer.zIndex //重点1
+                        ,success: function(layero){
+                            layer.setTop(layero); //重点2
+                        }
+
+                    })
+                }
+                else
+                {
+                    var ill='';
             if(status=="高"){
                 ill=t.heigh
             }
@@ -172,7 +194,7 @@
             {
                 ill=t.low
             }
-            var string1="<div>"+i+"("+t.eng+"):"+t.des+"。</div><div>过"+status+"可能与<strong>"+ill+"</strong>等疾病有关，身体健康无小事建议及时就医</div>";
+            var string1="<div  style='font-size: 1.2em;line-height: 1.8em'>"+i+"("+t.eng+"):"+t.des+"。</div><div>过"+status+"可能与<strong>"+ill+"</strong>等疾病有关，身体健康无小事建议及时就医</div>";
             layer.open({
                 title: i,
                 content:string1
@@ -185,6 +207,9 @@
                 }
 
             });
+                }
+            }});
+
         }
         function showJson(){
             var test;
@@ -226,7 +251,7 @@ var num=id.slice(9);
                 else {
                     document.getElementById("but"+num).style.display='none';
                     document.getElementById("safeBut"+num).style.display='block';
-                    resultMsg[id]=''
+                    resultMsg[num]=''
                 }
 
             }});
