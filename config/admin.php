@@ -336,4 +336,6 @@ return [
     'extensions' => [
 
     ],
+
+    'secure' => true,
 ];
