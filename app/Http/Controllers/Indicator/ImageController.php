@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Indicator;
 use AipOcr;
 use App\Image;
 use App\Indicator;
-use App\User;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

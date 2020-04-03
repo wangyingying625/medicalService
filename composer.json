@@ -16,7 +16,9 @@
         "iwanli/wxxcx": "2.*",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "overtrue/laravel-wechat": "~4.0"
+        "medz/cors": "^1.4",
+        "overtrue/laravel-wechat": "~4.0",
+        "tymon/jwt-auth": "1.0.0-rc.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Wechat;
 
 use App\Family;
-use App\User;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

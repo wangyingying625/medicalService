@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Wechat;
 use AipOcr;
 use App\Image;
 use App\Indicator;
-use App\User;
+use App\Models\User;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;

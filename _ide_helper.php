@@ -1644,7 +1644,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null
          * @static 
          */ 
         public static function user()
@@ -1679,7 +1679,7 @@ namespace Illuminate\Support\Facades {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \App\Models\User|false
          * @static 
          */ 
         public static function onceUsingId($id)

@@ -15,8 +15,8 @@
                 @if(Auth::user()->status=='admin')
                 <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="invite()"  >邀请成员</button>
                 <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="disband()">解散家庭</button>
-                @if(\App\User::where('family_id',$family['id'])->where('status','joining')->count())
-                <button class="layui-btn layui-btn-warm layui-btn-radius" onclick="showApply()">成员申请 <span class="layui-badge layui-bg-gray">{{ \App\User::where('family_id',$family['id'])->where('status','joining')->count() }}</span></button>
+                @if(\App\Models\User::where('family_id',$family['id'])->where('status','joining')->count())
+                <button class="layui-btn layui-btn-warm layui-btn-radius" onclick="showApply()">成员申请 <span class="layui-badge layui-bg-gray">{{ \App\Models\User::where('family_id',$family['id'])->where('status','joining')->count() }}</span></button>
                 @endif
                 @elseif(Auth::user()->status=='member')
                     <button class="layui-btn layui-btn-danger layui-btn-radius" onclick="quit()">退出家庭</button>
