@@ -129,17 +129,5 @@ class FamilyController extends Controller
         return ['status'=>true];
     }
 
-    public function del(Request $request){
-        //判断是否为管理员身份
-        $userId = $request->input('user_id');
-        $user = User::find($userId);
-        $status = $user -> update([
-            'family_id' => 0,
-            'status' => 'no'
-        ]);
 
-        return ['status'=>true];
-
-//        return $status?"删除成功":"删除失败";
-    }
 }

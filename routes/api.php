@@ -19,8 +19,28 @@ Route::namespace('Api')->prefix('v1')->middleware('cors')->group(function () {
     Route::get('/users/{user}','UserController@show')->name('users.show');
     Route::post('/login','UserController@login')->name('users.login');
     Route::post('/edit','UserController@edit')->name('users.edit');
-});
 
+
+});
+Route::namespace('Api')->prefix('family')->middleware('cors')->group(function () {
+    Route::get('/newFamily','FamilyController@createFamily')->name('family.createFamily');
+    Route::get('/familyList','FamilyController@showMembers')->name('family.createFamily');
+    Route::get('/join','FamilyController@apply')->name('family.apply');
+    Route::get('/accept','FamilyController@accept')->name('family.accept');
+    Route::get('/refuse','FamilyController@refuse')->name('family.refuse');
+    Route::get('/applyList','FamilyController@applyList')->name('family.applyList');
+    Route::get('/quitFamily','FamilyController@quitFamily')->name('family.quit');
+    Route::get('/disband','FamilyController@dissolveFamily')->name('family.disband');
+    Route::get('/delete','FamilyController@del')->name('family.delete');
+
+});
+Route::namespace('Api')->prefix('upload')->middleware('cors')->group(function () {
+    Route::post('/uploadPicture','UploadController@upload')->name('upload.uploadPicture');
+    Route::post('/identify','UploadController@OCR')->name('upload.identify');
+    Route::get('/record','UploadController@showIndicator')->name('upload.record');
+    Route::get('/getTemp','UploadController@getTemplate')->name('upload.getTemplate');
+
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
