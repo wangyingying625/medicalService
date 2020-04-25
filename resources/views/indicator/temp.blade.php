@@ -247,8 +247,6 @@
             });
         };
         function del(e) {
-            /*console.log(e);
-            console.log(typeof(e))*/
             var t=$(e).parent().parent("tr").remove();
         }
         layui.use('upload', function(){

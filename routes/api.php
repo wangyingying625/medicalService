@@ -39,6 +39,7 @@ Route::namespace('Api')->prefix('upload')->middleware('cors')->group(function ()
     Route::post('/identify','UploadController@OCR')->name('upload.identify');
     Route::get('/record','UploadController@showIndicator')->name('upload.record');
     Route::get('/getTemp','UploadController@getTemplate')->name('upload.getTemplate');
+    Route::get('/createTemp','UploadController@createTemplate')->name('upload.createTemplate');
 
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {

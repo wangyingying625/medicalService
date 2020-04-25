@@ -8,6 +8,8 @@ use App\Indicator;
 use App\Models\User;
 use DateTime;
 use Exception;
+use App\Template;
+use App\TemplateName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -296,5 +298,16 @@ class UploadController extends Controller
         $file = $request->file('image');
         $name = $file->store('tmp', 'public');
         return ['id' => '1', 'name' => $name];
+    }
+    function createTemplate(Request $request){
+        $name = $request->input('tempName');
+        $id = $request->input('user_id');
+        $type = $request->input('type');
+        $temp_name = TemplateName::create(['name'=>$name,'user_id'=>$id,'type'=>$type]);
+        foreach($request->input('temp') as $template){
+            $template['temp_name_id']=$temp_name['id'];
+            Template::create($template);
+        }
+        $result['status'] = true;
     }
 }
