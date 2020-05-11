@@ -38,8 +38,9 @@ Route::namespace('Api')->prefix('upload')->middleware('cors')->group(function ()
     Route::post('/uploadPicture','UploadController@upload')->name('upload.uploadPicture');
     Route::post('/identify','UploadController@OCR')->name('upload.identify');
     Route::get('/record','UploadController@showIndicator')->name('upload.record');
-    Route::get('/getTemp','UploadController@getTemplate')->name('upload.getTemplate');
-    Route::get('/createTemp','UploadController@createTemplate')->name('upload.createTemplate');
+    Route::get('/getTemp','UploadController@showTemplateByName')->name('upload.getTemplate');
+    Route::post('/createTemp','UploadController@createTemplate')->name('upload.createTemplate');
+    Route::get('/showTempList','UploadController@getTemplate')->name('upload.showTemplateList');
 
 });
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -290,7 +290,9 @@ class UploadController extends Controller
     }
     function getTemplate(Request $request)
     {
-        $templates = TemplateName::where('user_id',Auth::id())->get();
+        $user = Auth::guard('api')->user();
+        $id = $user->id;
+        $templates = TemplateName::where('user_id',$id)->get();
         return  $templates;
     }
     public function uploadTmp(Request $request)
@@ -298,6 +300,11 @@ class UploadController extends Controller
         $file = $request->file('image');
         $name = $file->store('tmp', 'public');
         return ['id' => '1', 'name' => $name];
+    }
+    function showTemplateByName(Request $request){
+        $temp_id = $request -> route('TemplateNameId');
+        $temps = Template::where('temp_name_id',$temp_id)->get();
+        return $temps;
     }
     function createTemplate(Request $request){
         $name = $request->input('tempName');
