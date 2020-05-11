@@ -6,7 +6,7 @@ use App\Image;
 use App\Indicator;
 use App\Template;
 use App\TemplateName;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
